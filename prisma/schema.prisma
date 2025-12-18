@@ -1,0 +1,56 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Profile {
+  id                String   @id @default(uuid()) // References auth.users via code logic
+  email             String   @unique
+  firstName         String?  @map("first_name")
+  lastName          String?  @map("last_name")
+  phone             String?
+  role              Role     @default(MEMBER)
+  status            Status   @default(PENDING)
+  membershipEndDate DateTime? @map("membership_end_date") @db.Timestamptz
+  stripeCustomerId  String?  @map("stripe_customer_id")
+  confederationId   String?  @map("confederation_id")
+  
+  // Storing the simple JSON object for merch status
+  merchStatus       Json?    @default("{\"scarf\": false, \"pin\": false}") @map("merch_status")
+
+  createdAt         DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt         DateTime @updatedAt @map("updated_at") @db.Timestamptz
+
+  @@map("profiles")
+}
+
+model Event {
+  id             String   @id @default(uuid())
+  apiMatchId     String   @unique @map("api_match_id")
+  homeTeam       String   @map("home_team")
+  awayTeam       String   @map("away_team")
+  kickoffTime    DateTime @map("kickoff_time") @db.Timestamptz
+  competition    String?
+  venue          String   @default("Novo Brewery")
+  isWatchParty   Boolean  @default(false) @map("is_watch_party")
+  broadcastInfo  String?  @map("broadcast_info")
+  
+  createdAt      DateTime @default(now()) @map("created_at") @db.Timestamptz
+
+  @@map("events")
+}
+
+enum Role {
+  MEMBER
+  ADMIN
+  BOARD
+}
+
+enum Status {
+  ACTIVE
+  EXPIRED
+  PENDING
+}

@@ -10,6 +10,11 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  --color-barca-blue: #004d98;
+  --color-barca-red: #a50044;
+  --color-barca-gold: #edbb00;
+  --color-barca-yellow: #ffed02;
 }
 
 @media (prefers-color-scheme: dark) {
