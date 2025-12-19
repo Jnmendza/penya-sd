@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 
 export default function MembershipPage() {
   const [isLoading, setIsLoading] = useState(false);
+  const [phone, setPhone] = useState("");
   const [isEnrollmentOpen, setIsEnrollmentOpen] = useState<boolean | null>(
     null
   ); // Null = loading state
@@ -62,6 +63,25 @@ export default function MembershipPage() {
     const stripeUrl = new URL(STRIPE_PAYMENT_LINK);
     stripeUrl.searchParams.set("prefilled_email", formValues.email);
     window.location.href = stripeUrl.toString();
+  };
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // 1. Strip all non-numbers
+    const input = e.target.value.replace(/\D/g, "");
+
+    // 2. Format as (XXX) XXX-XXXX
+    let formatted = input;
+    if (input.length > 0) {
+      formatted = `(${input.substring(0, 3)}`;
+    }
+    if (input.length >= 4) {
+      formatted += `) ${input.substring(3, 6)}`;
+    }
+    if (input.length >= 7) {
+      formatted += `-${input.substring(6, 10)}`;
+    }
+
+    setPhone(formatted);
   };
 
   // LOADING STATE
@@ -157,7 +177,7 @@ export default function MembershipPage() {
                     type='text'
                     required
                     placeholder='Andrés Iniesta'
-                    className='w-full rounded-lg border border-slate-300 p-3 outline-none focus:border-barca-blue focus:ring-1'
+                    className='w-full rounded-lg border border-slate-300 p-3 outline-none focus:border-barca-blue focus:ring-1 text-slate-900'
                   />
                 </div>
                 <div>
@@ -169,7 +189,7 @@ export default function MembershipPage() {
                     type='email'
                     required
                     placeholder='andres@example.com'
-                    className='w-full rounded-lg border border-slate-300 p-3 outline-none focus:border-barca-blue focus:ring-1'
+                    className='w-full rounded-lg border border-slate-300 p-3 outline-none focus:border-barca-blue focus:ring-1 text-slate-900'
                   />
                 </div>
                 <div>
@@ -180,7 +200,10 @@ export default function MembershipPage() {
                     name='phone'
                     type='tel'
                     placeholder='(619) 555-0199'
-                    className='w-full rounded-lg border border-slate-300 p-3 outline-none focus:border-barca-blue focus:ring-1'
+                    maxLength={14} // Prevents typing too many numbers
+                    value={phone} // Controlled value
+                    onChange={handlePhoneChange} // Runs the logic above
+                    className='w-full rounded-lg border border-slate-300 p-3 text-slate-900 outline-none focus:border-barca-blue focus:ring-1 focus:ring-barca-blue'
                   />
                 </div>
 
