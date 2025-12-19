@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -35,11 +36,12 @@ export default function Navbar() {
       <div className='container mx-auto flex items-center justify-between px-4'>
         {/* LOGO */}
         <Link href='/' className='flex items-center gap-2 group'>
-          <div className='h-10 w-10 overflow-hidden rounded-full bg-white/10 p-1 transition group-hover:bg-white/20'>
-            <img
-              src='https://upload.wikimedia.org/wikipedia/en/4/47/FC_Barcelona_%28crest%29.svg'
+          <div className='relative h-20 w-20'>
+            <Image
+              src='https://erlplcduvrowbiwobjen.supabase.co/storage/v1/object/public/assets/logo.png'
               alt='PBSD Logo'
-              className='h-full w-full object-contain'
+              fill
+              className='object-contain'
             />
           </div>
           <span className='text-xl font-bold tracking-tight text-white'>

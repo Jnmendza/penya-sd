@@ -18,6 +18,10 @@ const nextConfig: NextConfig = {
         hostname: "images.unsplash.com", // For the future API we will use
         pathname: "**",
       },
+      {
+        protocol: "https",
+        hostname: "**.supabase.co", // Allow all Supabase projects
+      },
     ],
   },
 };
