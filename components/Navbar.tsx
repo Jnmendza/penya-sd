@@ -2,12 +2,15 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // Handle Scroll Effect
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) {
@@ -21,18 +24,17 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const useSolidStyle = !isHomePage || isScrolled;
+
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-slate-900/95 shadow-lg backdrop-blur-md py-3"
-          : "bg-transparent py-5"
+        useSolidStyle ? "bg-slate-900 shadow-lg py-3" : "bg-transparent py-5"
       }`}
     >
       <div className='container mx-auto flex items-center justify-between px-4'>
         {/* LOGO */}
         <Link href='/' className='flex items-center gap-2 group'>
-          {/* Placeholder Crest - You can replace src with your actual logo file later */}
           <div className='h-10 w-10 overflow-hidden rounded-full bg-white/10 p-1 transition group-hover:bg-white/20'>
             <img
               src='https://upload.wikimedia.org/wikipedia/en/4/47/FC_Barcelona_%28crest%29.svg'
@@ -49,37 +51,45 @@ export default function Navbar() {
         <div className='hidden items-center gap-8 md:flex'>
           <Link
             href='/'
-            className='text-sm font-medium text-white hover:text-barca-gold transition'
+            className={`text-sm font-medium hover:text-barca-gold transition ${
+              pathname === "/" ? "text-barca-gold" : "text-white"
+            }`}
           >
             Home
           </Link>
           <Link
             href='/location'
-            className='text-sm font-medium text-white hover:text-barca-gold transition'
+            className={`text-sm font-medium hover:text-barca-gold transition ${
+              pathname === "/location" ? "text-barca-gold" : "text-white"
+            }`}
           >
             Location
           </Link>
           <Link
             href='/community'
-            className='text-sm font-medium text-white hover:text-barca-gold transition'
+            className={`text-sm font-medium hover:text-barca-gold transition ${
+              pathname === "/community" ? "text-barca-gold" : "text-white"
+            }`}
           >
             Community
           </Link>
           <Link
             href='/contact'
-            className='text-sm font-medium text-white hover:text-barca-gold transition'
+            className={`text-sm font-medium hover:text-barca-gold transition ${
+              pathname === "/contact" ? "text-barca-gold" : "text-white"
+            }`}
           >
             Contact
           </Link>
         </div>
 
-        {/* CTA BUTTON */}
+        {/* CTA BUTTON - RENAMED */}
         <div className='hidden md:block'>
           <Link
             href='/membership'
             className='rounded-full bg-barca-gold px-5 py-2 text-sm font-bold text-barca-blue transition hover:bg-yellow-400 hover:scale-105'
           >
-            Join / Login
+            Membership
           </Link>
         </div>
 
@@ -150,7 +160,7 @@ export default function Navbar() {
               className='block w-full rounded-lg bg-barca-gold py-3 text-center font-bold text-barca-blue'
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              Join the Penya
+              Membership
             </Link>
           </div>
         </div>

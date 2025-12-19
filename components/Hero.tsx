@@ -31,7 +31,7 @@ export default function Hero() {
 
         <p className='mb-10 max-w-2xl text-lg text-gray-200 sm:text-xl'>
           Join the official FC Barcelona supporters group of San Diego. We meet
-          for every match at Novo Brazil Brewing in Mission Valley.
+          for every match at Novo Brazil Brewing in Otay Ranch.
         </p>
 
         {/* Buttons */}

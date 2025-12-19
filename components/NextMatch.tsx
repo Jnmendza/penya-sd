@@ -1,7 +1,12 @@
 import Link from "next/link";
+import Image from "next/image";
 
-interface MatchProps {
+// 1. Strict Type Definition
+export interface MatchProps {
+  id: string; // Good practice to pass the ID
   opponent: string;
+  opponentLogo: string;
+  homeLogo: string;
   competition: string;
   date: string;
   time: string;
@@ -11,6 +16,8 @@ interface MatchProps {
 
 export default function NextMatch({
   opponent,
+  opponentLogo,
+  homeLogo,
   competition,
   date,
   time,
@@ -21,12 +28,9 @@ export default function NextMatch({
     <div className='relative z-20 mx-auto -mt-24 max-w-5xl px-4'>
       <div
         className={`overflow-hidden rounded-2xl shadow-2xl ${
-          isWatchParty
-            ? "bg-barca-blue text-white" // Dark Blue background for active events
-            : "bg-white text-slate-800" // White background for inactive
+          isWatchParty ? "bg-barca-blue text-white" : "bg-white text-slate-800"
         }`}
       >
-        {/* Watch Party Banner */}
         {isWatchParty && (
           <div className='bg-barca-gold py-2 text-center text-xs font-bold uppercase tracking-widest text-barca-blue'>
             Official Watch Party Confirmed
@@ -36,13 +40,16 @@ export default function NextMatch({
         <div className='flex flex-col items-center justify-between gap-8 p-8 md:flex-row'>
           {/* LEFT: Teams */}
           <div className='flex items-center gap-6'>
-            {/* Home Team (Barca) */}
+            {/* Home Team */}
             <div className='text-center'>
-              <div className='mb-2 flex h-20 w-20 items-center justify-center rounded-full bg-white p-2 shadow-sm overflow-hidden'>
-                <img
-                  src='https://upload.wikimedia.org/wikipedia/en/4/47/FC_Barcelona_%28crest%29.svg'
+              <div className='mb-2 flex h-20 w-20 items-center justify-center rounded-full bg-white p-2 shadow-sm overflow-hidden relative'>
+                {/* 2. Using Next/Image with object-contain */}
+                <Image
+                  src={homeLogo}
                   alt='FC Barcelona'
-                  className='h-full w-full object-contain'
+                  fill
+                  className='object-contain p-2'
+                  sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
                 />
               </div>
               <span className='font-bold tracking-wide'>Barça</span>
@@ -50,14 +57,14 @@ export default function NextMatch({
 
             <span className='text-2xl font-light opacity-50'>VS</span>
 
-            {/* Away Team */}
+            {/* Away Team (Opponent) */}
             <div className='text-center'>
-              <div className='mb-2 flex h-20 w-20 items-center justify-center rounded-full bg-slate-100 p-2 shadow-sm overflow-hidden'>
-                {/* Using Real Madrid for the demo, this will be dynamic later */}
-                <img
-                  src='https://upload.wikimedia.org/wikipedia/en/5/56/Real_Madrid_CF.svg'
+              <div className='mb-2 flex h-20 w-20 items-center justify-center rounded-full bg-slate-100 p-2 shadow-sm overflow-hidden relative'>
+                <Image
+                  src={opponentLogo}
                   alt={opponent}
-                  className='h-full w-full object-contain'
+                  fill
+                  className='object-contain p-2'
                 />
               </div>
               <span className='font-bold tracking-wide'>{opponent}</span>
