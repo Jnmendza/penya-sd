@@ -1,197 +1,296 @@
 import Image from "next/image";
-import Link from "next/link";
+import {
+  MapPin,
+  Beer,
+  Users,
+  Car,
+  ArrowRight,
+  Utensils,
+  Calendar,
+} from "lucide-react";
 
 export default function LocationPage() {
   return (
-    <main className='min-h-screen bg-slate-50 pt-12 pb-12'>
-      {/* 1. HEADER SECTION */}
-      <div className='container mx-auto px-4 mb-12 text-center'>
-        <h1 className='text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl mb-4'>
-          Our Home Ground
-        </h1>
-        <p className='text-xl text-slate-600 max-w-2xl mx-auto'>
-          Experience the atmosphere of Camp Nou right here in Chula Vista. We
-          meet for every official match at Novo Brazil Brewing in Otay Ranch.
-        </p>
-      </div>
+    <main className='min-h-screen bg-slate-50'>
+      {/* 1. HERO SECTION: "The Fortress" */}
+      <section className='relative w-full overflow-hidden bg-slate-900 py-20 md:py-28'>
+        {/* Background Gradients */}
+        <div className='absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-red-900 via-slate-900 to-blue-900 opacity-90' />
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-10"></div>
 
-      {/* 2. VENUE SHOWCASE */}
-      <div className='container mx-auto px-4 mb-16'>
-        <div className='grid gap-12 lg:grid-cols-2 items-center'>
-          {/* Left: The Visual */}
-          <div className='relative h-[400px] w-full rounded-2xl overflow-hidden shadow-2xl'>
-            {/* TIP: Replace this with a photo of the Otay Ranch location.
-              It has that nice outdoor patio look.
-            */}
-            <Image
-              src='https://images.unsplash.com/photo-1575444758702-4a6b9222336e?q=80&w=2940&auto=format&fit=crop'
-              alt='Novo Brazil Brewing Otay Ranch'
-              fill
-              className='object-cover'
-              sizes='(max-width: 768px) 100vw, 50vw'
-              priority
-            />
-            <div className='absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent flex items-end p-8'>
-              <div className='text-white'>
-                <h3 className='text-2xl font-bold'>Novo Brazil Brewing</h3>
-                <p className='font-medium text-barca-gold'>
-                  Otay Ranch Town Center
-                </p>
+        <div className='container relative z-10 mx-auto px-4 text-center'>
+          <span className='mb-6 inline-block rounded-full bg-yellow-400/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-yellow-400 border border-yellow-400/20 backdrop-blur-sm'>
+            Official Matchday HQ
+          </span>
+
+          <h1 className='mb-6 text-5xl font-black uppercase tracking-wide text-white sm:text-7xl drop-shadow-lg'>
+            Our Home in <br />
+            <span className='text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-blue-500 to-red-600'>
+              Otay Ranch
+            </span>
+          </h1>
+
+          <p className='mx-auto max-w-2xl text-lg font-medium text-slate-300 md:text-xl'>
+            We gather for every La Liga and Champions League match at
+            <span className='text-white font-bold'> Novo Brazil Brewery</span>.
+            Cold beer, massive screens, and the loudest Cules in California.
+          </p>
+
+          {/* NEXT MATCH BANNER (Optional - You can make this dynamic later) */}
+          <div className='mx-auto mt-10 max-w-3xl overflow-hidden rounded-xl bg-white/5 border border-white/10 backdrop-blur-md'>
+            <div className='flex flex-col md:flex-row items-center justify-between gap-4 p-4 md:px-8 md:py-4'>
+              <div className='flex items-center gap-3 text-white'>
+                <Calendar className='h-6 w-6 text-yellow-400' />
+                <div className='text-left'>
+                  <p className='text-xs font-bold text-slate-400 uppercase tracking-wider'>
+                    Next Watch Party
+                  </p>
+                  <p className='text-lg font-bold'>
+                    FC Barcelona vs Real Madrid
+                  </p>
+                </div>
               </div>
-            </div>
-          </div>
-
-          {/* Right: The Details */}
-          <div className='space-y-8'>
-            <div className='bg-white p-8 rounded-2xl shadow-sm border border-slate-100'>
-              <h3 className='text-xl font-bold text-slate-900 mb-4 flex items-center gap-2'>
-                <span className='text-2xl'>🏟️</span> The HQ
-              </h3>
-              <div className='space-y-4 text-slate-600'>
-                <p className='text-lg font-medium text-slate-900'>
-                  2015 Birch Road, Suite 1017
-                  <br />
-                  Chula Vista, CA 91915
-                </p>
-                <ul className='space-y-3 pt-2'>
-                  <li className='flex items-start gap-3'>
-                    <svg
-                      className='w-5 h-5 text-barca-blue mt-1 shrink-0'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      stroke='currentColor'
-                    >
-                      <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        strokeWidth={2}
-                        d='M5 13l4 4L19 7'
-                      />
-                    </svg>
-                    <span>
-                      <strong>Indoor & Outdoor:</strong> Huge open-air patio
-                      with fire pits and screens everywhere.
-                    </span>
-                  </li>
-                  <li className='flex items-start gap-3'>
-                    <svg
-                      className='w-5 h-5 text-barca-blue mt-1 shrink-0'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      stroke='currentColor'
-                    >
-                      <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        strokeWidth={2}
-                        d='M5 13l4 4L19 7'
-                      />
-                    </svg>
-                    <span>
-                      <strong>Massive LED Screen:</strong> You won't miss a
-                      single goal or controversial VAR call.
-                    </span>
-                  </li>
-                  <li className='flex items-start gap-3'>
-                    <svg
-                      className='w-5 h-5 text-barca-blue mt-1 shrink-0'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      stroke='currentColor'
-                    >
-                      <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        strokeWidth={2}
-                        d='M5 13l4 4L19 7'
-                      />
-                    </svg>
-                    <span>
-                      <strong>Full Kitchen:</strong> Burgers, tacos, and plenty
-                      of options for kids.
-                    </span>
-                  </li>
-                </ul>
+              <div className='text-right'>
+                <span className='block text-xl font-black text-white'>
+                  Sunday, Oct 27
+                </span>
+                <span className='block text-sm font-medium text-barca-red'>
+                  12:00 PM Kickoff
+                </span>
               </div>
-            </div>
-
-            <div className='flex flex-col sm:flex-row gap-4'>
-              <Link
-                href='https://www.novobrew.com/menu/'
-                target='_blank'
-                className='flex-1 rounded-xl bg-slate-900 px-6 py-4 text-center font-bold text-white hover:bg-slate-800 transition'
-              >
-                View Menu
-              </Link>
-              <Link
-                href='https://maps.app.goo.gl/4r2Ce7ui9ApAq93E7'
-                target='_blank'
-                className='flex-1 rounded-xl border-2 border-slate-200 px-6 py-4 text-center font-bold text-slate-700 hover:bg-slate-50 transition'
-              >
-                Open in Maps
-              </Link>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* 3. MAP & LOGISTICS GRID */}
-      <div className='container mx-auto px-4'>
-        <div className='grid gap-8 lg:grid-cols-3'>
-          {/* The Map (Takes up 2 columns) */}
-          <div className='lg:col-span-2 rounded-2xl overflow-hidden shadow-lg min-h-[400px] lg:h-full bg-slate-200 relative'>
+      {/* 2. THE VENUE EXPERIENCE (Know Before You Go) */}
+      <section className='py-16 md:py-24'>
+        <div className='container mx-auto px-4'>
+          <div className='mb-12 text-center'>
+            <h2 className='text-3xl font-black uppercase text-slate-900 md:text-4xl'>
+              Know Before You Go
+            </h2>
+            <p className='mt-4 text-slate-600 max-w-xl mx-auto'>
+              Whether it's your first match or your hundredth, here is what you
+              can expect at our headquarters.
+            </p>
+          </div>
+
+          <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-4'>
+            {/* CARD 1: FOOD */}
+            <div className='rounded-2xl bg-white p-6 shadow-sm border border-slate-100 hover:shadow-md transition'>
+              <div className='mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-orange-100 text-orange-600'>
+                <Utensils className='h-6 w-6' />
+              </div>
+              <h3 className='mb-2 text-xl font-bold text-slate-900'>
+                Brazilian Eats
+              </h3>
+              <p className='mb-4 text-sm text-slate-600 leading-relaxed'>
+                Hungry? Novo offers a full kitchen featuring Picanha steaks,
+                gourmet burgers, empanadas, and massive nacho platters.
+              </p>
+              <a
+                href='https://www.novobrew.com/menu'
+                target='_blank'
+                rel='noreferrer'
+                className='inline-flex items-center text-sm font-bold text-barca-blue hover:underline'
+              >
+                View Menu <ArrowRight className='ml-1 h-4 w-4' />
+              </a>
+            </div>
+
+            {/* CARD 2: DRINKS */}
+            <div className='rounded-2xl bg-white p-6 shadow-sm border border-slate-100 hover:shadow-md transition'>
+              <div className='mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 text-blue-600'>
+                <Beer className='h-6 w-6' />
+              </div>
+              <h3 className='mb-2 text-xl font-bold text-slate-900'>
+                60+ Taps
+              </h3>
+              <p className='text-sm text-slate-600 leading-relaxed'>
+                From award-winning IPAs and Lagers to their famous hard
+                Kombuchas and seltzers. There is something for everyone.
+              </p>
+            </div>
+
+            {/* CARD 3: FAMILY */}
+            <div className='rounded-2xl bg-white p-6 shadow-sm border border-slate-100 hover:shadow-md transition'>
+              <div className='mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-green-100 text-green-600'>
+                <Users className='h-6 w-6' />
+              </div>
+              <h3 className='mb-2 text-xl font-bold text-slate-900'>
+                Family Friendly
+              </h3>
+              <p className='text-sm text-slate-600 leading-relaxed'>
+                Bring the kids! The venue is open to all ages and features a
+                spacious layout perfect for families.
+              </p>
+            </div>
+
+            {/* CARD 4: PARKING */}
+            <div className='rounded-2xl bg-white p-6 shadow-sm border border-slate-100 hover:shadow-md transition'>
+              <div className='mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-purple-100 text-purple-600'>
+                <Car className='h-6 w-6' />
+              </div>
+              <h3 className='mb-2 text-xl font-bold text-slate-900'>
+                Free Parking
+              </h3>
+              <p className='text-sm text-slate-600 leading-relaxed'>
+                Located in the Otay Ranch Town Center, there is ample free
+                parking available right outside the brewery.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* 3 ATMOSPHERE GALLERY (Bento Grid with next/image) */}
+      <section className='py-16 pb-24 bg-slate-50'>
+        <div className='container mx-auto px-4'>
+          <div className='mb-12 text-center'>
+            <h2 className='text-3xl font-black uppercase text-slate-900 md:text-4xl'>
+              Experience the <br />
+              <span className='text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-red-600'>
+                Passion
+              </span>
+            </h2>
+          </div>
+          {/* THE BENTO GRID */}
+          <div className='grid grid-cols-1 md:grid-cols-4 auto-rows-[200px] gap-4'>
+            {/* 1. LARGE MAIN SHOT (Crowd cheering) - Spans 2x2 */}
+            <div className='relative group overflow-hidden rounded-2xl md:col-span-2 md:row-span-2 bg-slate-200 shadow-md'>
+              <Image
+                src='https://images.unsplash.com/photo-1504198266287-1659872e6590?q=80&w=800&auto=format&fit=crop'
+                alt='Crowd cheering'
+                fill // <--- Fills the container
+                className='object-cover transition duration-700 group-hover:scale-110'
+                sizes='(max-width: 768px) 100vw, 50vw' // Optimization hint
+              />
+              <div className='absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent opacity-0 transition duration-500 group-hover:opacity-100 flex items-end p-6'>
+                <p className='font-bold text-white'>
+                  Full House for El Clásico
+                </p>
+              </div>
+            </div>
+
+            {/* 2. TALL SHOT (The Big Screen) - Spans 1x2 */}
+            <div className='relative group overflow-hidden rounded-2xl md:col-span-1 md:row-span-2 bg-slate-200 shadow-md'>
+              <Image
+                src='https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=800&auto=format&fit=crop'
+                alt='The Big Screen'
+                fill
+                className='object-cover transition duration-700 group-hover:scale-110'
+                sizes='(max-width: 768px) 100vw, 25vw'
+              />
+              <div className='absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent opacity-0 transition duration-500 group-hover:opacity-100 flex items-end p-6'>
+                <p className='font-bold text-white'>Massive LED Wall</p>
+              </div>
+            </div>
+
+            {/* 3. DETAIL SHOT (Beer/Food) */}
+            <div className='relative group overflow-hidden rounded-2xl bg-slate-200 shadow-md'>
+              <Image
+                src='https://images.unsplash.com/photo-1571115177098-24ec42ed204d?q=80&w=800&auto=format&fit=crop'
+                alt='Novo Beer'
+                fill
+                className='object-cover transition duration-700 group-hover:scale-110'
+                sizes='(max-width: 768px) 100vw, 25vw'
+              />
+            </div>
+
+            {/* 4. COMMUNITY SHOT (Kids/Family) */}
+            <div className='relative group overflow-hidden rounded-2xl bg-slate-200 shadow-md'>
+              <Image
+                src='https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?q=80&w=800&auto=format&fit=crop'
+                alt='Family Friendly'
+                fill
+                className='object-cover transition duration-700 group-hover:scale-110'
+                sizes='(max-width: 768px) 100vw, 25vw'
+              />
+            </div>
+
+            {/* 5. WIDE SHOT (Group Photo) - Spans 2 wide */}
+            <div className='relative group overflow-hidden rounded-2xl md:col-span-2 bg-slate-200 shadow-md'>
+              <Image
+                src='https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?q=80&w=800&auto=format&fit=crop'
+                alt='Group Photo'
+                fill
+                className='object-cover transition duration-700 group-hover:scale-110'
+                sizes='(max-width: 768px) 100vw, 50vw'
+              />
+              <div className='absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent opacity-0 transition duration-500 group-hover:opacity-100 flex items-end p-6'>
+                <p className='font-bold text-white'>Penya Family</p>
+              </div>
+            </div>
+
+            {/* 6. FILLER SHOT (Celebration) - Spans 2 wide */}
+            <div className='relative group overflow-hidden rounded-2xl md:col-span-2 bg-slate-200 shadow-md'>
+              <Image
+                src='https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?q=80&w=800&auto=format&fit=crop'
+                alt='Celebration'
+                fill
+                className='object-cover transition duration-700 group-hover:scale-110'
+                sizes='(max-width: 768px) 100vw, 50vw'
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. MAP SECTION */}
+      <section className='bg-slate-900 text-white'>
+        <div className='grid md:grid-cols-2'>
+          {/* TEXT SIDE */}
+          <div className='flex flex-col justify-center p-12 md:p-20 order-2 md:order-1'>
+            <div className='mb-6 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-white/10 backdrop-blur-sm'>
+              <MapPin className='h-8 w-8 text-yellow-400' />
+            </div>
+            <h2 className='mb-6 text-3xl font-black uppercase md:text-5xl'>
+              Easy to find. <br />
+              <span className='text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500'>
+                Hard to leave.
+              </span>
+            </h2>
+            <address className='not-italic text-lg text-slate-300 space-y-2 mb-8'>
+              <p className='font-bold text-white text-xl'>
+                Novo Brazil Brewing - Otay Ranch
+              </p>
+              http://googleusercontent.com/map_location_reference/1
+              <p>
+                [Novo Brazil Brewing - Otay
+                Ranch](http://googleusercontent.com/map_location_reference/0)
+              </p>
+              <p>2015 Birch Rd, Suite 1017</p>
+              <p>Chula Vista, CA 91915</p>
+            </address>
+
+            <a
+              href='https://www.google.com/maps/search/?api=1&query=Novo+Brazil+Brewing+Otay+Ranch'
+              target='_blank'
+              rel='noreferrer'
+              className='w-full sm:w-auto rounded-xl bg-barca-red px-8 py-4 text-center font-bold text-white transition hover:bg-red-700 hover:shadow-lg hover:shadow-red-900/20'
+            >
+              Get Directions
+            </a>
+          </div>
+
+          {/* MAP EMBED SIDE */}
+          <div className='relative min-h-[400px] w-full bg-slate-800 order-1 md:order-2'>
             <iframe
-              src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3360.103728646944!2d-116.96967482348588!3d32.62367219150171!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80d94f583fc7fbd7%3A0x9f8c35d1d88181de!2sNovo%20Brazil%20Brewing%20-%20Otay%20Ranch!5e0!3m2!1sen!2sus!4v1709228945123!5m2!1sen!2sus'
+              title='Map to Novo Brazil'
+              src='https://maps.google.com/maps?q=Novo%20Brazil%20Brewing%20Otay%20Ranch%202015%20Birch%20Rd&t=&z=15&ie=UTF8&iwloc=&output=embed'
               width='100%'
               height='100%'
               style={{ border: 0 }}
               allowFullScreen={true}
               loading='lazy'
-              referrerPolicy='no-referrer-when-downgrade'
+              className='absolute inset-0 grayscale contrast-125 opacity-80 hover:grayscale-0 hover:opacity-100 transition duration-500'
             ></iframe>
-          </div>
 
-          {/* Logistics Info Card */}
-          <div className='bg-barca-blue text-white p-6 sm:p-10 rounded-2xl shadow-lg flex flex-col justify-center min-h-[400px] lg:h-full'>
-            <h3 className='text-2xl font-bold mb-6 text-barca-gold'>
-              Matchday Logistics
-            </h3>
-
-            <div className='space-y-6'>
-              <div>
-                <h4 className='font-bold text-lg mb-1 flex items-center gap-2'>
-                  <span>🚗</span> Parking
-                </h4>
-                <p className='text-blue-100 text-sm leading-relaxed'>
-                  Otay Ranch Town Center has massive free parking lots. We are
-                  closest to the **Apple Store** and **Macy's** side of the
-                  mall.
-                </p>
-              </div>
-
-              <div>
-                <h4 className='font-bold text-lg mb-1 flex items-center gap-2'>
-                  <span>📍</span> Meeting Point
-                </h4>
-                <p className='text-blue-100 text-sm leading-relaxed'>
-                  Look for the Blaugrana flags! We usually take over the main
-                  patio tables right in front of the big screen.
-                </p>
-              </div>
-
-              <div>
-                <h4 className='font-bold text-lg mb-1 flex items-center gap-2'>
-                  <span>👨‍👩‍👧‍👦</span> Vibe Check
-                </h4>
-                <p className='text-blue-100 text-sm leading-relaxed'>
-                  Otay Ranch is super family-friendly. There is a dog park
-                  nearby and a splash pad for kids if the match gets stressful!
-                </p>
-              </div>
-            </div>
+            {/* Visual Overlay to make it look embedded */}
+            <div className='absolute inset-0 pointer-events-none border-b-4 border-l-4 border-slate-900/20 shadow-inner'></div>
           </div>
         </div>
-      </div>
+      </section>
     </main>
   );
 }
