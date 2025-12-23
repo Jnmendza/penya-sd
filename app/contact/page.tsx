@@ -9,7 +9,7 @@ import {
   AlertCircle,
   CheckCircle,
 } from "lucide-react";
-import { InstagramIcon, XIcon } from "@/components/Icons";
+import { InstagramIcon, XIcon, FacebookIcon } from "@/components/Icons";
 
 export default function ContactPage() {
   // 1. STATE MANAGEMENT
@@ -244,6 +244,12 @@ export default function ContactPage() {
                       className='h-10 w-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-barca-blue transition'
                     >
                       <XIcon className='h-5 w-5' />
+                    </a>
+                    <a
+                      href='https://www.facebook.com/PenyaSanDiego'
+                      className='h-10 w-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-barca-blue transition'
+                    >
+                      <FacebookIcon className='h-5 w-5' />
                     </a>
                   </div>
                 </div>
