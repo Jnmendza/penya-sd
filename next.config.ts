@@ -22,6 +22,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "**.supabase.co", // Allow all Supabase projects
       },
+      {
+        protocol: "https",
+        hostname: "crests.football-data.org", // For the future API we will use
+      },
     ],
   },
 };
