@@ -42,7 +42,7 @@ export default function LoginPage() {
         </div>
 
         <form onSubmit={handleLogin} className='space-y-6'>
-          <div>
+          <div suppressHydrationWarning>
             <label className='mb-2 block text-sm font-medium text-slate-700'>
               Email Address
             </label>

@@ -21,7 +21,7 @@ export default function ContactPage() {
   };
 
   return (
-    <main className='min-h-screen bg-slate-50 pt-24 pb-12'>
+    <main className='min-h-screen bg-slate-50 pt-12 pb-12'>
       {/* 1. Header */}
       <div className='container mx-auto px-4 mb-12 text-center'>
         <h1 className='text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl mb-4'>

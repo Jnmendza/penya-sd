@@ -42,9 +42,8 @@ export default function CommunityHighlights() {
         {/* The Grid */}
         <div className='grid gap-8 md:grid-cols-3'>
           {highlights.map((item, index) => (
-            <Link
+            <div
               key={index}
-              href='/community'
               className='group block relative overflow-hidden rounded-2xl bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-xl border border-slate-100'
             >
               <div
@@ -63,7 +62,7 @@ export default function CommunityHighlights() {
 
               {/* Decorative hover effect */}
               <div className='absolute bottom-0 left-0 h-1 w-0 bg-barca-blue transition-all duration-300 group-hover:w-full'></div>
-            </Link>
+            </div>
           ))}
         </div>
 

@@ -4,17 +4,59 @@ import CommunityHighlights from "@/components/CommunityHighlights";
 
 export default function CommunityPage() {
   return (
-    <main className='min-h-screen bg-slate-50 pt-24 pb-12'>
+    <main className='min-h-screen bg-slate-50 pt-12 pb-12'>
       {/* 1. HEADER SECTION */}
-      <div className='container mx-auto px-4 mb-12 text-center'>
-        <h1 className='text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl mb-4'>
-          Més Que Un Club
-        </h1>
-        <p className='text-xl text-slate-600 max-w-2xl mx-auto'>
-          We don't just watch football. We are committed to making San Diego a
-          better place through charity, inclusivity, and passion.
-        </p>
-      </div>
+      <section className='relative w-full overflow-hidden bg-slate-900 py-24 md:py-32'>
+        {/* 1. BACKGROUND GRADIENT (Barça Colors) */}
+        <div className='absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-red-900 via-slate-900 to-blue-900 opacity-90' />
+
+        {/* Optional: Subtle Pattern Overlay to add texture */}
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-10"></div>
+
+        <div className='container relative z-10 mx-auto px-4 text-center'>
+          {/* 2. THE MOTTO - Massive & Bold */}
+          <h1 className='text-5xl font-black uppercase tracking-tighter text-white sm:text-7xl md:text-8xl'>
+            Més Que{" "}
+            <span className='text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500'>
+              Un Club
+            </span>
+          </h1>
+
+          {/* 3. SENYERA DIVIDER (Catalan Flag Accent) */}
+          <div className='mx-auto my-6 flex h-1 w-24 overflow-hidden rounded-full'>
+            <div className='h-full w-1/4 bg-yellow-400'></div>
+            <div className='h-full w-1/4 bg-red-600'></div>
+            <div className='h-full w-1/4 bg-yellow-400'></div>
+            <div className='h-full w-1/4 bg-red-600'></div>
+            <div className='h-full w-1/4 bg-yellow-400'></div>
+            <div className='h-full w-1/4 bg-red-600'></div>
+            <div className='h-full w-1/4 bg-yellow-400'></div>
+            <div className='h-full w-1/4 bg-red-600'></div>
+            <div className='h-full w-1/4 bg-yellow-400'></div>
+          </div>
+
+          {/* 4. SUBHEAD - "More than just 90 minutes" */}
+          <h2 className='mx-auto max-w-2xl text-xl font-medium text-slate-300 md:text-2xl'>
+            A Global Family. A Local Impact.
+          </h2>
+
+          {/* 5. DESCRIPTION */}
+          <p className='mx-auto mt-4 max-w-3xl text-lg text-slate-400 leading-relaxed'>
+            We don't just watch football. We are committed to making San Diego a
+            better place through charity, inclusivity, and shared passion.
+          </p>
+
+          {/* OPTIONAL: Call to Action Button */}
+          <div className='mt-8'>
+            <a
+              href='#partner'
+              className='inline-flex items-center gap-2 text-sm font-bold text-yellow-400 hover:text-yellow-300 transition hover:translate-x-1'
+            >
+              Partner with us for a cause <span>→</span>
+            </a>
+          </div>
+        </div>
+      </section>
 
       {/* 2. REUSE THE COMPONENT */}
       {/* We reuse the component we already built because it looks great */}

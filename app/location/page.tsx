@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function LocationPage() {
   return (
-    <main className='min-h-screen bg-slate-50 pt-24 pb-12'>
+    <main className='min-h-screen bg-slate-50 pt-12 pb-12'>
       {/* 1. HEADER SECTION */}
       <div className='container mx-auto px-4 mb-12 text-center'>
         <h1 className='text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl mb-4'>
@@ -139,7 +139,7 @@ export default function LocationPage() {
       <div className='container mx-auto px-4'>
         <div className='grid gap-8 lg:grid-cols-3'>
           {/* The Map (Takes up 2 columns) */}
-          <div className='lg:col-span-2 rounded-2xl overflow-hidden shadow-lg h-[400px] bg-slate-200 relative'>
+          <div className='lg:col-span-2 rounded-2xl overflow-hidden shadow-lg min-h-[400px] lg:h-full bg-slate-200 relative'>
             <iframe
               src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3360.103728646944!2d-116.96967482348588!3d32.62367219150171!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80d94f583fc7fbd7%3A0x9f8c35d1d88181de!2sNovo%20Brazil%20Brewing%20-%20Otay%20Ranch!5e0!3m2!1sen!2sus!4v1709228945123!5m2!1sen!2sus'
               width='100%'
@@ -152,7 +152,7 @@ export default function LocationPage() {
           </div>
 
           {/* Logistics Info Card */}
-          <div className='bg-barca-blue text-white p-8 rounded-2xl shadow-lg flex flex-col justify-center h-[400px]'>
+          <div className='bg-barca-blue text-white p-6 sm:p-10 rounded-2xl shadow-lg flex flex-col justify-center min-h-[400px] lg:h-full'>
             <h3 className='text-2xl font-bold mb-6 text-barca-gold'>
               Matchday Logistics
             </h3>

@@ -25,8 +25,12 @@ export default function Hero() {
         </div>
 
         {/* Headline */}
-        <h1 className='mb-6 max-w-4xl text-5xl font-extrabold tracking-tight sm:text-7xl'>
-          San Diego is <span className='text-barca-red'>Blaugrana</span>.
+        <h1 className='mb-6 text-5xl font-black uppercase tracking-wide text-white sm:text-7xl md:text-8xl drop-shadow-lg'>
+          San Diego is
+          {/* 'block' forces a new line, 'mt-2' adds just a little breathing room */}
+          <span className='block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-blue-800 to-red-600'>
+            BLAUGRANA
+          </span>
         </h1>
 
         <p className='mb-10 max-w-2xl text-lg text-gray-200 sm:text-xl'>
