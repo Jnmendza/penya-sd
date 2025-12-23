@@ -30,7 +30,9 @@ export default function MembershipCTA({ isOpen }: Props) {
 
             <h2 className='text-4xl font-extrabold tracking-tight sm:text-5xl'>
               More Than A Match. <br />
-              <span className='text-barca-gold'>More Than A Club.</span>
+              <span className='text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500'>
+                More Than A Club.
+              </span>
             </h2>
 
             <p className='text-lg text-blue-100 max-w-md leading-relaxed'>
