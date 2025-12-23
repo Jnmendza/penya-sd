@@ -47,10 +47,10 @@ export default function Hero() {
             Join the Penya
           </Link>
           <Link
-            href='#match-center'
+            href='/location'
             className='rounded-full border-2 border-white/20 bg-white/10 px-8 py-4 text-lg font-semibold text-white backdrop-blur-sm transition hover:bg-white/20'
           >
-            View Upcoming Matches
+            Visit Our Headquarters
           </Link>
         </div>
       </div>

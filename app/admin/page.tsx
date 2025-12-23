@@ -1,6 +1,7 @@
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import AdminTabs from "@/components/AdminTabs";
+// import TestForm from "@/components/TestForm"; // You can remove this if done testing
 
 export default async function AdminPage() {
   const supabase = await createClient();
@@ -33,17 +34,21 @@ export default async function AdminPage() {
     .order("utc_date", { ascending: true });
 
   return (
-    // UPDATED: Added 'min-h-screen bg-slate-50' to force light mode
     <main className='min-h-screen bg-slate-50 pb-20'>
       <div className='container mx-auto px-4 py-12'>
-        <h1 className='mb-8 text-3xl font-black uppercase text-slate-900'>
-          Admin Dashboard
-        </h1>
+        {/* HEADER SECTION */}
+        <div className='mb-8'>
+          <h1 className='text-3xl font-black uppercase text-slate-900'>
+            Admin Dashboard
+          </h1>
+          <p className='mt-2 text-sm font-medium text-slate-500'>
+            Logged in as: <span className='text-slate-900'>{user.email}</span>
+          </p>
+        </div>
 
-        {/* The Tabs Component handles the switching */}
         <AdminTabs
           members={members || []}
-          config={config?.value === true}
+          config={config?.value === "true"} // Ensure we check for string "true"
           matches={matches || []}
         />
       </div>

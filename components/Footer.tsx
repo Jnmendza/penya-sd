@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -6,11 +7,22 @@ export default function Footer() {
       <div className='container mx-auto px-4'>
         <div className='flex flex-col md:flex-row justify-between items-center gap-6'>
           {/* Identity */}
-          <div className='text-center md:text-left'>
-            <h3 className='text-white font-bold text-lg'>
-              Penya Blaugrana San Diego
-            </h3>
-            <p className='text-sm mt-1'>Official Supporters Group #2309</p>
+          <div className='flex items-center gap-4'>
+            <div className='relative h-14 w-14 shrink-0'>
+              <Image
+                src='https://erlplcduvrowbiwobjen.supabase.co/storage/v1/object/public/assets/logo.png'
+                alt='PBSD Logo'
+                fill
+                className='object-contain'
+              />
+            </div>
+            <div className='flex flex-col'>
+              <h3 className='text-white font-bold text-lg leading-tight'>
+                Penya Blaugrana{" "}
+                <span className='text-barca-gold'>San Diego</span>
+              </h3>
+              <p className='text-sm mt-1'>Official Supporters Group #2309</p>
+            </div>
           </div>
 
           {/* Quick Links */}
