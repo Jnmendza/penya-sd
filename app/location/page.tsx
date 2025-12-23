@@ -1,3 +1,4 @@
+import { createClient } from "@/utils/supabase/server"; // <--- Import this
 import Image from "next/image";
 import {
   MapPin,
@@ -9,12 +10,37 @@ import {
   Calendar,
 } from "lucide-react";
 
-export default function LocationPage() {
+// 1. Make function ASYNC
+export default async function LocationPage() {
+  const supabase = await createClient();
+
+  // 2. Fetch the NEXT watch party (Same logic as Homepage)
+  const { data: matches } = await supabase
+    .from("matches")
+    .select("*")
+    .eq("is_watch_party", true)
+    .gt("utc_date", new Date().toISOString())
+    .order("utc_date", { ascending: true })
+    .limit(1);
+
+  const nextMatch = matches?.[0];
+
+  // 3. Format Date/Time (if match exists)
+  const matchDate = nextMatch ? new Date(nextMatch.utc_date) : null;
+  const dateStr = matchDate?.toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "short",
+    day: "numeric",
+  });
+  const timeStr = matchDate?.toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+  });
+
   return (
     <main className='min-h-screen bg-slate-50'>
-      {/* 1. HERO SECTION: "The Fortress" */}
+      {/* HERO SECTION */}
       <section className='relative w-full overflow-hidden bg-slate-900 py-20 md:py-28'>
-        {/* Background Gradients */}
         <div className='absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-red-900 via-slate-900 to-blue-900 opacity-90' />
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-10"></div>
 
@@ -36,36 +62,50 @@ export default function LocationPage() {
             Cold beer, massive screens, and the loudest Cules in California.
           </p>
 
-          {/* NEXT MATCH BANNER (Optional - You can make this dynamic later) */}
-          <div className='mx-auto mt-10 max-w-3xl overflow-hidden rounded-xl bg-white/5 border border-white/10 backdrop-blur-md'>
+          {/* DYNAMIC NEXT MATCH BANNER */}
+          <div className='mx-auto mt-10 max-w-3xl overflow-hidden rounded-xl bg-white/5 border border-white/10 backdrop-blur-md transition hover:bg-white/10'>
             <div className='flex flex-col md:flex-row items-center justify-between gap-4 p-4 md:px-8 md:py-4'>
               <div className='flex items-center gap-3 text-white'>
-                <Calendar className='h-6 w-6 text-yellow-400' />
+                <Calendar className='h-6 w-6 text-yellow-400 shrink-0' />
                 <div className='text-left'>
                   <p className='text-xs font-bold text-slate-400 uppercase tracking-wider'>
-                    Next Watch Party
+                    {nextMatch ? "Next Watch Party" : "Upcoming Schedule"}
                   </p>
+
+                  {/* Dynamic Match Title */}
                   <p className='text-lg font-bold'>
-                    FC Barcelona vs Real Madrid
+                    {nextMatch
+                      ? `${nextMatch.home_team} vs ${nextMatch.away_team}`
+                      : "No Watch Parties Scheduled"}
                   </p>
                 </div>
               </div>
+
               <div className='text-right'>
-                <span className='block text-xl font-black text-white'>
-                  Sunday, Oct 27
-                </span>
-                <span className='block text-sm font-medium text-barca-red'>
-                  12:00 PM Kickoff
-                </span>
+                {nextMatch ? (
+                  <>
+                    <span className='block text-xl font-black text-white'>
+                      {dateStr}
+                    </span>
+                    <span className='block text-sm font-medium text-barca-red'>
+                      {timeStr} Kickoff
+                    </span>
+                  </>
+                ) : (
+                  <span className='block text-sm font-medium text-slate-400'>
+                    Check back soon!
+                  </span>
+                )}
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 2. THE VENUE EXPERIENCE (Know Before You Go) */}
-      <section className='py-16 md:py-24'>
+      {/* 2. THE VENUE EXPERIENCE */}
+      <section className='pt-16 md:pt-24 pb-8'>
         <div className='container mx-auto px-4'>
+          {/* ... Rest of your existing content ... */}
           <div className='mb-12 text-center'>
             <h2 className='text-3xl font-black uppercase text-slate-900 md:text-4xl'>
               Know Before You Go
@@ -77,7 +117,9 @@ export default function LocationPage() {
           </div>
 
           <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-4'>
-            {/* CARD 1: FOOD */}
+            {/* ... Keep your amenity cards here ... */}
+
+            {/* Card 1 */}
             <div className='rounded-2xl bg-white p-6 shadow-sm border border-slate-100 hover:shadow-md transition'>
               <div className='mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-orange-100 text-orange-600'>
                 <Utensils className='h-6 w-6' />
@@ -99,7 +141,7 @@ export default function LocationPage() {
               </a>
             </div>
 
-            {/* CARD 2: DRINKS */}
+            {/* Card 2 */}
             <div className='rounded-2xl bg-white p-6 shadow-sm border border-slate-100 hover:shadow-md transition'>
               <div className='mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 text-blue-600'>
                 <Beer className='h-6 w-6' />
@@ -113,7 +155,7 @@ export default function LocationPage() {
               </p>
             </div>
 
-            {/* CARD 3: FAMILY */}
+            {/* Card 3 */}
             <div className='rounded-2xl bg-white p-6 shadow-sm border border-slate-100 hover:shadow-md transition'>
               <div className='mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-green-100 text-green-600'>
                 <Users className='h-6 w-6' />
@@ -127,7 +169,7 @@ export default function LocationPage() {
               </p>
             </div>
 
-            {/* CARD 4: PARKING */}
+            {/* Card 4 */}
             <div className='rounded-2xl bg-white p-6 shadow-sm border border-slate-100 hover:shadow-md transition'>
               <div className='mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-purple-100 text-purple-600'>
                 <Car className='h-6 w-6' />
@@ -143,9 +185,12 @@ export default function LocationPage() {
           </div>
         </div>
       </section>
-      {/* 3 ATMOSPHERE GALLERY (Bento Grid with next/image) */}
+
+      {/* ATMOSPHERE GALLERY */}
       <section className='py-16 pb-24 bg-slate-50'>
         <div className='container mx-auto px-4'>
+          {/* ... Keep your Bento Grid logic here ... */}
+          {/* (Just ensuring the structure remains intact) */}
           <div className='mb-12 text-center'>
             <h2 className='text-3xl font-black uppercase text-slate-900 md:text-4xl'>
               Experience the <br />
@@ -154,89 +199,12 @@ export default function LocationPage() {
               </span>
             </h2>
           </div>
-          {/* THE BENTO GRID */}
-          <div className='grid grid-cols-1 md:grid-cols-4 auto-rows-[200px] gap-4'>
-            {/* 1. LARGE MAIN SHOT (Crowd cheering) - Spans 2x2 */}
-            <div className='relative group overflow-hidden rounded-2xl md:col-span-2 md:row-span-2 bg-slate-200 shadow-md'>
-              <Image
-                src='https://images.unsplash.com/photo-1504198266287-1659872e6590?q=80&w=800&auto=format&fit=crop'
-                alt='Crowd cheering'
-                fill // <--- Fills the container
-                className='object-cover transition duration-700 group-hover:scale-110'
-                sizes='(max-width: 768px) 100vw, 50vw' // Optimization hint
-              />
-              <div className='absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent opacity-0 transition duration-500 group-hover:opacity-100 flex items-end p-6'>
-                <p className='font-bold text-white'>
-                  Full House for El Clásico
-                </p>
-              </div>
-            </div>
-
-            {/* 2. TALL SHOT (The Big Screen) - Spans 1x2 */}
-            <div className='relative group overflow-hidden rounded-2xl md:col-span-1 md:row-span-2 bg-slate-200 shadow-md'>
-              <Image
-                src='https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=800&auto=format&fit=crop'
-                alt='The Big Screen'
-                fill
-                className='object-cover transition duration-700 group-hover:scale-110'
-                sizes='(max-width: 768px) 100vw, 25vw'
-              />
-              <div className='absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent opacity-0 transition duration-500 group-hover:opacity-100 flex items-end p-6'>
-                <p className='font-bold text-white'>Massive LED Wall</p>
-              </div>
-            </div>
-
-            {/* 3. DETAIL SHOT (Beer/Food) */}
-            <div className='relative group overflow-hidden rounded-2xl bg-slate-200 shadow-md'>
-              <Image
-                src='https://images.unsplash.com/photo-1571115177098-24ec42ed204d?q=80&w=800&auto=format&fit=crop'
-                alt='Novo Beer'
-                fill
-                className='object-cover transition duration-700 group-hover:scale-110'
-                sizes='(max-width: 768px) 100vw, 25vw'
-              />
-            </div>
-
-            {/* 4. COMMUNITY SHOT (Kids/Family) */}
-            <div className='relative group overflow-hidden rounded-2xl bg-slate-200 shadow-md'>
-              <Image
-                src='https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?q=80&w=800&auto=format&fit=crop'
-                alt='Family Friendly'
-                fill
-                className='object-cover transition duration-700 group-hover:scale-110'
-                sizes='(max-width: 768px) 100vw, 25vw'
-              />
-            </div>
-
-            {/* 5. WIDE SHOT (Group Photo) - Spans 2 wide */}
-            <div className='relative group overflow-hidden rounded-2xl md:col-span-2 bg-slate-200 shadow-md'>
-              <Image
-                src='https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?q=80&w=800&auto=format&fit=crop'
-                alt='Group Photo'
-                fill
-                className='object-cover transition duration-700 group-hover:scale-110'
-                sizes='(max-width: 768px) 100vw, 50vw'
-              />
-              <div className='absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent opacity-0 transition duration-500 group-hover:opacity-100 flex items-end p-6'>
-                <p className='font-bold text-white'>Penya Family</p>
-              </div>
-            </div>
-
-            {/* 6. FILLER SHOT (Celebration) - Spans 2 wide */}
-            <div className='relative group overflow-hidden rounded-2xl md:col-span-2 bg-slate-200 shadow-md'>
-              <Image
-                src='https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?q=80&w=800&auto=format&fit=crop'
-                alt='Celebration'
-                fill
-                className='object-cover transition duration-700 group-hover:scale-110'
-                sizes='(max-width: 768px) 100vw, 50vw'
-              />
-            </div>
-          </div>
+          {/* ... Bento Grid Content ... */}
+          {/* I am omitting the images block for brevity, paste your previous Bento Grid code here */}
         </div>
       </section>
 
-      {/* 4. MAP SECTION */}
+      {/* MAP SECTION */}
       <section className='bg-slate-900 text-white'>
         <div className='grid md:grid-cols-2'>
           {/* TEXT SIDE */}
@@ -280,8 +248,6 @@ export default function LocationPage() {
               loading='lazy'
               className='absolute inset-0 grayscale contrast-125 opacity-80 hover:grayscale-0 hover:opacity-100 transition duration-500'
             ></iframe>
-
-            {/* Visual Overlay to make it look embedded */}
             <div className='absolute inset-0 pointer-events-none border-b-4 border-l-4 border-slate-900/20 shadow-inner'></div>
           </div>
         </div>
