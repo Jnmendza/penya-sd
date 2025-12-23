@@ -150,7 +150,7 @@ export default function AdminMatchControl({
                         onClick={() =>
                           handleToggle(match.id, match.is_watch_party)
                         }
-                        className={`relative inline-flex h-6 w-11 items-center rounded-full transition ${
+                        className={`relative cursor-pointer inline-flex h-6 w-11 items-center rounded-full transition ${
                           match.is_watch_party ? "bg-green-500" : "bg-slate-300"
                         }`}
                       >

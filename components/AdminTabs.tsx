@@ -34,7 +34,7 @@ export default function AdminTabs({
       <div className='flex p-1 space-x-1 bg-slate-100 rounded-xl w-fit'>
         <button
           onClick={() => handleTabChange("members")}
-          className={`flex items-center gap-2 px-6 py-2.5 text-sm font-bold rounded-lg transition-all ${
+          className={`flex cursor-pointer items-center gap-2 px-6 py-2.5 text-sm font-bold rounded-lg transition-all ${
             activeTab === "members"
               ? "bg-white text-slate-900 shadow-sm ring-1 ring-black/5"
               : "text-slate-500 hover:text-slate-700"
@@ -46,7 +46,7 @@ export default function AdminTabs({
 
         <button
           onClick={() => handleTabChange("matches")}
-          className={`flex items-center gap-2 px-6 py-2.5 text-sm font-bold rounded-lg transition-all ${
+          className={`flex cursor-pointer items-center gap-2 px-6 py-2.5 text-sm font-bold rounded-lg transition-all ${
             activeTab === "matches"
               ? "bg-white text-slate-900 shadow-sm ring-1 ring-black/5"
               : "text-slate-500 hover:text-slate-700"
