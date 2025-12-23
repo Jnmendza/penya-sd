@@ -1,69 +1,272 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import Image from "next/image";
+import {
+  Mail,
+  MapPin,
+  ChevronDown,
+  AlertCircle,
+  CheckCircle,
+} from "lucide-react";
+import { InstagramIcon, XIcon } from "@/components/Icons";
 
 export default function ContactPage() {
-  // Simple state to handle form submission UI
-  const [status, setStatus] = useState<"idle" | "submitting" | "success">(
-    "idle"
-  );
+  // 1. STATE MANAGEMENT
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    topic: "General Inquiry",
+    message: "",
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  // 2. INPUT HANDLER
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    // Clear error when user types
+    if (errors[name as keyof typeof errors]) {
+      setErrors((prev) => ({ ...prev, [name]: "" }));
+    }
+  };
+
+  // 3. VALIDATION LOGIC
+  const validate = () => {
+    let isValid = true;
+    const newErrors = { name: "", email: "", message: "" };
+
+    // Name Validation
+    if (!formData.name.trim()) {
+      newErrors.name = "Name is required.";
+      isValid = false;
+    }
+
+    // Email Validation (Regex)
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required.";
+      isValid = false;
+    } else if (!emailRegex.test(formData.email)) {
+      newErrors.email = "Please enter a valid email address.";
+      isValid = false;
+    }
+
+    // Message Validation
+    if (!formData.message.trim()) {
+      newErrors.message = "Please enter a message.";
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
+
+  // 4. SUBMIT HANDLER
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setStatus("submitting");
 
-    // Simulate a network request
-    setTimeout(() => {
-      setStatus("success");
-      // TODO: Connect this to Supabase or an Email API later
-    }, 1500);
+    if (!validate()) return;
+
+    setIsSubmitting(true);
+
+    // TODO: Wire this up to Supabase or an API endpoint later
+    // For now, we simulate a network request
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
+    console.log("Form Submitted:", formData);
+    setIsSuccess(true);
+    setIsSubmitting(false);
+
+    // Reset form
+    setFormData({ name: "", email: "", topic: "General Inquiry", message: "" });
   };
 
   return (
-    <main className='min-h-screen bg-slate-50 pt-12 pb-12'>
-      {/* 1. Header */}
-      <div className='container mx-auto px-4 mb-12 text-center'>
-        <h1 className='text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl mb-4'>
-          Get in Touch
-        </h1>
-        <p className='text-xl text-slate-600 max-w-2xl mx-auto'>
-          Have questions about membership, events, or partnerships? Send us a
-          message and a board member will get back to you.
-        </p>
-      </div>
+    <main className='min-h-screen bg-slate-50'>
+      {/* 1. HERO SECTION */}
+      <section className='relative w-full overflow-hidden bg-slate-900 py-20 md:py-28'>
+        <div className='absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-red-900 via-slate-900 to-blue-900 opacity-90' />
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-10"></div>
 
-      <div className='container mx-auto px-4'>
-        <div className='grid gap-12 lg:grid-cols-3 max-w-6xl mx-auto'>
-          {/* 2. CONTACT FORM (Takes up 2 columns) */}
-          <div className='lg:col-span-2'>
-            <div className='bg-white rounded-2xl shadow-sm border border-slate-100 p-8'>
-              {status === "success" ? (
-                <div className='text-center py-12'>
-                  <div className='inline-flex h-16 w-16 items-center justify-center rounded-full bg-green-100 mb-6'>
-                    <svg
-                      className='h-8 w-8 text-green-600'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      stroke='currentColor'
+        <div className='container relative z-10 mx-auto px-4 text-center'>
+          <span className='mb-6 inline-block rounded-full bg-blue-900/50 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-blue-200 backdrop-blur-sm border border-blue-700/50'>
+            Club Offices
+          </span>
+          <h1 className='mb-6 text-5xl font-black uppercase tracking-wide text-white sm:text-7xl drop-shadow-lg'>
+            Get in <br />
+            <span className='text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-blue-500 to-red-600'>
+              Touch
+            </span>
+          </h1>
+          <p className='mx-auto max-w-2xl text-lg font-medium text-slate-300 md:text-xl'>
+            Have questions about membership, events, or partnerships? We are
+            here to help.
+          </p>
+        </div>
+      </section>
+
+      {/* 2. MEET THE BOARD */}
+      <section className='py-16 md:py-24 bg-white'>
+        <div className='container mx-auto px-4'>
+          <div className='text-center mb-16'>
+            <h2 className='text-3xl font-black uppercase text-slate-900 md:text-4xl'>
+              Meet The Board
+            </h2>
+            <p className='mt-4 text-slate-600 max-w-2xl mx-auto'>
+              Penya Blaugrana San Diego is a non-profit run entirely by
+              volunteers dedicated to growing the Barça family in Southern
+              California.
+            </p>
+          </div>
+
+          <div className='grid gap-8 md:grid-cols-3 max-w-5xl mx-auto'>
+            {/* BOARD MEMBER 1 */}
+            <div className='group text-center'>
+              <div className='relative mx-auto mb-6 h-40 w-40 overflow-hidden rounded-full border-4 border-slate-100 shadow-lg transition duration-500 group-hover:border-barca-blue group-hover:scale-105'>
+                <Image
+                  src='https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=400&auto=format&fit=crop'
+                  alt='President'
+                  fill
+                  className='object-cover'
+                />
+              </div>
+              <h3 className='text-xl font-bold text-slate-900'>Name Here</h3>
+              <p className='text-sm font-bold uppercase tracking-wider text-barca-red'>
+                President
+              </p>
+              <p className='mt-2 text-sm text-slate-500'>
+                Leading the vision and official Penya relations.
+              </p>
+            </div>
+            {/* BOARD MEMBER 2 */}
+            <div className='group text-center'>
+              <div className='relative mx-auto mb-6 h-40 w-40 overflow-hidden rounded-full border-4 border-slate-100 shadow-lg transition duration-500 group-hover:border-barca-blue group-hover:scale-105'>
+                <Image
+                  src='https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=400&auto=format&fit=crop'
+                  alt='Vice President'
+                  fill
+                  className='object-cover'
+                />
+              </div>
+              <h3 className='text-xl font-bold text-slate-900'>Name Here</h3>
+              <p className='text-sm font-bold uppercase tracking-wider text-barca-blue'>
+                Vice President
+              </p>
+              <p className='mt-2 text-sm text-slate-500'>
+                Overseeing matchday operations and events.
+              </p>
+            </div>
+            {/* BOARD MEMBER 3 */}
+            <div className='group text-center'>
+              <div className='relative mx-auto mb-6 h-40 w-40 overflow-hidden rounded-full border-4 border-slate-100 shadow-lg transition duration-500 group-hover:border-barca-blue group-hover:scale-105'>
+                <Image
+                  src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=400&auto=format&fit=crop'
+                  alt='Treasurer'
+                  fill
+                  className='object-cover'
+                />
+              </div>
+              <h3 className='text-xl font-bold text-slate-900'>Name Here</h3>
+              <p className='text-sm font-bold uppercase tracking-wider text-yellow-500'>
+                Treasurer
+              </p>
+              <p className='mt-2 text-sm text-slate-500'>
+                Managing memberships and non-profit compliance.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. CONTACT FORM & INFO SPLIT */}
+      <section className='bg-slate-50 py-16 md:py-24 border-t border-slate-200'>
+        <div className='container mx-auto px-4'>
+          <div className='mx-auto max-w-6xl overflow-hidden rounded-3xl bg-white shadow-xl lg:flex'>
+            {/* LEFT: INFO PANEL */}
+            <div className='bg-slate-900 p-10 text-white lg:w-2/5'>
+              <h3 className='mb-6 text-2xl font-black uppercase'>
+                Contact Info
+              </h3>
+              <p className='mb-8 text-slate-300'>
+                Direct inquiries regarding membership, sponsorship, or press.
+              </p>
+              <div className='space-y-6'>
+                <div className='flex items-start gap-4'>
+                  <Mail className='h-6 w-6 text-yellow-400 shrink-0' />
+                  <div>
+                    <p className='font-bold'>Email</p>
+                    <a
+                      href='mailto:info@penyasd.com'
+                      className='text-slate-300 hover:text-white transition'
                     >
-                      <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        strokeWidth={2}
-                        d='M5 13l4 4L19 7'
-                      />
-                    </svg>
+                      info@penyasd.com
+                    </a>
                   </div>
-                  <h3 className='text-2xl font-bold text-slate-900 mb-2'>
+                </div>
+                <div className='flex items-start gap-4'>
+                  <MapPin className='h-6 w-6 text-yellow-400 shrink-0' />
+                  <div>
+                    <p className='font-bold'>Mailing Address</p>
+                    <p className='text-slate-300'>
+                      Penya Blaugrana San Diego
+                      <br />
+                      PO Box 12345
+                      <br />
+                      San Diego, CA 92101
+                    </p>
+                  </div>
+                </div>
+                <div className='pt-8 mt-8 border-t border-slate-800'>
+                  <p className='font-bold mb-4'>Follow Us</p>
+                  <div className='flex gap-4'>
+                    <a
+                      href='https://www.instagram.com/penyasandiego_'
+                      className='h-10 w-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-barca-blue transition'
+                    >
+                      <InstagramIcon className='h-5 w-5' />
+                    </a>
+                    <a
+                      href='https://x.com/penya_san'
+                      className='h-10 w-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-barca-blue transition'
+                    >
+                      <XIcon className='h-5 w-5' />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* RIGHT: THE FORM */}
+            <div className='p-10 lg:w-3/5'>
+              {isSuccess ? (
+                <div className='h-full flex flex-col items-center justify-center text-center py-10 animate-in fade-in zoom-in duration-500'>
+                  <div className='h-16 w-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-4'>
+                    <CheckCircle className='h-8 w-8' />
+                  </div>
+                  <h3 className='text-2xl font-bold text-slate-900'>
                     Message Sent!
                   </h3>
-                  <p className='text-slate-600'>
-                    Visca Barça! We will get back to you shortly.
+                  <p className='text-slate-600 mt-2 max-w-sm'>
+                    Thank you for reaching out. A board member will get back to
+                    you shortly.
                   </p>
                   <button
-                    onClick={() => setStatus("idle")}
-                    className='mt-6 text-barca-blue font-semibold hover:underline'
+                    onClick={() => setIsSuccess(false)}
+                    className='mt-6 text-barca-blue font-bold hover:underline'
                   >
                     Send another message
                   </button>
@@ -71,176 +274,168 @@ export default function ContactPage() {
               ) : (
                 <form onSubmit={handleSubmit} className='space-y-6'>
                   <div className='grid gap-6 md:grid-cols-2'>
-                    <div>
-                      <label
-                        htmlFor='name'
-                        className='block text-sm font-medium text-slate-700 mb-2'
-                      >
-                        Full Name
+                    {/* NAME */}
+                    <div className='text-slate-900'>
+                      <label className='mb-2 block text-sm font-bold'>
+                        Name
                       </label>
                       <input
                         type='text'
-                        id='name'
-                        required
-                        className='w-full rounded-lg border-slate-300 border p-3 text-slate-900 focus:ring-2 focus:ring-barca-blue focus:border-transparent outline-none transition'
-                        placeholder='Lionel Messi'
+                        name='name'
+                        value={formData.name}
+                        onChange={handleChange}
+                        className={`w-full rounded-lg border bg-slate-50 p-3 outline-none focus:ring-1 transition ${
+                          errors.name
+                            ? "border-red-500 focus:ring-red-500"
+                            : "border-slate-300 focus:border-barca-blue focus:ring-barca-blue"
+                        }`}
+                        placeholder='Leo Messi'
                       />
+                      {errors.name && (
+                        <p className='mt-1 text-xs text-red-500 flex items-center gap-1'>
+                          <AlertCircle className='h-3 w-3' /> {errors.name}
+                        </p>
+                      )}
                     </div>
-                    <div>
-                      <label
-                        htmlFor='email'
-                        className='block text-sm font-medium text-slate-700 mb-2'
-                      >
-                        Email Address
+
+                    {/* EMAIL */}
+                    <div className='text-slate-900'>
+                      <label className='mb-2 block text-sm font-bold'>
+                        Email
                       </label>
                       <input
                         type='email'
-                        id='email'
-                        required
-                        className='w-full rounded-lg border-slate-300 border p-3 text-slate-900 focus:ring-2 focus:ring-barca-blue focus:border-transparent outline-none transition'
+                        name='email'
+                        value={formData.email}
+                        onChange={handleChange}
+                        className={`w-full rounded-lg border bg-slate-50 p-3 outline-none focus:ring-1 transition ${
+                          errors.email
+                            ? "border-red-500 focus:ring-red-500"
+                            : "border-slate-300 focus:border-barca-blue focus:ring-barca-blue"
+                        }`}
                         placeholder='leo@barca.com'
                       />
+                      {errors.email && (
+                        <p className='mt-1 text-xs text-red-500 flex items-center gap-1'>
+                          <AlertCircle className='h-3 w-3' /> {errors.email}
+                        </p>
+                      )}
                     </div>
                   </div>
 
-                  <div>
-                    <label
-                      htmlFor='subject'
-                      className='block text-sm font-medium text-slate-700 mb-2'
-                    >
+                  {/* TOPIC */}
+                  <div className='text-slate-900'>
+                    <label className='mb-2 block text-sm font-bold'>
                       Topic
                     </label>
-                    <select
-                      id='subject'
-                      className='w-full rounded-lg border-slate-300 border p-3 text-slate-900 focus:ring-2 focus:ring-barca-blue focus:border-transparent outline-none transition bg-white'
-                    >
-                      <option>General Inquiry</option>
-                      <option>Membership Question</option>
-                      <option>Sponsorship / Partnership</option>
-                      <option>Press / Media</option>
-                    </select>
+                    <div className='relative'>
+                      <select
+                        name='topic'
+                        value={formData.topic}
+                        onChange={handleChange}
+                        className='w-full appearance-none rounded-lg border border-slate-300 bg-slate-50 p-3 outline-none focus:border-barca-blue focus:ring-1 focus:ring-barca-blue '
+                      >
+                        <option>General Inquiry</option>
+                        <option>Membership Question</option>
+                        <option>Sponsorship / Partnership</option>
+                        <option>Press / Media</option>
+                      </select>
+                      <ChevronDown className='absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 pointer-events-none' />
+                    </div>
                   </div>
 
-                  <div>
-                    <label
-                      htmlFor='message'
-                      className='block text-sm font-medium text-slate-700 mb-2'
-                    >
+                  {/* MESSAGE */}
+                  <div className='text-slate-900'>
+                    <label className='mb-2 block text-sm font-bold '>
                       Message
                     </label>
                     <textarea
-                      id='message'
-                      rows={6}
-                      required
-                      className='w-full rounded-lg border-slate-300 border p-3 text-slate-900 focus:ring-2 focus:ring-barca-blue focus:border-transparent outline-none transition'
-                      placeholder='How can we help you?'
-                    />
+                      name='message'
+                      rows={4}
+                      value={formData.message}
+                      onChange={handleChange}
+                      className={`w-full rounded-lg border bg-slate-50 p-3 outline-none focus:ring-1 transition ${
+                        errors.message
+                          ? "border-red-500 focus:ring-red-500"
+                          : "border-slate-300 focus:border-barca-blue focus:ring-barca-blue"
+                      }`}
+                      placeholder='How can we help?'
+                    ></textarea>
+                    {errors.message && (
+                      <p className='mt-1 text-xs text-red-500 flex items-center gap-1'>
+                        <AlertCircle className='h-3 w-3' /> {errors.message}
+                      </p>
+                    )}
                   </div>
 
+                  {/* SUBMIT BUTTON */}
                   <button
                     type='submit'
-                    disabled={status === "submitting"}
-                    className='w-full rounded-xl bg-barca-blue py-4 text-lg font-bold text-white transition hover:bg-blue-900 disabled:opacity-50 disabled:cursor-not-allowed'
+                    disabled={isSubmitting}
+                    className='w-full rounded-lg bg-barca-blue px-8 py-4 font-bold text-white transition hover:bg-blue-900 shadow-lg shadow-blue-900/20 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center'
                   >
-                    {status === "submitting" ? "Sending..." : "Send Message"}
+                    {isSubmitting ? (
+                      <>
+                        <div className='h-5 w-5 animate-spin rounded-full border-2 border-white/30 border-t-white mr-2'></div>
+                        Sending...
+                      </>
+                    ) : (
+                      "Send Message"
+                    )}
                   </button>
                 </form>
               )}
             </div>
           </div>
-
-          {/* 3. SIDEBAR INFO */}
-          <div className='space-y-8'>
-            {/* Email Card */}
-            <div className='bg-barca-blue text-white rounded-2xl p-8 shadow-lg'>
-              <h3 className='font-bold text-xl mb-4 text-barca-gold'>
-                Direct Contact
-              </h3>
-              <p className='text-blue-100 mb-6 text-sm'>
-                Prefer email? You can reach the board directly at:
-              </p>
-              <a
-                href='mailto:info@penyasd.com'
-                className='flex items-center gap-3 font-semibold hover:text-barca-gold transition'
-              >
-                <svg
-                  className='w-5 h-5'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  stroke='currentColor'
-                >
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth={2}
-                    d='M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z'
-                  />
-                </svg>
-                info@penyasd.com
-              </a>
-            </div>
-
-            {/* Socials Card */}
-            <div className='bg-white rounded-2xl p-8 shadow-sm border border-slate-100'>
-              <h3 className='font-bold text-xl mb-6 text-slate-900'>
-                Follow the Penya
-              </h3>
-              <div className='space-y-4'>
-                <Link
-                  href='https://www.instagram.com/penyasandiego_'
-                  className='flex items-center gap-4 text-slate-600 hover:text-[#E1306C] transition group'
-                >
-                  <div className='h-10 w-10 flex items-center justify-center rounded-full bg-slate-100 group-hover:bg-[#E1306C]/10'>
-                    {/* Instagram Icon */}
-                    <svg
-                      className='w-5 h-5'
-                      fill='currentColor'
-                      viewBox='0 0 24 24'
-                    >
-                      <path d='M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.36-.2 6.78-2.618 6.98-6.98.058-1.28.072-1.689.072-4.948 0-3.259-.014-3.667-.072-4.947-.2-4.36-2.618-6.78-6.98-6.98-1.281-.059-1.689-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z' />
-                    </svg>
-                  </div>
-                  <span className='font-medium'>@PenyaSanDiego_</span>
-                </Link>
-
-                <Link
-                  href='https://www.facebook.com/PenyaSanDiego'
-                  className='flex items-center gap-4 text-slate-600 hover:text-[#1877F2] transition group'
-                >
-                  <div className='h-10 w-10 flex items-center justify-center rounded-full bg-slate-100 group-hover:bg-[#1877F2]/10'>
-                    {/* Facebook Icon */}
-                    <svg
-                      className='w-5 h-5'
-                      fill='currentColor'
-                      viewBox='0 0 24 24'
-                    >
-                      <path d='M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z' />
-                    </svg>
-                  </div>
-                  <span className='font-medium'>Facebook Page</span>
-                </Link>
-
-                <Link
-                  href='https://x.com/penya_san'
-                  className='flex items-center gap-4 text-slate-600 hover:text-black transition group'
-                >
-                  <div className='h-10 w-10 flex items-center justify-center rounded-full bg-slate-100 group-hover:bg-black/10'>
-                    {/* X / Twitter Icon */}
-                    <svg
-                      className='w-5 h-5'
-                      fill='currentColor'
-                      viewBox='0 0 24 24'
-                    >
-                      <path d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z' />
-                    </svg>
-                  </div>
-                  <span className='font-medium'>X (Twitter)</span>
-                </Link>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
+      </section>
+
+      {/* 4. FAQ SECTION */}
+      <section className='py-16 md:py-24 container mx-auto px-4 max-w-4xl'>
+        <h2 className='text-center text-3xl font-black uppercase text-slate-900 mb-12'>
+          Frequently Asked
+        </h2>
+        <div className='space-y-4'>
+          <details className='group rounded-xl bg-white shadow-sm border border-slate-100 open:ring-1 open:ring-slate-200'>
+            <summary className='flex cursor-pointer items-center justify-between p-6 font-bold text-slate-900 list-none'>
+              Do I need to be a member to watch games?
+              <span className='transition group-open:rotate-180'>
+                <ChevronDown className='h-5 w-5 text-slate-400' />
+              </span>
+            </summary>
+            <div className='px-6 pb-6 text-slate-600 leading-relaxed'>
+              No! Everyone is welcome to watch matches with us at Novo Brazil
+              Brewing. Membership is optional but supports the Penya and gets
+              you exclusive merch and perks.
+            </div>
+          </details>
+          <details className='group rounded-xl bg-white shadow-sm border border-slate-100 open:ring-1 open:ring-slate-200'>
+            <summary className='flex cursor-pointer items-center justify-between p-6 font-bold text-slate-900 list-none'>
+              Are kids allowed at the watch parties?
+              <span className='transition group-open:rotate-180'>
+                <ChevronDown className='h-5 w-5 text-slate-400' />
+              </span>
+            </summary>
+            <div className='px-6 pb-6 text-slate-600 leading-relaxed'>
+              Absolutely. Novo Brazil Otay Ranch is a family-friendly venue. We
+              have many members who bring their children to enjoy the matches.
+            </div>
+          </details>
+          <details className='group rounded-xl bg-white shadow-sm border border-slate-100 open:ring-1 open:ring-slate-200'>
+            <summary className='flex cursor-pointer items-center justify-between p-6 font-bold text-slate-900 list-none'>
+              How do I pick up my membership merch?
+              <span className='transition group-open:rotate-180'>
+                <ChevronDown className='h-5 w-5 text-slate-400' />
+              </span>
+            </summary>
+            <div className='px-6 pb-6 text-slate-600 leading-relaxed'>
+              Merch is available for pickup at any matchday event. Just find a
+              board member (look for the people checking in members), show your
+              confirmation email, and we'll get you sorted!
+            </div>
+          </details>
+        </div>
+      </section>
     </main>
   );
 }
