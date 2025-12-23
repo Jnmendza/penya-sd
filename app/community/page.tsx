@@ -78,7 +78,10 @@ export default function CommunityPage() {
 
             <div className='p-12 flex flex-col justify-center'>
               <h3 className='text-3xl font-bold text-slate-900 mb-6'>
-                Our Values
+                Our{" "}
+                <span className='text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-red-600'>
+                  Values
+                </span>
               </h3>
               <div className='space-y-6'>
                 <div>

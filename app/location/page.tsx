@@ -108,7 +108,10 @@ export default async function LocationPage() {
           {/* ... Rest of your existing content ... */}
           <div className='mb-12 text-center'>
             <h2 className='text-3xl font-black uppercase text-slate-900 md:text-4xl'>
-              Know Before You Go
+              Know Before{" "}
+              <span className='text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-red-600'>
+                You Go
+              </span>
             </h2>
             <p className='mt-4 text-slate-600 max-w-xl mx-auto'>
               Whether it's your first match or your hundredth, here is what you
@@ -187,20 +190,100 @@ export default async function LocationPage() {
       </section>
 
       {/* ATMOSPHERE GALLERY */}
+      {/* 2.5 ATMOSPHERE GALLERY (Bento Grid with next/image) */}
       <section className='py-16 pb-24 bg-slate-50'>
         <div className='container mx-auto px-4'>
-          {/* ... Keep your Bento Grid logic here ... */}
-          {/* (Just ensuring the structure remains intact) */}
           <div className='mb-12 text-center'>
             <h2 className='text-3xl font-black uppercase text-slate-900 md:text-4xl'>
-              Experience the <br />
-              <span className='text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-red-600'>
+              Experience the
+              <span className='text-transparent ml-2 bg-clip-text bg-gradient-to-r from-blue-700 to-red-600'>
                 Passion
               </span>
             </h2>
           </div>
-          {/* ... Bento Grid Content ... */}
-          {/* I am omitting the images block for brevity, paste your previous Bento Grid code here */}
+
+          {/* THE BENTO GRID */}
+          <div className='grid grid-cols-1 md:grid-cols-4 auto-rows-[200px] gap-4'>
+            {/* 1. LARGE MAIN SHOT (Crowd cheering) - Spans 2x2 */}
+            <div className='relative group overflow-hidden rounded-2xl md:col-span-2 md:row-span-2 bg-slate-200 shadow-md'>
+              <Image
+                src='https://images.unsplash.com/photo-1504198266287-1659872e6590?q=80&w=800&auto=format&fit=crop'
+                alt='Crowd cheering'
+                fill // <--- Fills the container
+                className='object-cover transition duration-700 group-hover:scale-110'
+                sizes='(max-width: 768px) 100vw, 50vw' // Optimization hint
+              />
+              <div className='absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent opacity-0 transition duration-500 group-hover:opacity-100 flex items-end p-6'>
+                <p className='font-bold text-white'>
+                  Full House for El Clásico
+                </p>
+              </div>
+            </div>
+
+            {/* 2. TALL SHOT (The Big Screen) - Spans 1x2 */}
+            <div className='relative group overflow-hidden rounded-2xl md:col-span-1 md:row-span-2 bg-slate-200 shadow-md'>
+              <Image
+                src='https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=800&auto=format&fit=crop'
+                alt='The Big Screen'
+                fill
+                className='object-cover transition duration-700 group-hover:scale-110'
+                sizes='(max-width: 768px) 100vw, 25vw'
+              />
+              <div className='absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent opacity-0 transition duration-500 group-hover:opacity-100 flex items-end p-6'>
+                <p className='font-bold text-white'>Massive LED Wall</p>
+              </div>
+            </div>
+
+            {/* 3. DETAIL SHOT (Beer/Food) */}
+            <div className='relative group overflow-hidden rounded-2xl bg-slate-200 shadow-md'>
+              <Image
+                src='https://images.unsplash.com/photo-1571115177098-24ec42ed204d?q=80&w=800&auto=format&fit=crop'
+                alt='Novo Beer'
+                fill
+                className='object-cover transition duration-700 group-hover:scale-110'
+                sizes='(max-width: 768px) 100vw, 25vw'
+              />
+            </div>
+
+            {/* 4. COMMUNITY SHOT (Kids/Family) */}
+            <div className='relative group overflow-hidden rounded-2xl bg-slate-200 shadow-md'>
+              <Image
+                src='https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?q=80&w=800&auto=format&fit=crop'
+                alt='Family Friendly'
+                fill
+                className='object-cover transition duration-700 group-hover:scale-110'
+                sizes='(max-width: 768px) 100vw, 25vw'
+              />
+            </div>
+
+            {/* 5. WIDE SHOT (Group Photo) - Spans 2 wide */}
+            <div className='relative group overflow-hidden rounded-2xl md:col-span-2 bg-slate-200 shadow-md'>
+              <Image
+                src='https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?q=80&w=800&auto=format&fit=crop'
+                alt='Group Photo'
+                fill
+                className='object-cover transition duration-700 group-hover:scale-110'
+                sizes='(max-width: 768px) 100vw, 50vw'
+              />
+              <div className='absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent opacity-0 transition duration-500 group-hover:opacity-100 flex items-end p-6'>
+                <p className='font-bold text-white'>Penya Family</p>
+              </div>
+            </div>
+
+            {/* 6. FILLER SHOT (Celebration) - Spans 2 wide */}
+            <div className='relative group overflow-hidden rounded-2xl md:col-span-2 bg-slate-200 shadow-md'>
+              <Image
+                src='https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?q=80&w=800&auto=format&fit=crop'
+                alt='Group Photo'
+                fill
+                className='object-cover transition duration-700 group-hover:scale-110'
+                sizes='(max-width: 768px) 100vw, 50vw'
+              />
+              <div className='absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent opacity-0 transition duration-500 group-hover:opacity-100 flex items-end p-6'>
+                <p className='font-bold text-white'>Fun for the whole family</p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 

@@ -31,7 +31,10 @@ export default function CommunityHighlights() {
         {/* Section Header */}
         <div className='mb-16 text-center'>
           <h2 className='mb-4 text-3xl font-extrabold text-slate-900 sm:text-4xl'>
-            More Than Just 90 Minutes
+            More Than Just{" "}
+            <span className='text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-red-600'>
+              90 Minutes
+            </span>
           </h2>
           <p className='mx-auto max-w-2xl text-lg text-slate-600'>
             Penya Blaugrana San Diego is dedicated to making a positive impact
