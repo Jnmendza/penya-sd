@@ -4,7 +4,7 @@ import CommunityHighlights from "@/components/CommunityHighlights";
 
 export default function CommunityPage() {
   return (
-    <main className='min-h-screen bg-slate-50 pt-12 pb-12'>
+    <main className='min-h-screen bg-slate-50 pb-12'>
       {/* 1. HEADER SECTION */}
       <section className='relative w-full overflow-hidden bg-slate-900 py-24 md:py-32'>
         {/* 1. BACKGROUND GRADIENT (Barça Colors) */}

@@ -254,11 +254,6 @@ export default function LocationPage() {
               <p className='font-bold text-white text-xl'>
                 Novo Brazil Brewing - Otay Ranch
               </p>
-              http://googleusercontent.com/map_location_reference/1
-              <p>
-                [Novo Brazil Brewing - Otay
-                Ranch](http://googleusercontent.com/map_location_reference/0)
-              </p>
               <p>2015 Birch Rd, Suite 1017</p>
               <p>Chula Vista, CA 91915</p>
             </address>
