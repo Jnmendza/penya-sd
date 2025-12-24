@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Penya Blaugrana San Diego 🔵🔴
 
-## Getting Started
+The official website and membership management platform for the FC Barcelona Supporters Group of San Diego.
 
-First, run the development server:
+Built with **Next.js 15 (App Router)**, **TypeScript**, **Tailwind CSS**, and **Supabase**.
+
+## 🚀 Features
+
+### 1. Dynamic Match Scheduler
+
+- **Automated Sync:** Fetches match schedules via API (or manual input).
+- **Smart Display:** The homepage automatically updates to show the _next_ upcoming match based on current time.
+- **Location Awareness:** distinct display logic for Home (Barcelona) vs. Away matches.
+
+### 2. Membership Engine ("The Identity System")
+
+A custom-built membership tracking system designed to handle seasonality without data duplication.
+
+- **Upsert Logic:** Uses specific SQL functions to distinguish between _New Members_ and _Returning Veterans_.
+- **Historical Tracking:** Uses a PostgreSQL Text Array (`text[]`) column (`seasons_active`) to track every season a member has been active (e.g., `['2024/2025', '2026/2027']`).
+- **Conflict Resolution:** Prevents duplicate emails while allowing profile updates (phone, name) during renewal.
+
+### 3. Admin Dashboard (`/admin`)
+
+A protected portal for board members to manage the Penya.
+
+- **Role-Based Access:** Secured via Supabase Auth.
+- **Member Management:** View, search, and export the member roster.
+- **Match Control:** Toggle specific matches as "Official Watch Parties" to highlight them on the frontend.
+- **Config Control:** Open/Close membership registration globally.
+
+### 4. Venue & Community
+
+- **Interactive Maps:** Google Maps integration for the Novo Brazil watch party location.
+- **Bento Grid Gallery:** A responsive CSS grid layout showcasing the atmosphere, tech, and family-friendly vibe.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Framework:** [Next.js 15](https://nextjs.org/) (App Router)
+- **Language:** [TypeScript](https://www.typescriptlang.org/)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+- **Database & Auth:** [Supabase](https://supabase.com/) (PostgreSQL)
+- **Icons:** [Lucide React](https://lucide.dev/)
+
+---
+
+## ⚙️ Local Development Setup
+
+### 1. Clone the repository
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone [https://github.com/your-username/penya-sd.git](https://github.com/your-username/penya-sd.git)
+cd penya-sd
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
