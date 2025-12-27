@@ -1,4 +1,5 @@
-import { createClient } from "@/utils/supabase/server"; // <--- Import this
+import { createClient } from "@/utils/supabase/server";
+import Link from "next/link";
 import Image from "next/image";
 import {
   MapPin,
@@ -119,8 +120,6 @@ export default async function LocationPage() {
           </div>
 
           <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-4'>
-            {/* ... Keep your amenity cards here ... */}
-
             {/* Card 1 */}
             <div className='rounded-2xl bg-white p-6 shadow-sm border border-slate-100 hover:shadow-md transition'>
               <div className='mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-orange-100 text-orange-600'>
@@ -133,14 +132,14 @@ export default async function LocationPage() {
                 Hungry? Novo offers a full kitchen featuring Picanha steaks,
                 gourmet burgers, empanadas, and massive nacho platters.
               </p>
-              <a
+              <Link
                 href='https://www.novobrew.com/menu'
                 target='_blank'
                 rel='noreferrer'
                 className='inline-flex items-center text-sm font-bold text-barca-blue hover:underline'
               >
                 View Menu <ArrowRight className='ml-1 h-4 w-4' />
-              </a>
+              </Link>
             </div>
 
             {/* Card 2 */}
@@ -308,14 +307,14 @@ export default async function LocationPage() {
               <p>Chula Vista, CA 91915</p>
             </address>
 
-            <a
+            <Link
               href='https://www.google.com/maps/search/?api=1&query=Novo+Brazil+Brewing+Otay+Ranch'
               target='_blank'
               rel='noreferrer'
               className='w-full sm:w-auto rounded-xl bg-barca-red px-8 py-4 text-center font-bold text-white transition hover:bg-red-700 hover:shadow-lg hover:shadow-red-900/20'
             >
               Get Directions
-            </a>
+            </Link>
           </div>
 
           {/* MAP EMBED SIDE */}

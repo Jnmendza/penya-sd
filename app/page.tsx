@@ -1,23 +1,14 @@
 export const dynamic = "force-dynamic";
 
-import { createClient } from "@/utils/supabase/server";
 import Hero from "@/components/Hero";
-import NextMatch from "@/components/NextMatch"; // No longer need MatchProps type
+import NextMatch from "@/components/NextMatch";
 import MembershipCTA from "@/components/MembershipCTA";
 import CommunityHighlights from "@/components/CommunityHighlights";
+import { getGlobalConfig } from "@/utils/getGlobalConfig";
 
 export default async function Home() {
-  const supabase = await createClient();
-
   // 1. Fetch Membership Status Only
-  // We removed the match fetching logic because NextMatch handles it internally now
-  const { data: config } = await supabase
-    .from("app_config")
-    .select("value")
-    .eq("key", "membership_open")
-    .single();
-
-  const isMembershipOpen = config?.value ?? false;
+  const { isMembershipOpen, currentSeason } = await getGlobalConfig();
 
   return (
     <main className='flex min-h-screen flex-col bg-slate-50'>
@@ -31,7 +22,7 @@ export default async function Home() {
       </div>
 
       <div className='mt-24'>
-        <MembershipCTA isOpen={isMembershipOpen} />
+        <MembershipCTA isOpen={isMembershipOpen} seasonId={currentSeason} />
       </div>
 
       <CommunityHighlights />
