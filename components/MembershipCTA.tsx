@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 interface Props {
   isOpen: boolean;
@@ -112,23 +113,13 @@ export default function MembershipCTA({ isOpen }: Props) {
           <div className='relative'>
             <div className='relative aspect-square w-full max-w-lg mx-auto rounded-2xl bg-gradient-to-br from-white/5 to-white/10 p-8 border border-white/10 backdrop-blur-sm shadow-2xl'>
               <div className='absolute inset-0 flex flex-col items-center justify-center text-center p-6'>
-                {/* Placeholder for Scarf Image */}
-                <svg
-                  className='w-32 h-32 text-white/20 mb-4'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  stroke='currentColor'
-                >
-                  <path
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth={1}
-                    d='M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z'
-                  />
-                </svg>
-                <p className='text-white/40 font-mono text-sm uppercase tracking-widest'>
-                  [ Image: 2025 Scarf & Pin Combo ]
-                </p>
+                <Image
+                  src='https://erlplcduvrowbiwobjen.supabase.co/storage/v1/object/public/assets/merch.png'
+                  alt='2025 Scarf & Pin Combo'
+                  width={500}
+                  height={500}
+                  className='object-contain transition-transform duration-500 hover:scale-110 rounded-2xl'
+                />
               </div>
             </div>
 

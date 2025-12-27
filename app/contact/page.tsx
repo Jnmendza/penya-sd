@@ -103,7 +103,7 @@ export default function ContactPage() {
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-10"></div>
 
         <div className='container relative z-10 mx-auto px-4 text-center'>
-          <span className='mb-6 inline-block rounded-full bg-blue-900/50 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-blue-200 backdrop-blur-sm border border-blue-700/50'>
+          <span className='mb-6 inline-block rounded-full bg-yellow-400/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-yellow-400 border border-yellow-400/20 backdrop-blur-sm'>
             Club Offices
           </span>
           <h1 className='mb-6 text-5xl font-black uppercase tracking-wide text-white sm:text-7xl drop-shadow-lg'>
@@ -138,13 +138,15 @@ export default function ContactPage() {
             <div className='group text-center'>
               <div className='relative mx-auto mb-6 h-40 w-40 overflow-hidden rounded-full border-4 border-slate-100 shadow-lg transition duration-500 group-hover:border-barca-blue group-hover:scale-105'>
                 <Image
-                  src='https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=400&auto=format&fit=crop'
+                  src='https://erlplcduvrowbiwobjen.supabase.co/storage/v1/object/public/assets/president.jpeg?q=80&w=400&auto=format&fit=crop'
                   alt='President'
                   fill
                   className='object-cover'
                 />
               </div>
-              <h3 className='text-xl font-bold text-slate-900'>Name Here</h3>
+              <h3 className='text-xl font-bold text-slate-900'>
+                Ruben Aguilera
+              </h3>
               <p className='text-sm font-bold uppercase tracking-wider text-barca-red'>
                 President
               </p>
@@ -156,13 +158,13 @@ export default function ContactPage() {
             <div className='group text-center'>
               <div className='relative mx-auto mb-6 h-40 w-40 overflow-hidden rounded-full border-4 border-slate-100 shadow-lg transition duration-500 group-hover:border-barca-blue group-hover:scale-105'>
                 <Image
-                  src='https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=400&auto=format&fit=crop'
+                  src='https://erlplcduvrowbiwobjen.supabase.co/storage/v1/object/public/assets/vp.jpeg?q=80&w=400&auto=format&fit=crop'
                   alt='Vice President'
                   fill
                   className='object-cover'
                 />
               </div>
-              <h3 className='text-xl font-bold text-slate-900'>Name Here</h3>
+              <h3 className='text-xl font-bold text-slate-900'>Carlos Acuña</h3>
               <p className='text-sm font-bold uppercase tracking-wider text-barca-blue'>
                 Vice President
               </p>
@@ -174,13 +176,13 @@ export default function ContactPage() {
             <div className='group text-center'>
               <div className='relative mx-auto mb-6 h-40 w-40 overflow-hidden rounded-full border-4 border-slate-100 shadow-lg transition duration-500 group-hover:border-barca-blue group-hover:scale-105'>
                 <Image
-                  src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=400&auto=format&fit=crop'
+                  src='https://erlplcduvrowbiwobjen.supabase.co/storage/v1/object/public/assets/sec.jpeg?q=80&w=400&auto=format&fit=crop'
                   alt='Treasurer'
                   fill
                   className='object-cover'
                 />
               </div>
-              <h3 className='text-xl font-bold text-slate-900'>Name Here</h3>
+              <h3 className='text-xl font-bold text-slate-900'>Daniel Lopez</h3>
               <p className='text-sm font-bold uppercase tracking-wider text-yellow-500'>
                 Treasurer
               </p>

@@ -14,6 +14,9 @@ export default function CommunityPage() {
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-10"></div>
 
         <div className='container relative z-10 mx-auto px-4 text-center'>
+          <span className='mb-6 inline-block rounded-full bg-yellow-400/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-yellow-400 border border-yellow-400/20 backdrop-blur-sm'>
+            Our Community
+          </span>
           {/* 2. THE MOTTO - Massive & Bold */}
           <h1 className='text-5xl font-black uppercase tracking-tighter text-white sm:text-7xl md:text-8xl'>
             Més Que{" "}
@@ -67,9 +70,8 @@ export default function CommunityPage() {
         <div className='bg-white rounded-3xl shadow-xl overflow-hidden'>
           <div className='grid md:grid-cols-2'>
             <div className='relative h-64 md:h-auto bg-slate-200'>
-              {/* TIP: Replace with a photo of your group doing charity work */}
               <Image
-                src='https://images.unsplash.com/photo-1559027615-cd4628902d4a?q=80&w=2948&auto=format&fit=crop'
+                src='https://erlplcduvrowbiwobjen.supabase.co/storage/v1/object/public/assets/community.jpg?q=80&w=2948&auto=format&fit=crop'
                 alt='PBSD Charity Work'
                 fill
                 className='object-cover'
