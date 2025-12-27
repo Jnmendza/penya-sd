@@ -105,7 +105,6 @@ export default async function LocationPage() {
       {/* 2. THE VENUE EXPERIENCE */}
       <section className='pt-16 md:pt-24 pb-8'>
         <div className='container mx-auto px-4'>
-          {/* ... Rest of your existing content ... */}
           <div className='mb-12 text-center'>
             <h2 className='text-3xl font-black uppercase text-slate-900 md:text-4xl'>
               Know Before{" "}
@@ -207,7 +206,7 @@ export default async function LocationPage() {
             {/* 1. LARGE MAIN SHOT (Crowd cheering) - Spans 2x2 */}
             <div className='relative group overflow-hidden rounded-2xl md:col-span-2 md:row-span-2 bg-slate-200 shadow-md'>
               <Image
-                src='https://images.unsplash.com/photo-1504198266287-1659872e6590?q=80&w=800&auto=format&fit=crop'
+                src='https://erlplcduvrowbiwobjen.supabase.co/storage/v1/object/public/assets/group-shot.jpeg?q=80&w=800&auto=format&fit=crop'
                 alt='Crowd cheering'
                 fill // <--- Fills the container
                 className='object-cover transition duration-700 group-hover:scale-110'
@@ -223,7 +222,7 @@ export default async function LocationPage() {
             {/* 2. TALL SHOT (The Big Screen) - Spans 1x2 */}
             <div className='relative group overflow-hidden rounded-2xl md:col-span-1 md:row-span-2 bg-slate-200 shadow-md'>
               <Image
-                src='https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=800&auto=format&fit=crop'
+                src='https://erlplcduvrowbiwobjen.supabase.co/storage/v1/object/public/assets/tech-shot.jpeg?q=80&w=800&auto=format&fit=crop'
                 alt='The Big Screen'
                 fill
                 className='object-cover transition duration-700 group-hover:scale-110'
@@ -237,7 +236,7 @@ export default async function LocationPage() {
             {/* 3. DETAIL SHOT (Beer/Food) */}
             <div className='relative group overflow-hidden rounded-2xl bg-slate-200 shadow-md'>
               <Image
-                src='https://images.unsplash.com/photo-1571115177098-24ec42ed204d?q=80&w=800&auto=format&fit=crop'
+                src='https://erlplcduvrowbiwobjen.supabase.co/storage/v1/object/public/assets/vibes-1.jpeg?q=80&w=800&auto=format&fit=crop'
                 alt='Novo Beer'
                 fill
                 className='object-cover transition duration-700 group-hover:scale-110'
@@ -248,7 +247,7 @@ export default async function LocationPage() {
             {/* 4. COMMUNITY SHOT (Kids/Family) */}
             <div className='relative group overflow-hidden rounded-2xl bg-slate-200 shadow-md'>
               <Image
-                src='https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?q=80&w=800&auto=format&fit=crop'
+                src='https://erlplcduvrowbiwobjen.supabase.co/storage/v1/object/public/assets/family-shot2.jpg?q=80&w=800&auto=format&fit=crop'
                 alt='Family Friendly'
                 fill
                 className='object-cover transition duration-700 group-hover:scale-110'
@@ -259,7 +258,7 @@ export default async function LocationPage() {
             {/* 5. WIDE SHOT (Group Photo) - Spans 2 wide */}
             <div className='relative group overflow-hidden rounded-2xl md:col-span-2 bg-slate-200 shadow-md'>
               <Image
-                src='https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?q=80&w=800&auto=format&fit=crop'
+                src='https://erlplcduvrowbiwobjen.supabase.co/storage/v1/object/public/assets/bryant.jpg?q=80&w=800&auto=format&fit=crop'
                 alt='Group Photo'
                 fill
                 className='object-cover transition duration-700 group-hover:scale-110'
@@ -273,7 +272,7 @@ export default async function LocationPage() {
             {/* 6. FILLER SHOT (Celebration) - Spans 2 wide */}
             <div className='relative group overflow-hidden rounded-2xl md:col-span-2 bg-slate-200 shadow-md'>
               <Image
-                src='https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?q=80&w=800&auto=format&fit=crop'
+                src='https://erlplcduvrowbiwobjen.supabase.co/storage/v1/object/public/assets/vibes-2.jpeg?q=80&w=800&auto=format&fit=crop'
                 alt='Group Photo'
                 fill
                 className='object-cover transition duration-700 group-hover:scale-110'

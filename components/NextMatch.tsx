@@ -31,17 +31,22 @@ export default async function NextMatch() {
     );
   }
 
-  // Format Date logic
+  // Format Date logic (FIXED: Forces San Diego Timezone)
   const matchDate = new Date(nextMatch.utc_date);
-  const dateStr = matchDate.toLocaleDateString("en-US", {
+
+  const dateStr = new Intl.DateTimeFormat("en-US", {
     weekday: "long",
     month: "short",
     day: "numeric",
-  });
-  const timeStr = matchDate.toLocaleTimeString("en-US", {
-    hour: "2-digit",
+    timeZone: "America/Los_Angeles", // Forces PST/PDT
+  }).format(matchDate);
+
+  const timeStr = new Intl.DateTimeFormat("en-US", {
+    hour: "numeric",
     minute: "2-digit",
-  });
+    hour12: true,
+    timeZone: "America/Los_Angeles", // Forces PST/PDT
+  }).format(matchDate);
 
   return (
     <div className='group relative w-full overflow-hidden rounded-2xl bg-white shadow-xl shadow-slate-200/50 ring-1 ring-slate-100 transition hover:shadow-2xl hover:shadow-blue-900/5'>

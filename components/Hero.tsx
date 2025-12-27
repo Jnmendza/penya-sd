@@ -7,7 +7,7 @@ export default function Hero() {
       <div className='absolute inset-0 z-0'>
         {/* Placeholder: Replace 'src' with your actual Novo Brewery crowd photo */}
         <img
-          src='https://images.unsplash.com/photo-1518091043644-c1d4457512c6?q=80&w=2831&auto=format&fit=crop'
+          src='https://erlplcduvrowbiwobjen.supabase.co/storage/v1/object/public/assets/hero-shot.jpeg?q=80&w=2831&auto=format&fit=crop'
           alt='Penya Blaugrana San Diego Crowd'
           className='h-full w-full object-cover opacity-50'
         />
