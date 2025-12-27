@@ -1,38 +1,17 @@
-import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import AdminTabs from "@/components/AdminTabs";
 import { signOut } from "@/app/actions/auth";
 import { LogOut } from "lucide-react";
+import { getGlobalConfig } from "@/utils/getGlobalConfig";
+import { getAdminData } from "@/utils/getAdminData";
 
 export default async function AdminPage() {
-  const supabase = await createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { isMembershipOpen, currentSeason } = await getGlobalConfig();
+  const { user, members, matches } = await getAdminData();
 
   if (!user) {
     return redirect("/login");
   }
-
-  // 1. Fetch Members
-  const { data: members } = await supabase
-    .from("members")
-    .select("*")
-    .order("full_name", { ascending: true });
-
-  // 2. Fetch Config
-  const { data: config } = await supabase
-    .from("app_config")
-    .select("*")
-    .eq("key", "membership_open")
-    .single();
-
-  // 3. Fetch Matches
-  const { data: matches } = await supabase
-    .from("matches")
-    .select("*")
-    .order("utc_date", { ascending: true });
 
   return (
     <main className='min-h-screen bg-slate-50 pb-20'>
@@ -62,7 +41,7 @@ export default async function AdminPage() {
 
         <AdminTabs
           members={members || []}
-          config={config?.value === "true"}
+          config={isMembershipOpen}
           matches={matches || []}
         />
       </div>

@@ -1,4 +1,5 @@
 import { createClient } from "@/utils/supabase/server";
+import Link from "next/link";
 import Image from "next/image";
 import { Calendar, MapPin, ArrowRight } from "lucide-react";
 
@@ -131,12 +132,12 @@ export default async function NextMatch() {
             </div>
           </div>
 
-          <a
+          <Link
             href='/location'
             className='inline-flex items-center gap-1 text-sm font-bold text-barca-blue hover:text-blue-900 transition hover:translate-x-1'
           >
             Get Directions <ArrowRight className='h-4 w-4' />
-          </a>
+          </Link>
         </div>
       </div>
     </div>

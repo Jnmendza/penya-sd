@@ -3,9 +3,10 @@ import Image from "next/image";
 
 interface Props {
   isOpen: boolean;
+  seasonId: string;
 }
 
-export default function MembershipCTA({ isOpen }: Props) {
+export default function MembershipCTA({ isOpen, seasonId }: Props) {
   return (
     <section className='relative overflow-hidden bg-barca-blue py-24 text-white'>
       {/* Background decoration */}
@@ -25,7 +26,7 @@ export default function MembershipCTA({ isOpen }: Props) {
               }`}
             >
               {isOpen
-                ? "2025/26 SEASON MEMBERSHIP"
+                ? `${seasonId} SEASON MEMBERSHIP`
                 : "MEMBERSHIP CURRENTLY CLOSED"}
             </div>
 

@@ -51,12 +51,12 @@ export default function CommunityPage() {
 
           {/* OPTIONAL: Call to Action Button */}
           <div className='mt-8'>
-            <a
-              href='#partner'
+            <Link
+              href='/contact'
               className='inline-flex items-center gap-2 text-sm font-bold text-yellow-400 hover:text-yellow-300 transition hover:translate-x-1'
             >
               Partner with us for a cause <span>→</span>
-            </a>
+            </Link>
           </div>
         </div>
       </section>
