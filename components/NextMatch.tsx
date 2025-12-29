@@ -1,4 +1,5 @@
 import { createClient } from "@/utils/supabase/server";
+import Link from "next/link";
 import Image from "next/image";
 import { Calendar, MapPin, ArrowRight } from "lucide-react";
 
@@ -93,7 +94,7 @@ export default async function NextMatch() {
           {/* VS / TIME */}
           <div className='flex flex-col items-center justify-center w-1/3 order-2 md:order-2'>
             <div className='text-sm font-black text-slate-300 mb-2'>VS</div>
-            <div className='flex items-center justify-center rounded-lg bg-slate-50 px-4 py-2 w-full md:w-auto border border-slate-100'>
+            <div className='flex items-center justify-center rounded-lg bg-slate-50 px-4 py-2 w-full md:w-auto border border-slate-100 whitespace-nowrap'>
               <span className='text-xl md:text-2xl font-black text-slate-900'>
                 {timeStr}
               </span>
@@ -131,12 +132,12 @@ export default async function NextMatch() {
             </div>
           </div>
 
-          <a
+          <Link
             href='/location'
             className='inline-flex items-center gap-1 text-sm font-bold text-barca-blue hover:text-blue-900 transition hover:translate-x-1'
           >
             Get Directions <ArrowRight className='h-4 w-4' />
-          </a>
+          </Link>
         </div>
       </div>
     </div>

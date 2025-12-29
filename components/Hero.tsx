@@ -15,8 +15,8 @@ export default function Hero() {
         <div className='absolute inset-0 bg-gradient-to-t from-barca-blue/90 via-slate-900/60 to-transparent' />
       </div>
 
-      {/* 2. Content Layer */}
-      <div className='relative z-10 flex h-full flex-col items-center justify-center px-4 text-center text-white'>
+      {/* 2. Content Layer - THE FIX IS HERE */}
+      <div className='relative z-10 flex h-full flex-col items-center justify-center px-4 text-center text-white pt-32 pb-32 md:pb-48'>
         {/* Badge */}
         <div className='mb-6 inline-block rounded-full border border-barca-gold/50 bg-barca-blue/30 px-4 py-1 backdrop-blur-md'>
           <span className='text-sm font-semibold tracking-wide text-barca-gold uppercase'>

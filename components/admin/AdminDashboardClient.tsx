@@ -10,8 +10,8 @@ interface Member {
   email: string;
   phone: string;
   status: string;
-  has_scarf: boolean; // <--- NEW
-  has_pin: boolean; // <--- NEW
+  has_scarf: boolean;
+  has_pin: boolean;
 }
 
 interface Props {
@@ -29,7 +29,7 @@ export default function AdminDashboardClient({
   // --- FILTERS ---
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedLetter, setSelectedLetter] = useState<string | null>(null);
-  const [showPendingOnly, setShowPendingOnly] = useState(false); // <--- NEW FILTER
+  const [showPendingOnly, setShowPendingOnly] = useState(false);
 
   const [loadingId, setLoadingId] = useState<string | null>(null);
   const supabase = createClient();

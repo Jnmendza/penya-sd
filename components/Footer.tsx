@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { NAV_LINKS } from "../utils/navLinks";
 
 export default function Footer() {
   return (
@@ -26,27 +27,21 @@ export default function Footer() {
           </div>
 
           {/* Quick Links */}
-          <div className='flex gap-6 text-sm font-medium'>
-            <Link href='/' className='hover:text-barca-gold transition'>
-              Home
-            </Link>
-            <Link href='/location' className='hover:text-barca-gold transition'>
-              Location
-            </Link>
-            <Link
-              href='/community'
-              className='hover:text-barca-gold transition'
-            >
-              Community
-            </Link>
-            <Link href='/contact' className='hover:text-barca-gold transition'>
-              Contact
-            </Link>
+          <div className='flex gap-4 text-sm font-medium'>
+            {NAV_LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className='hover:text-barca-gold transition'
+              >
+                {link.label}
+              </Link>
+            ))}
           </div>
 
           {/* Socials / Copyright */}
           <div className='text-center md:text-right text-sm'>
-            <p>© 2025 PBSD. Visca Barça.</p>
+            <p>© 2026 PBSD. Visca Barça.</p>
           </div>
         </div>
       </div>

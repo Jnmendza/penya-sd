@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
+import { NAV_LINKS } from "../utils/navLinks";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -53,38 +54,17 @@ export default function Navbar() {
 
         {/* DESKTOP MENU */}
         <div className='hidden items-center gap-8 md:flex'>
-          <Link
-            href='/'
-            className={`text-sm font-medium hover:text-barca-gold transition ${
-              pathname === "/" ? "text-barca-gold" : "text-white"
-            }`}
-          >
-            Home
-          </Link>
-          <Link
-            href='/location'
-            className={`text-sm font-medium hover:text-barca-gold transition ${
-              pathname === "/location" ? "text-barca-gold" : "text-white"
-            }`}
-          >
-            Location
-          </Link>
-          <Link
-            href='/community'
-            className={`text-sm font-medium hover:text-barca-gold transition ${
-              pathname === "/community" ? "text-barca-gold" : "text-white"
-            }`}
-          >
-            Community
-          </Link>
-          <Link
-            href='/contact'
-            className={`text-sm font-medium hover:text-barca-gold transition ${
-              pathname === "/contact" ? "text-barca-gold" : "text-white"
-            }`}
-          >
-            Contact
-          </Link>
+          {NAV_LINKS.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={`text-sm font-medium hover:text-barca-gold transition ${
+                pathname === link.href ? "text-barca-gold" : "text-white"
+              }`}
+            >
+              {link.label}
+            </Link>
+          ))}
         </div>
 
         {/* CTA BUTTON - RENAMED */}
@@ -138,27 +118,18 @@ export default function Navbar() {
       {isMobileMenuOpen && (
         <div className='absolute top-full left-0 w-full bg-slate-900 border-t border-white/10 p-4 md:hidden shadow-xl'>
           <div className='flex flex-col space-y-4'>
-            <Link
-              href='/'
-              className='block text-white hover:text-barca-gold'
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Home
-            </Link>
-            <Link
-              href='/location'
-              className='block text-white hover:text-barca-gold'
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Location
-            </Link>
-            <Link
-              href='/community'
-              className='block text-white hover:text-barca-gold'
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Community
-            </Link>
+            {NAV_LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`block text-white hover:text-barca-gold ${
+                  pathname === link.href ? "text-barca-gold font-bold" : ""
+                }`}
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {link.label}
+              </Link>
+            ))}
             <Link
               href='/membership'
               className='block w-full rounded-lg bg-barca-gold py-3 text-center font-bold text-barca-blue'
