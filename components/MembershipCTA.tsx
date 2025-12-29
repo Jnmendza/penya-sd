@@ -81,7 +81,7 @@ export default function MembershipCTA({ isOpen, seasonId }: Props) {
                 {isOpen ? (
                   <div>
                     <span className='block text-3xl font-bold text-white'>
-                      $25.00
+                      $30.00
                     </span>
                     <span className='text-sm text-blue-200'>/ per year</span>
                   </div>
@@ -91,14 +91,14 @@ export default function MembershipCTA({ isOpen, seasonId }: Props) {
                       Enrollment Window
                     </span>
                     <span className='text-sm text-slate-400'>
-                      July — September
+                      May — December
                     </span>
                   </div>
                 )}
 
                 <Link
                   href='/membership'
-                  className={`rounded-full px-8 py-4 text-lg font-bold transition shadow-xl ${
+                  className={`rounded-full px-8 py-4 text-lg font-bold transition shadow-xl whitespace-nowrap ${
                     isOpen
                       ? "bg-barca-gold text-barca-blue hover:bg-yellow-400 hover:scale-105"
                       : "bg-slate-700 text-white hover:bg-slate-600"

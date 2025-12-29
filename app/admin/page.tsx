@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import AdminTabs from "@/components/AdminTabs";
+import AdminTabs from "@/components/admin/AdminTabs";
 import { signOut } from "@/app/actions/auth";
 import { LogOut } from "lucide-react";
 import { getGlobalConfig } from "@/utils/getGlobalConfig";

@@ -11,6 +11,12 @@ import {
   Calendar,
 } from "lucide-react";
 
+export const metadata = {
+  title: "Location | Penya Blaugrana San Diego",
+  description:
+    "Where the magic happens. Our headquarters in Otay Ranch, San Diego.",
+};
+
 // 1. Make function ASYNC
 export default async function LocationPage() {
   const supabase = await createClient();

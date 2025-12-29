@@ -1,5 +1,11 @@
 export const dynamic = "force-dynamic";
 
+export const metadata = {
+  title: "Penya Blaugrana San Diego",
+  description:
+    "Where the magic happens. Our headquarters in Otay Ranch, San Diego.",
+};
+
 import Hero from "@/components/Hero";
 import NextMatch from "@/components/NextMatch";
 import MembershipCTA from "@/components/MembershipCTA";
@@ -17,7 +23,7 @@ export default async function Home() {
       {/* 2. THE FIX: Just render the component. 
           It fetches its own data from the 'matches' table 
           and handles its own 'No Match' fallback state. */}
-      <div className='relative z-20 mx-auto -mt-24 w-full max-w-4xl px-4'>
+      <div className='relative z-20 mx-auto -mt-12 md:-mt-24 w-full max-w-4xl px-4'>
         <NextMatch />
       </div>
 

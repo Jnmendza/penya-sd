@@ -2,6 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import CommunityHighlights from "@/components/CommunityHighlights";
 
+export const metadata = {
+  title: "Community | Penya Blaugrana San Diego",
+  description:
+    "A global family. A local impact. Join us in making San Diego a better place.",
+};
+
 export default function CommunityPage() {
   return (
     <main className='min-h-screen bg-slate-50 pb-12'>

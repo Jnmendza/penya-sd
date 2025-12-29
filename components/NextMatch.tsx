@@ -94,7 +94,7 @@ export default async function NextMatch() {
           {/* VS / TIME */}
           <div className='flex flex-col items-center justify-center w-1/3 order-2 md:order-2'>
             <div className='text-sm font-black text-slate-300 mb-2'>VS</div>
-            <div className='flex items-center justify-center rounded-lg bg-slate-50 px-4 py-2 w-full md:w-auto border border-slate-100'>
+            <div className='flex items-center justify-center rounded-lg bg-slate-50 px-4 py-2 w-full md:w-auto border border-slate-100 whitespace-nowrap'>
               <span className='text-xl md:text-2xl font-black text-slate-900'>
                 {timeStr}
               </span>

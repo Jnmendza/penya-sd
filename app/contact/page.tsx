@@ -4,6 +4,7 @@ import { ChevronDown } from "lucide-react";
 import Image from "next/image";
 import ContactForm from "@/components/ContactForm";
 import { faqs } from "@/utils/faqs";
+import { board } from "@/utils/board";
 
 export default function ContactPage() {
   return (
@@ -43,64 +44,30 @@ export default function ContactPage() {
               California.
             </p>
           </div>
-
           <div className='grid gap-8 md:grid-cols-3 max-w-5xl mx-auto'>
-            {/* BOARD MEMBER 1 */}
-            <div className='group text-center'>
-              <div className='relative mx-auto mb-6 h-40 w-40 overflow-hidden rounded-full border-4 border-slate-100 shadow-lg transition duration-500 group-hover:border-barca-blue group-hover:scale-105'>
-                <Image
-                  src='https://erlplcduvrowbiwobjen.supabase.co/storage/v1/object/public/assets/president.jpeg?q=80&w=400&auto=format&fit=crop'
-                  alt='President'
-                  fill
-                  className='object-cover'
-                />
+            {board.map((member) => (
+              <div key={member.id} className='group text-center'>
+                <div className='relative mx-auto mb-6 h-40 w-40 overflow-hidden rounded-full border-4 border-slate-100 shadow-lg transition duration-500 group-hover:border-barca-blue group-hover:scale-105'>
+                  <Image
+                    src={member.url}
+                    alt={member.alt}
+                    fill
+                    className='object-cover'
+                  />
+                </div>
+                <h3 className='text-xl font-bold text-slate-900'>
+                  {member.name}
+                </h3>
+                <p
+                  className={`text-sm font-bold uppercase tracking-wider ${member.textColor}`}
+                >
+                  {member.position}
+                </p>
+                <p className='mt-2 text-sm text-slate-500'>
+                  {member.description}
+                </p>
               </div>
-              <h3 className='text-xl font-bold text-slate-900'>
-                Ruben Aguilera
-              </h3>
-              <p className='text-sm font-bold uppercase tracking-wider text-barca-red'>
-                President
-              </p>
-              <p className='mt-2 text-sm text-slate-500'>
-                Leading the vision and official Penya relations.
-              </p>
-            </div>
-            {/* BOARD MEMBER 2 */}
-            <div className='group text-center'>
-              <div className='relative mx-auto mb-6 h-40 w-40 overflow-hidden rounded-full border-4 border-slate-100 shadow-lg transition duration-500 group-hover:border-barca-blue group-hover:scale-105'>
-                <Image
-                  src='https://erlplcduvrowbiwobjen.supabase.co/storage/v1/object/public/assets/vp.jpeg?q=80&w=400&auto=format&fit=crop'
-                  alt='Vice President'
-                  fill
-                  className='object-cover'
-                />
-              </div>
-              <h3 className='text-xl font-bold text-slate-900'>Carlos Acuña</h3>
-              <p className='text-sm font-bold uppercase tracking-wider text-barca-blue'>
-                Vice President
-              </p>
-              <p className='mt-2 text-sm text-slate-500'>
-                Overseeing matchday operations and events.
-              </p>
-            </div>
-            {/* BOARD MEMBER 3 */}
-            <div className='group text-center'>
-              <div className='relative mx-auto mb-6 h-40 w-40 overflow-hidden rounded-full border-4 border-slate-100 shadow-lg transition duration-500 group-hover:border-barca-blue group-hover:scale-105'>
-                <Image
-                  src='https://erlplcduvrowbiwobjen.supabase.co/storage/v1/object/public/assets/sec.jpeg?q=80&w=400&auto=format&fit=crop'
-                  alt='Treasurer'
-                  fill
-                  className='object-cover'
-                />
-              </div>
-              <h3 className='text-xl font-bold text-slate-900'>Daniel Lopez</h3>
-              <p className='text-sm font-bold uppercase tracking-wider text-yellow-500'>
-                Treasurer
-              </p>
-              <p className='mt-2 text-sm text-slate-500'>
-                Managing memberships and non-profit compliance.
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -116,7 +83,7 @@ export default function ContactPage() {
         <div className='space-y-4'>
           {faqs.map((faq) => (
             <details
-              key={faq.question}
+              key={faq.id}
               className='group rounded-xl bg-white shadow-sm border border-slate-100 open:ring-1 open:ring-slate-200'
             >
               <summary className='flex cursor-pointer items-center justify-between p-6 font-bold text-slate-900 list-none'>
