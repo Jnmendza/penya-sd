@@ -10,6 +10,7 @@ import {
   CheckCircle,
 } from "lucide-react";
 import { InstagramIcon, XIcon, FacebookIcon } from "@/components/Icons";
+import { sendContactEmail } from "@/app/actions/sendEmail";
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -27,6 +28,7 @@ export default function ContactForm() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [serverError, setServerError] = useState("");
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -36,9 +38,11 @@ export default function ContactForm() {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
 
+    // Clear errors when user types
     if (errors[name as keyof typeof errors]) {
       setErrors((prev) => ({ ...prev, [name]: "" }));
     }
+    if (serverError) setServerError("");
   };
 
   const validate = () => {
@@ -74,15 +78,38 @@ export default function ContactForm() {
     if (!validate()) return;
 
     setIsSubmitting(true);
+    setServerError("");
 
-    // TODO: Wire this up to Supabase or an API endpoint later
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      // 1. Prepare the data for the Server Action
+      const payload = new FormData();
+      payload.append("name", formData.name);
+      payload.append("email", formData.email);
+      // We combine Topic + Message so the email is clear
+      payload.append(
+        "message",
+        `[Topic: ${formData.topic}]\n\n${formData.message}`
+      );
 
-    console.log("Form Submitted:", formData);
-    setIsSuccess(true);
-    setIsSubmitting(false);
+      // 2. Call the Server Action
+      const result = await sendContactEmail(payload);
 
-    setFormData({ name: "", email: "", topic: "General Inquiry", message: "" });
+      if (result.success) {
+        setIsSuccess(true);
+        setFormData({
+          name: "",
+          email: "",
+          topic: "General Inquiry",
+          message: "",
+        });
+      } else {
+        setServerError(result.error || "Something went wrong.");
+      }
+    } catch (err) {
+      setServerError("Failed to send message. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -163,7 +190,7 @@ export default function ContactForm() {
                 </p>
                 <button
                   onClick={() => setIsSuccess(false)}
-                  className='mt-6 text-barca-blue font-bold hover:underline'
+                  className='mt-6 cursor-pointer text-barca-blue font-bold hover:underline'
                 >
                   Send another message
                 </button>
@@ -261,11 +288,18 @@ export default function ContactForm() {
                   )}
                 </div>
 
+                {/* Server Error Message */}
+                {serverError && (
+                  <div className='rounded-lg bg-red-50 p-3 text-sm text-red-600 border border-red-200'>
+                    {serverError}
+                  </div>
+                )}
+
                 {/* SUBMIT BUTTON */}
                 <button
                   type='submit'
                   disabled={isSubmitting}
-                  className='w-full rounded-lg bg-barca-blue px-8 py-4 font-bold text-white transition hover:bg-blue-900 shadow-lg shadow-blue-900/20 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center'
+                  className='w-full cursor-pointer rounded-lg bg-barca-blue px-8 py-4 font-bold text-white transition hover:bg-blue-900 shadow-lg shadow-blue-900/20 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center'
                 >
                   {isSubmitting ? (
                     <>

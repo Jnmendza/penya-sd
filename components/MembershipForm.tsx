@@ -188,7 +188,7 @@ export default function MembershipForm({
                   disabled={isLoading}
                   className='w-full rounded-xl bg-barca-gold py-4 text-xl font-bold text-barca-blue hover:bg-yellow-400 hover:scale-[1.02] transition shadow-lg disabled:opacity-50'
                 >
-                  {isLoading ? "Processing..." : "Pay $25.00"}
+                  {isLoading ? "Processing..." : "Pay $30.00"}
                 </button>
                 <p className='mt-4 text-center text-xs text-slate-400'>
                   Redirects to Stripe for secure payment.
