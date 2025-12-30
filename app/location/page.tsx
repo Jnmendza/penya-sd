@@ -64,9 +64,11 @@ export default async function LocationPage() {
           </h1>
 
           <p className='mx-auto max-w-2xl text-lg font-medium text-slate-300 md:text-xl'>
-            We gather for every La Liga and Champions League match at
-            <span className='text-white font-bold'> Novo Brazil Brewery</span>.
-            Cold beer, massive screens, and the loudest Cules in California.
+            We gather at{" "}
+            <span className='text-white font-bold'> Novo Brazil Brewery</span>{" "}
+            for every La Liga, Champions League and domestic cup matches,
+            featuring Cold beer, massive screens, and the loudest Cules in
+            California.
           </p>
 
           {/* DYNAMIC NEXT MATCH BANNER */}
@@ -227,7 +229,7 @@ export default async function LocationPage() {
             {/* 2. TALL SHOT (The Big Screen) - Spans 1x2 */}
             <div className='relative group overflow-hidden rounded-2xl md:col-span-1 md:row-span-2 bg-slate-200 shadow-md'>
               <Image
-                src='https://erlplcduvrowbiwobjen.supabase.co/storage/v1/object/public/assets/tech-shot.jpeg?q=80&w=800&auto=format&fit=crop'
+                src='https://erlplcduvrowbiwobjen.supabase.co/storage/v1/object/public/assets/tech-shot2.jpeg?q=80&w=800&auto=format&fit=crop'
                 alt='The Big Screen'
                 fill
                 className='object-cover transition duration-700 group-hover:scale-110'
@@ -277,7 +279,7 @@ export default async function LocationPage() {
             {/* 6. FILLER SHOT (Celebration) - Spans 2 wide */}
             <div className='relative group overflow-hidden rounded-2xl md:col-span-2 bg-slate-200 shadow-md'>
               <Image
-                src='https://erlplcduvrowbiwobjen.supabase.co/storage/v1/object/public/assets/vibes-2.jpeg?q=80&w=800&auto=format&fit=crop'
+                src='https://erlplcduvrowbiwobjen.supabase.co/storage/v1/object/public/assets/vibes-3.jpeg?q=80&w=800&auto=format&fit=crop'
                 alt='Group Photo'
                 fill
                 className='object-cover transition duration-700 group-hover:scale-110'

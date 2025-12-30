@@ -32,6 +32,6 @@ export const board: {
     name: "Daniel Lopez",
     position: "Co-Vice President",
     textColor: "text-yellow-500",
-    description: "Coordinating matchday logistics and community events.",
+    description: "Oversees matchday logistics and headquarters operations.",
   },
 ];

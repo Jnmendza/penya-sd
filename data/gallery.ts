@@ -52,11 +52,11 @@ export const galleryData: GalleryItem[] = [
       "The Cathedral. There is no feeling like walking through these gates.",
   },
   {
-    id: "stadi-olimpic",
+    id: "mountjic-2",
     category: "pilgrimage",
-    src: `${BUCKET_URL}/stadi_olimpic.JPG`,
-    alt: "Penya members outside Olympic Stadium",
-    caption: "Penya members outside Olympic Stadium (2024).",
+    src: `${BUCKET_URL}/mountjic2.JPG`,
+    alt: "Penya members outside Mountjic",
+    caption: "Penya members outside Mountjic.",
   },
   {
     id: "trophies",
@@ -82,11 +82,11 @@ export const galleryData: GalleryItem[] = [
 
   // --- SECTION C: Inner Circle (Accordion Slider) ---
   {
-    id: "laporta",
+    id: "mountjic",
     category: "vip",
-    src: `${BUCKET_URL}/laporta_meet.JPG`,
-    alt: "Meeting Joan Laporta",
-    caption: "Our President & First Lady sharing a moment with Joan Laporta.",
+    src: `${BUCKET_URL}/mountjic.JPG`,
+    alt: "Penya members outside Mountjic",
+    caption: "Penya members outside Mountjic.",
   },
   {
     id: "hansi",
@@ -122,5 +122,12 @@ export const galleryData: GalleryItem[] = [
     src: `${BUCKET_URL}/roberto_meet.JPG`,
     alt: "Sergiño Dest",
     caption: "The Spanish defender Sergiño Dest.",
+  },
+  {
+    id: "laporta",
+    category: "vip",
+    src: `${BUCKET_URL}/laporta_meet.JPG`,
+    alt: "Meeting Joan Laporta",
+    caption: "Our President & First Lady sharing a moment with Joan Laporta.",
   },
 ];
