@@ -213,7 +213,7 @@ export default async function LocationPage() {
             {/* 1. LARGE MAIN SHOT (Crowd cheering) - Spans 2x2 */}
             <div className='relative group overflow-hidden rounded-2xl md:col-span-2 md:row-span-2 bg-slate-200 shadow-md'>
               <Image
-                src='https://erlplcduvrowbiwobjen.supabase.co/storage/v1/object/public/assets/group-shot.jpeg?q=80&w=800&auto=format&fit=crop'
+                src='https://pxouwgfpksichenstsgh.supabase.co/storage/v1/object/public/assets/group-shot.jpeg?q=80&w=800&auto=format&fit=crop'
                 alt='Crowd cheering'
                 fill // <--- Fills the container
                 className='object-cover transition duration-700 group-hover:scale-110'
@@ -229,7 +229,7 @@ export default async function LocationPage() {
             {/* 2. TALL SHOT (The Big Screen) - Spans 1x2 */}
             <div className='relative group overflow-hidden rounded-2xl md:col-span-1 md:row-span-2 bg-slate-200 shadow-md'>
               <Image
-                src='https://erlplcduvrowbiwobjen.supabase.co/storage/v1/object/public/assets/tech-shot2.jpeg?q=80&w=800&auto=format&fit=crop'
+                src='https://pxouwgfpksichenstsgh.supabase.co/storage/v1/object/public/assets/tech-shot2.jpeg?q=80&w=800&auto=format&fit=crop'
                 alt='The Big Screen'
                 fill
                 className='object-cover transition duration-700 group-hover:scale-110'
@@ -243,7 +243,7 @@ export default async function LocationPage() {
             {/* 3. DETAIL SHOT (Beer/Food) */}
             <div className='relative group overflow-hidden rounded-2xl bg-slate-200 shadow-md'>
               <Image
-                src='https://erlplcduvrowbiwobjen.supabase.co/storage/v1/object/public/assets/vibes-1.jpeg?q=80&w=800&auto=format&fit=crop'
+                src='https://pxouwgfpksichenstsgh.supabase.co/storage/v1/object/public/assets/vibes-1.jpeg?q=80&w=800&auto=format&fit=crop'
                 alt='Novo Beer'
                 fill
                 className='object-cover transition duration-700 group-hover:scale-110'
@@ -254,7 +254,7 @@ export default async function LocationPage() {
             {/* 4. COMMUNITY SHOT (Kids/Family) */}
             <div className='relative group overflow-hidden rounded-2xl bg-slate-200 shadow-md'>
               <Image
-                src='https://erlplcduvrowbiwobjen.supabase.co/storage/v1/object/public/assets/family-shot2.jpg?q=80&w=800&auto=format&fit=crop'
+                src='https://pxouwgfpksichenstsgh.supabase.co/storage/v1/object/public/assets/family-shot2.jpg?q=80&w=800&auto=format&fit=crop'
                 alt='Family Friendly'
                 fill
                 className='object-cover transition duration-700 group-hover:scale-110'
@@ -265,7 +265,7 @@ export default async function LocationPage() {
             {/* 5. WIDE SHOT (Group Photo) - Spans 2 wide */}
             <div className='relative group overflow-hidden rounded-2xl md:col-span-2 bg-slate-200 shadow-md'>
               <Image
-                src='https://erlplcduvrowbiwobjen.supabase.co/storage/v1/object/public/assets/bryant.jpg?q=80&w=800&auto=format&fit=crop'
+                src='https://pxouwgfpksichenstsgh.supabase.co/storage/v1/object/public/assets/bryant.jpg?q=80&w=800&auto=format&fit=crop'
                 alt='Group Photo'
                 fill
                 className='object-cover transition duration-700 group-hover:scale-110'
@@ -279,7 +279,7 @@ export default async function LocationPage() {
             {/* 6. FILLER SHOT (Celebration) - Spans 2 wide */}
             <div className='relative group overflow-hidden rounded-2xl md:col-span-2 bg-slate-200 shadow-md'>
               <Image
-                src='https://erlplcduvrowbiwobjen.supabase.co/storage/v1/object/public/assets/vibes-3.jpeg?q=80&w=800&auto=format&fit=crop'
+                src='https://pxouwgfpksichenstsgh.supabase.co/storage/v1/object/public/assets/vibes-3.jpeg?q=80&w=800&auto=format&fit=crop'
                 alt='Group Photo'
                 fill
                 className='object-cover transition duration-700 group-hover:scale-110'

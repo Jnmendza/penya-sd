@@ -77,7 +77,7 @@ export default function CommunityPage() {
           <div className='grid md:grid-cols-2'>
             <div className='relative h-64 md:h-auto bg-slate-200'>
               <Image
-                src='https://erlplcduvrowbiwobjen.supabase.co/storage/v1/object/public/assets/community.jpg?q=80&w=2948&auto=format&fit=crop'
+                src='https://pxouwgfpksichenstsgh.supabase.co/storage/v1/object/public/assets/community.jpg?q=80&w=2948&auto=format&fit=crop'
                 alt='PBSD Charity Work'
                 fill
                 className='object-cover'
