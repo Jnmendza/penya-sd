@@ -9,7 +9,7 @@ export const board: {
 }[] = [
   {
     id: 1,
-    url: "https://erlplcduvrowbiwobjen.supabase.co/storage/v1/object/public/assets/president.jpeg?q=80&w=400&auto=format&fit=crop",
+    url: "https://pxouwgfpksichenstsgh.supabase.co/storage/v1/object/public/assets/president.jpeg?q=80&w=400&auto=format&fit=crop",
     alt: "President",
     name: "Ruben Aguilera",
     position: "President",
@@ -18,7 +18,7 @@ export const board: {
   },
   {
     id: 2,
-    url: "https://erlplcduvrowbiwobjen.supabase.co/storage/v1/object/public/assets/vp.jpeg?q=80&w=400&auto=format&fit=crop",
+    url: "https://pxouwgfpksichenstsgh.supabase.co/storage/v1/object/public/assets/vp.jpeg?q=80&w=400&auto=format&fit=crop",
     alt: "Vice President",
     name: "Carlos Acuña",
     position: "Vice President",
@@ -27,7 +27,7 @@ export const board: {
   },
   {
     id: 3,
-    url: "https://erlplcduvrowbiwobjen.supabase.co/storage/v1/object/public/assets/sec.jpeg?q=80&w=400&auto=format&fit=crop",
+    url: "https://pxouwgfpksichenstsgh.supabase.co/storage/v1/object/public/assets/sec.jpeg?q=80&w=400&auto=format&fit=crop",
     alt: "Co-Vice President",
     name: "Daniel Lopez",
     position: "Co-Vice President",

@@ -9,7 +9,7 @@ export type GalleryItem = {
 // Replace these filenames with the actual ones you uploaded to Supabase
 // Base URL for your Supabase bucket
 const BUCKET_URL =
-  "https://erlplcduvrowbiwobjen.supabase.co/storage/v1/object/public/gallery";
+  "https://pxouwgfpksichenstsgh.supabase.co/storage/v1/object/public/gallery";
 
 export const galleryData: GalleryItem[] = [
   // --- SECTION A: The Global Network (Card Stack) ---

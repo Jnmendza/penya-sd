@@ -11,7 +11,7 @@ export default function Footer() {
           <div className='flex items-center gap-4'>
             <div className='relative h-14 w-14 shrink-0'>
               <Image
-                src='https://erlplcduvrowbiwobjen.supabase.co/storage/v1/object/public/assets/logo.png'
+                src='https://pxouwgfpksichenstsgh.supabase.co/storage/v1/object/public/assets/logo.png'
                 alt='PBSD Logo'
                 fill
                 className='object-contain'

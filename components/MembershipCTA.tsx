@@ -115,7 +115,7 @@ export default function MembershipCTA({ isOpen, seasonId }: Props) {
             <div className='relative aspect-square w-full max-w-lg mx-auto rounded-2xl bg-gradient-to-br from-white/5 to-white/10 p-8 border border-white/10 backdrop-blur-sm shadow-2xl'>
               <div className='absolute inset-0 flex flex-col items-center justify-center text-center p-6'>
                 <Image
-                  src='https://erlplcduvrowbiwobjen.supabase.co/storage/v1/object/public/assets/merch.png'
+                  src='https://pxouwgfpksichenstsgh.supabase.co/storage/v1/object/public/assets/merch.png'
                   alt='2025 Scarf & Pin Combo'
                   width={500}
                   height={500}
