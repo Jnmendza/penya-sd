@@ -11,6 +11,7 @@ import NextMatch from "@/components/NextMatch";
 import MembershipCTA from "@/components/MembershipCTA";
 import CommunityHighlights from "@/components/CommunityHighlights";
 import { getGlobalConfig } from "@/utils/getGlobalConfig";
+import AnnouncementModal from "@/components/AnnouncementModal";
 
 export default async function Home() {
   // 1. Fetch Membership Status Only
@@ -18,6 +19,7 @@ export default async function Home() {
 
   return (
     <main className='flex min-h-screen flex-col bg-slate-50'>
+      <AnnouncementModal />
       <Hero />
 
       {/* 2. THE FIX: Just render the component. 
