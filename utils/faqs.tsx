@@ -6,6 +6,12 @@ export const faqs: {
   answer: string | ReactNode;
 }[] = [
   {
+    id: 0,
+    question: "Is the Penya a for-profit business?",
+    answer:
+      "NO! Penya Blaugrana San Diego is a 100% non-profit organization. We do not profit from membership dues or merchandise. Every dollar collected goes directly toward operational costs (website, events, hosting) and our charitable initiatives in the San Diego community.",
+  },
+  {
     id: 1,
     question: "Do I need to be a member to watch games?",
     answer:
@@ -61,5 +67,26 @@ export const faqs: {
     question: "How do I pick up my membership merch?",
     answer:
       "Merch is available for pickup at any matchday event. Just find a board member (look for the people checking in members), show your confirmation email, and we'll get you sorted!",
+  },
+  {
+    id: 5,
+    question: "How do I register for my official FC Barcelona Penyista card?",
+    answer: (
+      <span>
+        As a member of our Penya, you are eligible for off icial recognition by
+        the club in Barcelona. To receive your physical 'Carnet de Penyista'
+        (Penyista ID), you must register your profile on the official FC
+        Barcelona supporters portal at{" "}
+        <a
+          href='https://penyes.fcbarcelona.com'
+          target='_blank'
+          rel='noreferrer'
+          className='text-barca-blue font-bold hover:underline'
+        >
+          penyes.fcbarcelona.com
+        </a>
+        .
+      </span>
+    ),
   },
 ];

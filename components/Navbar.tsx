@@ -4,16 +4,30 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
+import { createClient } from "@/utils/supabase/client";
 import { NAV_LINKS } from "../utils/navLinks";
+import MerchLink from "./MerchLink";
+
+const store_status = {
+  open: "open",
+  maintenance: "maintenance",
+} as const;
+
+type store_status = (typeof store_status)[keyof typeof store_status];
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [storeStatus, setStoreStatus] = useState<store_status>(
+    store_status.open
+  ); // Default to open
 
   const pathname = usePathname();
+  const supabase = createClient();
   const isHomePage = pathname === "/";
 
   useEffect(() => {
+    // 1. Scroll Logic
     const handleScroll = () => {
       if (window.scrollY > 50) {
         setIsScrolled(true);
@@ -22,11 +36,28 @@ export default function Navbar() {
       }
     };
 
+    // 2. Fetch Store Status
+    const fetchConfig = async () => {
+      const { data } = await supabase
+        .from("app_config")
+        .select("value")
+        .eq("key", "store_status")
+        .single();
+
+      if (data) {
+        setStoreStatus(data.value as store_status);
+      }
+    };
+
     window.addEventListener("scroll", handleScroll);
+    fetchConfig(); // Call fetch
+
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, []); // Run once on mount
 
   const useSolidStyle = !isHomePage || isScrolled;
+  // Helper to determine maintenance mode
+  const isMaintenance = storeStatus === store_status.maintenance;
 
   return (
     <nav
@@ -52,7 +83,7 @@ export default function Navbar() {
           </span>
         </Link>
 
-        {/* DESKTOP MENU */}
+        {/* DESKTOP MENU - CENTER */}
         <div className='hidden items-center gap-8 md:flex'>
           {NAV_LINKS.map((link) => (
             <Link
@@ -67,8 +98,16 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* CTA BUTTON - RENAMED */}
-        <div className='hidden md:block'>
+        {/* RIGHT SIDE ACTIONS */}
+        <div className='hidden md:flex items-center gap-4'>
+          {/* Pass the dynamic status here */}
+          <MerchLink
+            className='text-sm font-medium text-white hover:text-barca-gold'
+            isMaintenance={isMaintenance}
+          />
+
+          <span className='text-white/20 h-5 border-l border-white/20'></span>
+
           <Link
             href='/membership'
             className='rounded-full bg-barca-gold px-5 py-2 text-sm font-bold text-barca-blue transition hover:bg-yellow-400 hover:scale-105'
@@ -130,6 +169,16 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
+
+            {/* Pass dynamic status to mobile too */}
+            <div onClick={() => setIsMobileMenuOpen(false)}>
+              <MerchLink
+                mobile={true}
+                className='block text-white hover:text-barca-gold w-full text-left'
+                isMaintenance={isMaintenance}
+              />
+            </div>
+
             <Link
               href='/membership'
               className='block w-full rounded-lg bg-barca-gold py-3 text-center font-bold text-barca-blue'

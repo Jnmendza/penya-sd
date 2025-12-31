@@ -33,7 +33,7 @@ export default async function AdminPage() {
               type='submit'
               className='group flex items-center gap-2 rounded-lg bg-white px-4 py-2 text-sm font-bold text-slate-600 shadow-sm ring-1 ring-slate-200 transition hover:bg-slate-50 hover:text-red-600 hover:ring-red-200'
             >
-              <LogOut className='h-4 w-4 transition-transform group-hover:-translate-x-0.5' />
+              <LogOut className='h-4 w-4 cursor-pointer transition-transform group-hover:-translate-x-0.5' />
               Sign Out
             </button>
           </form>
