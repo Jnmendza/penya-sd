@@ -171,10 +171,10 @@ export default function Navbar() {
             ))}
 
             {/* Pass dynamic status to mobile too */}
-            <div onClick={() => setIsMobileMenuOpen(false)}>
+            <div className='py-1'>
               <MerchLink
                 mobile={true}
-                className='block text-white hover:text-barca-gold w-full text-left'
+                className='block text-white hover:text-barca-gold w-full text-left text-base font-medium'
                 isMaintenance={isMaintenance}
               />
             </div>
