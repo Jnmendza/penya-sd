@@ -32,17 +32,28 @@ export default async function LocationPage() {
 
   const nextMatch = matches?.[0];
 
-  // 3. Format Date/Time (if match exists)
+  // 3. Format Date/Time (Fixed: Forces San Diego Time)
   const matchDate = nextMatch ? new Date(nextMatch.utc_date) : null;
-  const dateStr = matchDate?.toLocaleDateString("en-US", {
-    weekday: "long",
-    month: "short",
-    day: "numeric",
-  });
-  const timeStr = matchDate?.toLocaleTimeString("en-US", {
-    hour: "numeric",
-    minute: "2-digit",
-  });
+
+  // Default values if no match exists
+  let dateStr = "";
+  let timeStr = "";
+
+  if (matchDate) {
+    dateStr = new Intl.DateTimeFormat("en-US", {
+      weekday: "long",
+      month: "short",
+      day: "numeric",
+      timeZone: "America/Los_Angeles",
+    }).format(matchDate);
+
+    timeStr = new Intl.DateTimeFormat("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+      timeZone: "America/Los_Angeles",
+    }).format(matchDate);
+  }
 
   return (
     <main className='min-h-screen bg-slate-50'>

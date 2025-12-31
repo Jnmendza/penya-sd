@@ -51,8 +51,11 @@ export default function CommunityPage() {
 
           {/* 5. DESCRIPTION */}
           <p className='mx-auto mt-4 max-w-3xl text-lg text-slate-400 leading-relaxed'>
-            We don't just watch football. We are committed to making San Diego a
-            better place through charity, inclusivity, and shared passion.
+            We don't just watch football. As a strictly{" "}
+            <strong>non-profit</strong> organization, we are committed to making
+            San Diego a better place through charity, inclusivity, and shared
+            passion. All proceeds go directly back into the club and our
+            community.
           </p>
 
           {/* OPTIONAL: Call to Action Button */}

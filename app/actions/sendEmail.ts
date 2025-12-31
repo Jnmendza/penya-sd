@@ -18,7 +18,7 @@ export async function sendContactEmail(formData: FormData) {
       // sending FROM your new domain
       from: "Penya Contact <info@penyasd.com>",
       // sending TO your new Zoho inbox
-      to: ["admin@penyasd.com"],
+      to: ["info@penyasd.com"],
       // User's email so you can just hit "Reply"
       replyTo: email,
       subject: `New Message from ${name}`,
