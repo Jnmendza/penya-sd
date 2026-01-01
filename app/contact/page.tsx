@@ -5,6 +5,7 @@ import Image from "next/image";
 import ContactForm from "@/components/ContactForm";
 import { faqs } from "@/utils/faqs";
 import { board } from "@/utils/board";
+import MeetTheBoard from "@/components/MeetTheBoard";
 
 export default function ContactPage() {
   return (
@@ -32,45 +33,7 @@ export default function ContactPage() {
       </section>
 
       {/* 2. MEET THE BOARD */}
-      <section className='py-16 md:py-24 bg-white'>
-        <div className='container mx-auto px-4'>
-          <div className='text-center mb-16'>
-            <h2 className='text-3xl font-black uppercase text-slate-900 md:text-4xl'>
-              Meet The Board
-            </h2>
-            <p className='mt-4 text-slate-600 max-w-2xl mx-auto'>
-              Penya Blaugrana San Diego is a non-profit run entirely by
-              volunteers dedicated to growing the Barça family in Southern
-              California.
-            </p>
-          </div>
-          <div className='grid gap-8 md:grid-cols-3 max-w-5xl mx-auto'>
-            {board.map((member) => (
-              <div key={member.id} className='group text-center'>
-                <div className='relative mx-auto mb-6 h-40 w-40 overflow-hidden rounded-full border-4 border-slate-100 shadow-lg transition duration-500 group-hover:border-barca-blue group-hover:scale-105'>
-                  <Image
-                    src={member.url}
-                    alt={member.alt}
-                    fill
-                    className='object-cover'
-                  />
-                </div>
-                <h3 className='text-xl font-bold text-slate-900'>
-                  {member.name}
-                </h3>
-                <p
-                  className={`text-sm font-bold uppercase tracking-wider ${member.textColor}`}
-                >
-                  {member.position}
-                </p>
-                <p className='mt-2 text-sm text-slate-500'>
-                  {member.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <MeetTheBoard />
 
       {/* 3. CONTACT FORM COMPONENT */}
       <ContactForm />

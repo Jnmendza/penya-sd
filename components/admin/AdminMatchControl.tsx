@@ -2,8 +2,12 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { syncSchedule, toggleWatchParty } from "@/app/actions/matchSync";
-import { Loader2, RefreshCw, Calendar, MapPin } from "lucide-react";
+import {
+  syncSchedule,
+  toggleWatchParty,
+  updateMatchVenue,
+} from "@/app/actions/matchSync";
+import { Loader2, RefreshCw, MapPin } from "lucide-react";
 
 interface Match {
   id: number;
@@ -14,6 +18,7 @@ interface Match {
   away_crest: string;
   competition: string;
   is_watch_party: boolean;
+  venue?: string;
 }
 
 export default function AdminMatchControl({
@@ -30,15 +35,20 @@ export default function AdminMatchControl({
 
     if (result.success) {
       alert(`Synced ${result.count} matches! Reloading...`);
-      window.location.reload(); // Simple reload to fetch new data
+      window.location.reload();
     } else {
       alert(`Error: ${result.error}`);
     }
   };
 
   const handleToggle = async (id: number, current: boolean) => {
-    // Optimistic UI could go here, but simple reload is safer for now
     await toggleWatchParty(id, current);
+    window.location.reload();
+  };
+
+  // NEW: Handler for changing the dropdown
+  const handleVenueChange = async (id: number, newVenue: string) => {
+    await updateMatchVenue(id, newVenue);
     window.location.reload();
   };
 
@@ -73,8 +83,8 @@ export default function AdminMatchControl({
             <tr>
               <th className='p-4 font-bold uppercase text-xs'>Date</th>
               <th className='p-4 font-bold uppercase text-xs'>Fixture</th>
-              <th className='p-4 font-bold uppercase text-xs text-center'>
-                Watch Party?
+              <th className='p-4 font-bold uppercase text-xs text-center w-[300px]'>
+                Watch Party Settings
               </th>
             </tr>
           </thead>
@@ -94,6 +104,7 @@ export default function AdminMatchControl({
                 )
                 .map((match) => (
                   <tr key={match.id} className='hover:bg-slate-50 transition'>
+                    {/* DATE COL */}
                     <td className='p-4 text-slate-600 whitespace-nowrap'>
                       <div className='flex flex-col'>
                         <span className='font-bold text-slate-900'>
@@ -111,6 +122,7 @@ export default function AdminMatchControl({
                       </div>
                     </td>
 
+                    {/* FIXTURE COL */}
                     <td className='p-4'>
                       <div className='flex items-center gap-3'>
                         <div className='flex items-center gap-1'>
@@ -145,23 +157,65 @@ export default function AdminMatchControl({
                       </div>
                     </td>
 
-                    <td className='p-4 text-center'>
-                      <button
-                        onClick={() =>
-                          handleToggle(match.id, match.is_watch_party)
-                        }
-                        className={`relative cursor-pointer inline-flex h-6 w-11 items-center rounded-full transition ${
-                          match.is_watch_party ? "bg-green-500" : "bg-slate-300"
-                        }`}
-                      >
-                        <span
-                          className={`inline-block h-4 w-4 transform rounded-full bg-white transition ${
-                            match.is_watch_party
-                              ? "translate-x-6"
-                              : "translate-x-1"
-                          }`}
-                        />
-                      </button>
+                    {/* TOGGLE & VENUE COL */}
+                    <td className='p-4'>
+                      <div className='flex flex-col items-center gap-2'>
+                        {/* 1. THE TOGGLE */}
+                        <div className='flex items-center gap-2'>
+                          <span className='text-[10px] uppercase font-bold text-slate-400'>
+                            Status
+                          </span>
+                          <button
+                            onClick={() =>
+                              handleToggle(match.id, match.is_watch_party)
+                            }
+                            className={`relative cursor-pointer inline-flex h-6 w-11 items-center rounded-full transition ${
+                              match.is_watch_party
+                                ? "bg-green-500"
+                                : "bg-slate-300"
+                            }`}
+                          >
+                            <span
+                              className={`inline-block h-4 w-4 transform rounded-full bg-white transition ${
+                                match.is_watch_party
+                                  ? "translate-x-6"
+                                  : "translate-x-1"
+                              }`}
+                            />
+                          </button>
+                        </div>
+
+                        {/* 2. THE VENUE DROPDOWN (Conditional) */}
+                        {match.is_watch_party && (
+                          <div className='flex items-center gap-2 animate-in fade-in slide-in-from-top-1 duration-200'>
+                            <MapPin
+                              className={`h-3 w-3 ${
+                                match.venue === "Shakespeare Pub"
+                                  ? "text-amber-600"
+                                  : "text-slate-400"
+                              }`}
+                            />
+                            <select
+                              value={match.venue || "Novo Brazil Otay Ranch"}
+                              onChange={(e) =>
+                                handleVenueChange(match.id, e.target.value)
+                              }
+                              className={`text-[10px] font-bold rounded border-0 py-1 pl-2 pr-6 cursor-pointer ring-1 ring-inset focus:ring-2 focus:ring-barca-blue ${
+                                match.venue === "Shakespeare Pub"
+                                  ? "bg-amber-50 text-amber-700 ring-amber-200" // Warning Colors
+                                  : "bg-slate-50 text-slate-600 ring-slate-200"
+                              }`}
+                            >
+                              <option value='Novo Brazil Otay Ranch'>
+                                Novo Brazil
+                              </option>
+                              <option value='Shakespeare Pub'>
+                                Shakespeare Pub
+                              </option>
+                            </select>
+                          </div>
+                        )}
+                      </div>
                     </td>
                   </tr>
                 ))
