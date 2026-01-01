@@ -10,6 +10,7 @@ import {
   Utensils,
   Calendar,
 } from "lucide-react";
+import { VENUES } from "@/utils/venues";
 
 export const metadata = {
   title: "Location | Penya Blaugrana San Diego",
@@ -54,6 +55,8 @@ export default async function LocationPage() {
       timeZone: "America/Los_Angeles",
     }).format(matchDate);
   }
+
+  const isShakespeare = nextMatch?.venue === VENUES.SHAKESPEARE.name;
 
   return (
     <main className='min-h-screen bg-slate-50'>
@@ -103,14 +106,32 @@ export default async function LocationPage() {
 
               <div className='text-right'>
                 {nextMatch ? (
-                  <>
+                  <div className='flex flex-col items-end'>
+                    {/* 1. WARNING BADGE (Only shows if Shakespeare) */}
+                    {nextMatch.venue === "Shakespeare Pub" && (
+                      <span className='mb-1 inline-block rounded bg-amber-500/20 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-amber-400 border border-amber-500/30'>
+                        ⚠️ Venue Change
+                      </span>
+                    )}
+
+                    {/* 2. DATE (Always shows) */}
                     <span className='block text-xl font-black text-white'>
                       {dateStr}
                     </span>
-                    <span className='block text-sm font-medium text-barca-red'>
-                      {timeStr} Kickoff
+
+                    {/* 3. DYNAMIC TIME/LOCATION LINE */}
+                    <span
+                      className={`block text-sm font-medium ${
+                        nextMatch.venue === "Shakespeare Pub"
+                          ? "text-amber-400" // Amber for Alert
+                          : "text-barca-red" // Red for Standard
+                      }`}
+                    >
+                      {nextMatch.venue === "Shakespeare Pub"
+                        ? `📍 At Shakespeare Pub • ${timeStr}`
+                        : `${timeStr} Kickoff`}
                     </span>
-                  </>
+                  </div>
                 ) : (
                   <span className='block text-sm font-medium text-slate-400'>
                     Check back soon!

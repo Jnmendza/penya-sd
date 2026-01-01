@@ -21,11 +21,11 @@ export const galleryData: GalleryItem[] = [
     caption: "Exchanging scarves with Penya Blaugrana Bayerischer Hof.",
   },
   {
-    id: "sf-trip",
+    id: "bayerischer-meet",
     category: "community",
-    src: `${BUCKET_URL}/san_fran.JPG`,
-    alt: "Group photo in San Francisco",
-    caption: "Meeting with Penya Blaugrana San Francisco.",
+    src: `${BUCKET_URL}/bayerischer-meet.jpg`,
+    alt: "Photo with President of Munich Penya",
+    caption: "Our Co-Vp with Teresa, the President of Munich Penya.",
   },
   {
     id: "dublin-trip",
@@ -35,11 +35,11 @@ export const galleryData: GalleryItem[] = [
     caption: "Meeting with Penya Blaugrana Dublin.",
   },
   {
-    id: "las-vegas-trip",
+    id: "paris",
     category: "community",
-    src: `${BUCKET_URL}/las_vegas.JPG`,
-    alt: "Group photo in Las Vegas",
-    caption: "Meeting with Penya Blaugrana Las Vegas.",
+    src: `${BUCKET_URL}/paris-penya.jpg`,
+    alt: "Photo with Penya members in Paris",
+    caption: "Meeting with Penya Blaugrana Paris.",
   },
 
   // --- SECTION B: The Pilgrimage (Masonry Grid) ---

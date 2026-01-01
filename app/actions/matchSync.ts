@@ -1,6 +1,7 @@
 "use server";
 
 import { createClient } from "@/utils/supabase/server";
+import { revalidatePath } from "next/cache";
 
 const API_KEY = process.env.FOOTBALL_DATA_KEY;
 const BARCA_ID = 81; // FC Barcelona Team ID
@@ -83,5 +84,24 @@ export async function toggleWatchParty(matchId: number, currentState: boolean) {
     .eq("id", matchId);
 
   if (error) return { success: false, error: error.message };
+  return { success: true };
+}
+
+// UPDATE MATCH VENUE
+export async function updateMatchVenue(id: number, newVenue: string) {
+  const supabase = await createClient();
+
+  const { error } = await supabase
+    .from("matches")
+    .update({ venue: newVenue })
+    .eq("id", id);
+
+  if (error) {
+    console.error("Error updating venue:", error);
+    return { success: false, error: error.message };
+  }
+
+  revalidatePath("/admin");
+  revalidatePath("/"); // Update home too since next match card lives there
   return { success: true };
 }

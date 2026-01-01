@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import CommunityHighlights from "@/components/CommunityHighlights";
+import ValuesSection from "@/components/ValuesSection";
 
 export const metadata = {
   title: "Community | Penya Blaugrana San Diego",
@@ -50,12 +51,18 @@ export default function CommunityPage() {
           </h2>
 
           {/* 5. DESCRIPTION */}
-          <p className='mx-auto mt-4 max-w-3xl text-lg text-slate-400 leading-relaxed'>
-            We don't just watch football. As a strictly{" "}
-            <strong>non-profit</strong> organization, we are committed to making
-            San Diego a better place through charity, inclusivity, and shared
-            passion. All proceeds go directly back into the club and our
-            community.
+          <p className='mx-auto mt-4 max-w-4xl text-lg text-slate-400 leading-relaxed'>
+            Penya Blaugrana San Diego (PBSD) is a family-oriented club united by
+            our passion for fútbol and inspired by the values of FC
+            Barcelona—Més que un club. We stand for unity, loyalty, respect, and
+            dedication, fostering a culture where members are connected as
+            family and bound by a shared love for the game. Beyond supporting
+            our club, PBSD is committed to serving our community through
+            charitable initiatives, meaningful engagement, and positive
+            representation. We strive to honor the legacy of FC Barcelona by
+            living its values on and off the pitch, strengthening our community,
+            and leaving a lasting impact rooted in passion, integrity, and
+            respect.
           </p>
 
           {/* OPTIONAL: Call to Action Button */}
@@ -75,65 +82,7 @@ export default function CommunityPage() {
       <CommunityHighlights />
 
       {/* 3. VALUES SECTION (New content specific to this page) */}
-      <div className='container mx-auto px-4 py-12'>
-        <div className='bg-white rounded-3xl shadow-xl overflow-hidden'>
-          <div className='grid md:grid-cols-2'>
-            <div className='relative h-64 md:h-auto bg-slate-200'>
-              <Image
-                src='https://pxouwgfpksichenstsgh.supabase.co/storage/v1/object/public/assets/community.jpg?q=80&w=2948&auto=format&fit=crop'
-                alt='PBSD Charity Work'
-                fill
-                className='object-cover'
-              />
-            </div>
-
-            <div className='p-12 flex flex-col justify-center'>
-              <h3 className='text-3xl font-bold text-slate-900 mb-6'>
-                Our{" "}
-                <span className='text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-red-600'>
-                  Values
-                </span>
-              </h3>
-              <div className='space-y-6'>
-                <div>
-                  <h4 className='font-bold text-barca-blue text-lg'>
-                    Inclusivity
-                  </h4>
-                  <p className='text-slate-600'>
-                    Everyone is welcome at our table. Whether you've been a
-                    Culer for 20 years or 20 minutes, you are family.
-                  </p>
-                </div>
-                <div>
-                  <h4 className='font-bold text-barca-blue text-lg'>
-                    Civic Pride
-                  </h4>
-                  <p className='text-slate-600'>
-                    We love San Diego as much as we love Barcelona. We actively
-                    look for ways to support our local neighborhoods.
-                  </p>
-                </div>
-                <div>
-                  <h4 className='font-bold text-barca-blue text-lg'>Respect</h4>
-                  <p className='text-slate-600'>
-                    We support our team with passion, but we always treat
-                    opponents and guests with dignity.
-                  </p>
-                </div>
-              </div>
-
-              <div className='mt-8'>
-                <Link
-                  href='/contact'
-                  className='inline-block rounded-xl bg-barca-blue px-8 py-3 font-bold text-white transition hover:bg-blue-900'
-                >
-                  Partner With Us
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <ValuesSection />
     </main>
   );
 }
