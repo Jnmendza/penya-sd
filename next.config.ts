@@ -1,24 +1,24 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
-const withNextIntl = createNextIntlPlugin();
+const withNextIntl = createNextIntlPlugin("./i18n.ts");
 
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "upload.wikimedia.org", // For Wikipedia logos
+        hostname: "upload.wikimedia.org",
         pathname: "**",
       },
       {
         protocol: "https",
-        hostname: "crests.football-data.org", // For the future API we will use
+        hostname: "crests.football-data.org",
         pathname: "**",
       },
       {
         protocol: "https",
-        hostname: "images.unsplash.com", // For the future API we will use
+        hostname: "images.unsplash.com",
         pathname: "**",
       },
       {
