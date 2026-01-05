@@ -1,4 +1,7 @@
-import Link from "next/link";
+"use client";
+
+import { Link } from "@/utils/navigation";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 interface Props {
@@ -7,6 +10,9 @@ interface Props {
 }
 
 export default function MembershipCTA({ isOpen, seasonId }: Props) {
+  // Target the specific section in your JSON
+  const t = useTranslations("HomePage.MembershipCTA");
+
   return (
     <section className='relative overflow-hidden bg-barca-blue py-24 text-white'>
       {/* Background decoration */}
@@ -18,6 +24,7 @@ export default function MembershipCTA({ isOpen, seasonId }: Props) {
         <div className='grid items-center gap-12 lg:grid-cols-2'>
           {/* LEFT: The Pitch */}
           <div className='space-y-8'>
+            {/* 1. BADGE */}
             <div
               className={`inline-block rounded-full px-4 py-1 text-sm font-bold backdrop-blur-sm ${
                 isOpen
@@ -25,30 +32,37 @@ export default function MembershipCTA({ isOpen, seasonId }: Props) {
                   : "bg-slate-500/50 text-slate-200"
               }`}
             >
-              {isOpen
-                ? `${seasonId} SEASON MEMBERSHIP`
-                : "MEMBERSHIP CURRENTLY CLOSED"}
+              {isOpen ? t("badge_open", { seasonId }) : t("badge_closed")}
             </div>
 
+            {/* 2. RICH TEXT TITLE */}
+            {/* We remove the manual <span> because it is now inside the JSON <highlight> tag */}
             <h2 className='text-4xl font-extrabold tracking-tight sm:text-5xl'>
-              More Than A Match. <br />
-              <span className='text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500'>
-                More Than A Club.
-              </span>
+              {t.rich("title", {
+                // 1. Pass <br/> as a direct React Node (Variable)
+                br: (<br key='br' />) as any,
+
+                // 2. Keep highlight as a chunk function (Tag)
+                highlight: (chunks) => (
+                  <span className='text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500'>
+                    {chunks}
+                  </span>
+                ),
+              })}
             </h2>
 
+            {/* 3. DESCRIPTION */}
             <p className='text-lg text-blue-100 max-w-md leading-relaxed'>
-              Join the official Penya Blaugrana San Diego. Your annual
-              membership supports our charity work and gets you exclusive gear
-              every season.
+              {t("description")}
             </p>
 
+            {/* 4. BENEFITS LIST */}
             <ul className='space-y-4'>
               {[
-                "Official Penya Membership Card",
-                "Exclusive 2025 PBSD Scarf",
-                "Commemorative Pin",
-                "Priority Access to El Clásico Parties",
+                t("benefits.card"),
+                t("benefits.scarf", { year: "2025" }), // Variable passed to "Exclusive {year}..."
+                t("benefits.pin"),
+                t("benefits.priority"),
               ].map((item, index) => (
                 <li key={index} className='flex items-center gap-3'>
                   <div
@@ -77,25 +91,28 @@ export default function MembershipCTA({ isOpen, seasonId }: Props) {
 
             <div className='pt-4'>
               <div className='flex items-center gap-6'>
-                {/* Only show Price if Open */}
+                {/* 5. PRICING & WINDOW */}
                 {isOpen ? (
                   <div>
                     <span className='block text-3xl font-bold text-white'>
                       $30.00
                     </span>
-                    <span className='text-sm text-blue-200'>/ per year</span>
+                    <span className='text-sm text-blue-200'>
+                      {t("pricing.per_year")}
+                    </span>
                   </div>
                 ) : (
                   <div>
                     <span className='block text-xl font-bold text-slate-300'>
-                      Enrollment Window
+                      {t("pricing.window_label")}
                     </span>
                     <span className='text-sm text-slate-400'>
-                      May — December
+                      {t("pricing.window_dates")}
                     </span>
                   </div>
                 )}
 
+                {/* 6. CTA BUTTONS */}
                 <Link
                   href='/membership'
                   className={`rounded-full px-8 py-4 text-lg font-bold transition shadow-xl whitespace-nowrap ${
@@ -104,7 +121,7 @@ export default function MembershipCTA({ isOpen, seasonId }: Props) {
                       : "bg-slate-700 text-white hover:bg-slate-600"
                   }`}
                 >
-                  {isOpen ? "Join the Family" : "View Benefits"}
+                  {isOpen ? t("cta.join") : t("cta.view")}
                 </Link>
               </div>
             </div>

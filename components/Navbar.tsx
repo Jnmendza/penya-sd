@@ -5,7 +5,6 @@ import { Link, usePathname } from "@/utils/navigation";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { createClient } from "@/utils/supabase/client";
-// import { NAV_LINKS } from "../utils/navLinks";
 import MerchLink from "./MerchLink";
 import LanguageSwitcher from "./LanguageSwitcher";
 
@@ -16,12 +15,12 @@ const store_status = {
 
 type store_status = (typeof store_status)[keyof typeof store_status];
 
-export const NAV_LINKS: { href: string; label: string }[] = [
-  { href: "/", label: "Home" },
-  { href: "/location", label: "Location" },
-  { href: "/community", label: "Community" },
-  { href: "/global", label: "Global" },
-  { href: "/contact", label: "Contact" },
+export const NAV_LINKS: { href: string; key: string }[] = [
+  { href: "/", key: "home" },
+  { href: "/location", key: "location" },
+  { href: "/community", key: "community" },
+  { href: "/global", key: "global" },
+  { href: "/contact", key: "contact" },
 ];
 
 export default function Navbar() {
@@ -95,7 +94,7 @@ export default function Navbar() {
         </Link>
 
         {/* DESKTOP MENU - CENTER */}
-        <div className='hidden items-center gap-8 md:flex'>
+        <div className='hidden capitalize items-center gap-8 md:flex'>
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
@@ -104,7 +103,7 @@ export default function Navbar() {
                 pathname === link.href ? "text-barca-gold" : "text-white"
               }`}
             >
-              {link.label}
+              {t(link.key)}
             </Link>
           ))}
         </div>
@@ -125,7 +124,7 @@ export default function Navbar() {
             href='/membership'
             className='rounded-full bg-barca-gold px-5 py-2 text-sm font-bold text-barca-blue transition hover:bg-yellow-400 hover:scale-105'
           >
-            Membership
+            {t("membership")}
           </Link>
         </div>
 
@@ -169,7 +168,7 @@ export default function Navbar() {
       {/* MOBILE MENU DROPDOWN */}
       {isMobileMenuOpen && (
         <div className='absolute top-full left-0 w-full bg-slate-900 border-t border-white/10 p-4 md:hidden shadow-xl'>
-          <div className='flex flex-col space-y-4'>
+          <div className='flex capitalize flex-col space-y-4'>
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
@@ -179,7 +178,7 @@ export default function Navbar() {
                 }`}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                {link.label}
+                {link.key}
               </Link>
             ))}
 
