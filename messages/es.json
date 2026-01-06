@@ -1,0 +1,362 @@
+{
+  "Navbar": {
+    "home": "Inicio",
+    "location": "Ubicación",
+    "community": "Comunidad",
+    "global": "Global",
+    "contact": "Contacto",
+    "store": "Tienda",
+    "membership": "Membresía"
+  },
+  "HomePage": {
+    "Hero": {
+      "badge": "Penya Oficial #2309",
+      "title": "San Diego Es {br} <highlight>Blaugrana</highlight>",
+      "description": "Únete al grupo oficial de seguidores del FC Barcelona en San Diego. Nos reunimos para cada partido en Novo Brazil Brewing en Otay Ranch.",
+      "ctaButton": "Únete a la Penya",
+      "visitButton": "Visita Nuestra Sede"
+    },
+    "Values": {
+      "title": "Nuestros Valores",
+      "inclusivity_title": "Inclusividad",
+      "inclusivity_desc": "Todos son bienvenidos a nuestra mesa. Ya seas Culer desde hace 20 años o 20 minutos, eres familia.",
+      "civic_title": "Orgullo Cívico",
+      "civic_desc": "Amamos San Diego tanto como a Barcelona. Buscamos activamente formas de apoyar a nuestros vecindarios locales.",
+      "respect_title": "Respeto",
+      "respect_desc": "Apoyamos a nuestro equipo con pasión, pero siempre tratamos a los oponentes e invitados con dignidad.",
+      "partner_cta": "Colabora con Nosotros"
+    },
+    "MembershipCTA": {
+      "badge_open": "MEMBRESÍA DE TEMPORADA {seasonId}",
+      "badge_closed": "MEMBRESÍA CERRADA ACTUALMENTE",
+      "title": "Más Que Un Partido. {br} <highlight>Más Que Un Club.</highlight>",
+      "description": "Únete a la Penya Blaugrana San Diego oficial. Tu membresía anual apoya nuestro trabajo benéfico y te da acceso a equipamiento exclusivo cada temporada.",
+      "benefits": {
+        "card": "Tarjeta Oficial de Membresía",
+        "scarf": "Bufanda Exclusiva PBSD {year}",
+        "pin": "Pin Conmemorativo",
+        "priority": "Acceso Prioritario a Fiestas de El Clásico"
+      },
+      "pricing": {
+        "per_year": "/ por año",
+        "window_label": "Ventana de Inscripción",
+        "window_dates": "Mayo — Diciembre"
+      },
+      "cta": {
+        "join": "Únete a la Familia",
+        "view": "Ver Beneficios"
+      }
+    },
+    "CommunityHighlights": {
+      "title": "Más Que Solo <highlight>90 Minutos</highlight>",
+      "subtitle": "Penya Blaugrana San Diego se dedica a tener un impacto positivo en nuestra comunidad local.",
+      "cards": {
+        "autism_title": "Apoyo a la Comunidad Autista",
+        "autism_desc": "Estamos orgullosos de asociarnos con organizaciones locales para crear entornos inclusivos y apoyar a las familias.",
+        "cancer_title": "Concientización sobre Cáncer de Mama",
+        "cancer_desc": "Nuestro mayor socio benéfico. Cada octubre, recaudamos fondos para apoyar a las mujeres que luchan contra el cáncer.",
+        "giving_title": "Retribuyendo a SD",
+        "giving_desc": "Desde rifas navideñas hasta donación de comidas, creemos en apoyar a la ciudad que nos apoya."
+      },
+      "cta": "Asóciate con nosotros por una causa"
+    }
+  },
+  "LocationPage": {
+    "Metadata": {
+      "title": "Ubicación | Penya Blaugrana San Diego",
+      "description": "Donde ocurre la magia. Nuestra sede en Otay Ranch, San Diego."
+    },
+    "Hero": {
+      "badge": "Sede Oficial de Partidos",
+      "title": "Nuestra Casa en {br} <highlight>Otay Ranch</highlight>",
+      "description": "Nos reunimos en <bold>Novo Brazil Brewing</bold> para todos los partidos de La Liga, Champions y Copa, con cerveza fría, pantallas gigantes y los Culers más ruidosos de California."
+    },
+    "MatchBanner": {
+      "label_next": "Próxima Watch Party",
+      "label_upcoming": "Próximo Calendario",
+      "no_matches": "No hay Watch Parties programadas",
+      "venue_warning": "⚠️ Cambio de Sede",
+      "at_venue": "📍 En {venue} • {time}",
+      "kickoff": "{time} Inicio",
+      "check_back": "¡Vuelve pronto!"
+    },
+    "Experience": {
+      "title": "Saber Antes de <highlight>Ir</highlight>",
+      "subtitle": "Ya sea tu primer partido o el centésimo, esto es lo que puedes esperar en nuestra sede.",
+      "cards": {
+        "eats_title": "Comida Brasileña",
+        "eats_desc": "¿Hambre? Novo ofrece cocina completa con Picanha, hamburguesas gourmet, empanadas y nachos gigantes.",
+        "taps_title": "60+ Grifos",
+        "taps_desc": "Desde IPAs premiadas hasta sus famosas Kombuchas con alcohol. Hay algo para todos.",
+        "family_title": "Familiar",
+        "family_desc": "¡Trae a los niños! El lugar está abierto a todas las edades y es perfecto para familias.",
+        "parking_title": "Estacionamiento Gratis",
+        "parking_desc": "Ubicado en Otay Ranch Town Center, hay amplio estacionamiento gratuito justo afuera."
+      },
+      "menu_cta": "Ver Menú"
+    },
+    "Gallery": {
+      "title": "Vive la <highlight>Pasión</highlight>",
+      "captions": {
+        "full_house": "Casa Llena para El Clásico",
+        "led_wall": "Pantalla LED Gigante",
+        "penya_family": "Familia Penya",
+        "fun": "Diversión para toda la familia"
+      }
+    },
+    "Map": {
+      "title": "Fácil de encontrar. {br} <highlight>Difícil de irse.</highlight>",
+      "cta": "Obtener Direcciones"
+    }
+  },
+  "GlobalPage": {
+    "Metadata": {
+      "title": "Embajadores Globales | Penya Blaugrana San Diego",
+      "description": "De San Diego al Camp Nou. Mira nuestras aventuras alrededor del mundo."
+    },
+    "Hero": {
+      "badge": "Embajadores Globales",
+      "title": "Más Que Una <highlight>Watch Party</highlight>",
+      "description": "Somos parte de una familia global. Desde compartir pintas en Londres hasta caminar por el Camp Nou, ser miembro abre puertas en todo el mundo."
+    },
+    "InnerCircle": {
+      "title": "El Círculo Íntimo"
+    },
+    "Pilgrimage": {
+      "title": "La Peregrinación 🏟️",
+      "subtitle": "Todos los fans sueñan con ello. Nosotros lo hacemos realidad."
+    },
+    "Network": {
+      "title": "Red Global 🌍",
+      "description": "Hay más de 1,000 Penyas en todo el mundo. Cuando usas nuestra camiseta, tienes amigos en cada ciudad importante.",
+      "list": {
+        "meetups": "Encuentros con otras Penyas",
+        "exchanges": "Intercambio de bufandas",
+        "friendships": "Amistades internacionales"
+      },
+      "cta": "Únete a la Familia"
+    }
+  },
+  "CommunityPage": {
+    "Metadata": {
+      "title": "Comunidad | Penya Blaugrana San Diego",
+      "description": "Una familia global. Un impacto local. Únete a nosotros para mejorar San Diego."
+    },
+    "Header": {
+      "badge": "Nuestra Comunidad",
+      "motto": "Més Que <highlight>Un Club</highlight>",
+      "subhead": "Una Familia Global. Un Impacto Local.",
+      "description": "La Penya Blaugrana San Diego (PBSD) es un club familiar unido por nuestra pasión por el fútbol e inspirado en los valores del FC Barcelona: más que un club. Defendemos la unidad, la lealtad, el respeto y la dedicación, fomentando una cultura donde los miembros se sienten como una familia y están unidos por un amor compartido por este deporte. Más allá de apoyar a nuestro club, PBSD se compromete a servir a nuestra comunidad a través de iniciativas benéficas, participación activa y una representación positiva.",
+      "cta": "Colabora por una causa"
+    },
+    "Values": {
+      "title": "Nuestros <highlight>Valores</highlight>",
+      "inclusivity_title": "Inclusividad",
+      "inclusivity_desc": "Todos son bienvenidos. No importa cuánto tiempo lleves siendo Culer, eres familia.",
+      "civic_title": "Orgullo Cívico",
+      "civic_desc": "Amamos San Diego y buscamos activamente formas de apoyar a nuestros vecindarios.",
+      "respect_title": "Respeto",
+      "respect_desc": "Apoyamos con pasión, pero siempre tratamos a todos con dignidad.",
+      "cta": "Colabora con Nosotros"
+    }
+  },
+  "ContactPage": {
+    "Metadata": {
+      "title": "Contacto | Penya Blaugrana San Diego",
+      "description": "¿Tienes preguntas? Ponte en contacto con nuestro equipo."
+    },
+    "Hero": {
+      "badge": "Oficinas del Club",
+      "title": "Ponte en {br} <highlight>Contacto</highlight>",
+      "description": "¿Preguntas sobre membresía, eventos o asociaciones? Estamos aquí para ayudar."
+    },
+    "FAQ": {
+      "title": "Preguntas Frecuentes",
+      "q0": "¿La Penya es un negocio con fines de lucro?",
+      "a0": "¡NO! Penya Blaugrana San Diego es una organización 100% sin fines de lucro. No nos beneficiamos de las cuotas ni de la mercancía. Cada dólar va a costos operativos e iniciativas benéficas.",
+      "q1": "¿Necesito ser miembro para ver los partidos?",
+      "a1": "¡No! Todos son bienvenidos a ver los partidos en Novo Brazil Brewing. La membresía es opcional pero apoya a la Penya y te da beneficios exclusivos.",
+      "q2": "¿Se permiten niños?",
+      "a2": "Absolutamente. Novo Brazil es un lugar familiar con cocina completa.",
+      "q3": "¿Cuáles son los beneficios de la membresía?",
+      "a3": "<p>Ser Penyista es tu conexión oficial con el FC Barcelona. Recibes:</p><list><item><bold>Reconocimiento Oficial:</bold> Conexión directa con la Confederación Mundial.</item><item><bold>Acceso a Partidos:</bold> Acceso prioritario a entradas en el Camp Nou y Clásicos.</item><item><bold>Eventos Exclusivos:</bold> Fiestas privadas y eventos comunitarios.</item><item><bold>Viajes:</bold> Viajes organizados a Barcelona.</item><item><bold>Merch:</bold> Acceso a productos oficiales de la Penya.</item></list>",
+      "q4": "¿Cómo recojo mi mercancía de membresía?",
+      "a4": "La mercancía está disponible para recoger en cualquier evento de partido. ¡Solo busca a un miembro de la junta!",
+      "q5": "¿Cómo registro mi carnet oficial de Penyista?",
+      "a5": "Como miembro, eres elegible para el reconocimiento oficial. Para recibir tu carnet físico, debes registrar tu perfil en <link>penyes.fcbarcelona.com</link>."
+    }
+  },
+  "MeetTheBoard": {
+    "title": "Conoce a la Junta",
+    "subtitle": "Penya Blaugrana San Diego es una organización sin fines de lucro dirigida completamente por voluntarios dedicados a hacer crecer la familia Barça en el sur de California.",
+    "roles": {
+      "president_pos": "Presidente",
+      "president_desc": "Liderando la visión y relaciones oficiales de la Penya.",
+      "vp_pos": "Vicepresidente",
+      "vp_desc": "Supervisando operaciones de día de partido y eventos.",
+      "covp_pos": "Co-Vicepresidente",
+      "covp_desc": "Supervisa la logística y operaciones de la sede.",
+      "pr_pos": "Coordinador de RRPP y Caridad",
+      "pr_desc": "Lidera nuestro alcance comunitario y asociaciones benéficas.",
+      "counsel_pos": "Consejero de Eventos y Caridad",
+      "counsel_desc": "Proporciona orientación estratégica sobre planificación de eventos.",
+      "advisor_pos": "Asesor de Eventos",
+      "advisor_desc": "Asesor dedicado para actividades estacionales e impacto comunitario.",
+      "digital_pos": "Director Digital y Creativo",
+      "digital_desc": "Arquitecto de nuestra presencia digital e identidad visual.",
+      "honorary_pos": "Penyista Honorario",
+      "honorary_desc": "Un pilar de nuestra penya, honrado por su dedicación inquebrantable."
+    }
+  },
+  "ContactForm": {
+    "Info": {
+      "title": "Info de Contacto",
+      "subtitle": "Consultas directas sobre membresía, patrocinio o prensa.",
+      "follow": "Síguenos"
+    },
+    "Form": {
+      "name_label": "Nombre",
+      "name_placeholder": "Leo Messi",
+      "email_label": "Email",
+      "email_placeholder": "leo@barca.com",
+      "topic_label": "Tema",
+      "message_label": "Mensaje",
+      "message_placeholder": "¿Cómo podemos ayudar?",
+      "submit": "Enviar Mensaje",
+      "sending": "Enviando...",
+      "success_title": "¡Mensaje Enviado!",
+      "success_desc": "Gracias por contactarnos. Un miembro de la junta te responderá pronto.",
+      "retry_btn": "Enviar otro mensaje"
+    },
+    "Topics": {
+      "general": "Consulta General",
+      "membership": "Pregunta de Membresía",
+      "sponsor": "Patrocinio / Alianza",
+      "press": "Prensa / Medios"
+    },
+    "Errors": {
+      "name_required": "Se requiere nombre.",
+      "email_required": "Se requiere email.",
+      "email_invalid": "Ingresa un email válido.",
+      "message_required": "Ingresa un mensaje.",
+      "server_error": "Error al enviar mensaje. Intenta más tarde."
+    }
+  },
+  "MembershipPage": {
+    "Metadata": {
+      "title": "Membresía | Penya Blaugrana San Diego",
+      "description": "Únete a nosotros. ¡Conviértete en miembro hoy!"
+    },
+    "Header": {
+      "title": "Únete a la Familia",
+      "subtitle": "Conviértete en miembro oficial para la temporada {season}."
+    },
+    "Benefits": {
+      "title": "Lo que incluye:",
+      "scarf_title": "Bufanda Oficial {year}",
+      "scarf_desc": "Bufanda tejida de alta calidad, diseño exclusivo.",
+      "pin_title": "Pin Conmemorativo",
+      "pin_desc": "Colecciónalos cada año. Una insignia de honor.",
+      "priority_title": "Acceso Prioritario",
+      "priority_desc": "Entrada garantizada para El Clásico y eventos especiales."
+    },
+    "Form": {
+      "title": "Detalles del Miembro",
+      "name_label": "Nombre Completo",
+      "name_placeholder": "Andrés Iniesta",
+      "email_label": "Correo Electrónico",
+      "email_placeholder": "andres@ejemplo.com",
+      "phone_label": "Teléfono (Opcional)",
+      "phone_placeholder": "(619) 555-0199",
+      "submit_btn": "Pagar $30.00",
+      "processing": "Procesando...",
+      "stripe_note": "Redirige a Stripe para pago seguro.",
+      "error_alert": "Algo salió mal. Por favor intenta de nuevo."
+    },
+    "Closed": {
+      "title": "La inscripción está cerrada",
+      "description": "Aceptamos nuevos miembros durante nuestra ventana de inscripción (típicamente de mayo a diciembre).",
+      "social_text": "¿Quieres saber cuándo abre? {br} <bold>Síguenos en redes sociales para anuncios.</bold>"
+    }
+  },
+  "MerchLink": {
+    "label": "Tienda",
+    "maintenance_title": "En Mantenimiento",
+    "maintenance_subtitle": "Vuelve pronto",
+    "store_title": "Tienda Oficial del Equipo",
+    "store_subtitle": "Alojado por WeGotSoccer",
+    "maintenance_body": "Nuestra tienda asociada se está actualizando con nueva mercancía para la próxima temporada.",
+    "close_btn": "Cerrar",
+    "store_intro": "Estás por visitar nuestra tienda asociada. Como miembro, obtienes <bold>10% OFF</bold> en tu pedido.",
+    "copy_label": "Toca para Copiar Código",
+    "copied_msg": "¡Copiado!",
+    "go_btn": "Ir a la Tienda",
+    "cancel_btn": "Cancelar"
+  },
+  "GalleryData": {
+    "bayerischer": {
+      "alt": "Miembros de la Penya en Bayerischer Hof",
+      "caption": "Intercambiando bufandas con la Penya Blaugrana Bayerischer Hof."
+    },
+    "bayerischer-meet": {
+      "alt": "Foto con la Presidenta de la Penya de Múnich",
+      "caption": "Nuestro Co-VP con Teresa, la Presidenta de la Penya de Múnich."
+    },
+    "dublin-trip": {
+      "alt": "Foto grupal en Dublín",
+      "caption": "Reunión con la Penya Blaugrana Dublín."
+    },
+    "paris": {
+      "alt": "Foto con miembros de la Penya en París",
+      "caption": "Reunión con la Penya Blaugrana París."
+    },
+    "pbsd-flag": {
+      "alt": "Toma amplia del Camp Nou",
+      "caption": "La Catedral. No hay sensación como cruzar estas puertas."
+    },
+    "mountjic-2": {
+      "alt": "Miembros de la Penya fuera de Montjuïc",
+      "caption": "Miembros de la Penya fuera de Montjuïc."
+    },
+    "trophies": {
+      "alt": "Trofeos del Barcelona",
+      "caption": "Trofeos del Barcelona."
+    },
+    "camp-nou-meet": {
+      "alt": "Miembros de la Penya fuera del Camp Nou",
+      "caption": "Miembros de la Penya fuera del Camp Nou."
+    },
+    "scarf-display": {
+      "alt": "Miembros de la Penya dentro del Camp Nou",
+      "caption": "Miembros de la Penya dentro del Camp Nou."
+    },
+    "mountjic": {
+      "alt": "Miembros de la Penya fuera de Montjuïc",
+      "caption": "Miembros de la Penya fuera de Montjuïc."
+    },
+    "hansi": {
+      "alt": "Conociendo a Hansi Flick",
+      "caption": "Miembro con Hansi Flick."
+    },
+    "rafa": {
+      "alt": "Rafael Márquez",
+      "caption": "Leyenda del Barcelona Rafael Márquez."
+    },
+    "lewandowski": {
+      "alt": "Robert Lewandowski",
+      "caption": "El delantero polaco Robert Lewandowski."
+    },
+    "sergi": {
+      "alt": "Sergiño Dest",
+      "caption": "El defensor Sergiño Dest."
+    },
+    "laporta": {
+      "alt": "Conociendo a Joan Laporta",
+      "caption": "Nuestro Presidente y Primera Dama compartiendo un momento con Joan Laporta."
+    }
+  },
+  "Footer": {
+    "subtitle": "Grupo Oficial de Seguidores #2309",
+    "copyright": "© {year} PBSD. Visca Barça."
+  }
+}

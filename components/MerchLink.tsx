@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import {
   ShoppingBag,
   X,
@@ -19,6 +20,7 @@ export default function MerchLink({
   mobile?: boolean;
   isMaintenance?: boolean;
 }) {
+  const t = useTranslations("MerchLink");
   const [isOpen, setIsOpen] = useState(false);
   const [copied, setCopied] = useState(false);
 
@@ -35,7 +37,7 @@ export default function MerchLink({
         onClick={() => setIsOpen(true)}
         className={`${className} cursor-pointer flex items-center gap-2 transition-colors hover:text-yellow-400`}
       >
-        Store
+        {t("label")}
         {!mobile && <ShoppingBag className='h-4 w-4 opacity-70' />}
       </button>
 
@@ -57,10 +59,12 @@ export default function MerchLink({
                   ) : (
                     <ShoppingBag className='h-5 w-5 text-yellow-400' />
                   )}
-                  {isMaintenance ? "Under Maintenance" : "Official Team Store"}
+                  {isMaintenance ? t("maintenance_title") : t("store_title")}
                 </h3>
                 <p className='text-slate-400 text-sm mt-1'>
-                  {isMaintenance ? "Check back soon" : "Hosted by WeGotSoccer"}
+                  {isMaintenance
+                    ? t("maintenance_subtitle")
+                    : t("store_subtitle")}
                 </p>
               </div>
               <button
@@ -76,25 +80,25 @@ export default function MerchLink({
               {isMaintenance ? (
                 // MAINTENANCE UI
                 <div className='text-center py-4'>
-                  <p className='text-slate-600 mb-6'>
-                    Our partner store is currently being updated with new
-                    merchandise for the upcoming season.
-                  </p>
+                  <p className='text-slate-600 mb-6'>{t("maintenance_body")}</p>
                   <button
                     onClick={() => setIsOpen(false)}
                     className='w-full cursor-pointer rounded-lg bg-slate-100 py-3 font-bold text-slate-700 hover:bg-slate-200 transition'
                   >
-                    Close
+                    {t("close_btn")}
                   </button>
                 </div>
               ) : (
                 // STANDARD UI
                 <>
                   <p className='text-slate-600 mb-4'>
-                    You are about to visit our partner store. As a Penya member,
-                    you get{" "}
-                    <span className='font-bold text-slate-900'>10% OFF</span>{" "}
-                    your order!
+                    {t.rich("store_intro", {
+                      bold: (chunks) => (
+                        <span className='font-bold text-slate-900'>
+                          {chunks}
+                        </span>
+                      ),
+                    })}
                   </p>
 
                   <div
@@ -102,7 +106,7 @@ export default function MerchLink({
                     className='group cursor-pointer rounded-lg border-2 border-dashed border-barca-blue/30 bg-blue-50 p-4 text-center transition hover:border-barca-blue hover:bg-blue-100 mb-6'
                   >
                     <p className='text-xs font-bold uppercase tracking-wider text-slate-500 mb-1'>
-                      Tap to Copy Code
+                      {t("copy_label")}
                     </p>
                     <div className='flex items-center justify-center gap-2'>
                       <span className='text-2xl font-black text-barca-blue tracking-widest'>
@@ -116,7 +120,7 @@ export default function MerchLink({
                     </div>
                     {copied && (
                       <p className='text-xs text-green-600 font-bold mt-1 animate-pulse'>
-                        Copied to clipboard!
+                        {t("copied_msg")}
                       </p>
                     )}
                   </div>
@@ -129,13 +133,13 @@ export default function MerchLink({
                       onClick={() => setIsOpen(false)}
                       className='flex cursor-pointer items-center justify-center gap-2 w-full rounded-lg bg-barca-red py-3 font-bold text-white hover:bg-red-700 transition'
                     >
-                      Go to Store <ExternalLink className='h-4 w-4' />
+                      {t("go_btn")} <ExternalLink className='h-4 w-4' />
                     </a>
                     <button
                       onClick={() => setIsOpen(false)}
                       className='w-full cursor-pointer py-2 text-sm font-semibold text-slate-500 hover:text-slate-800'
                     >
-                      Cancel
+                      {t("cancel_btn")}
                     </button>
                   </div>
                 </>

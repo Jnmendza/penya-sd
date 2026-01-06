@@ -1,5 +1,5 @@
 import { createClient } from "@/utils/supabase/server";
-import Link from "next/link";
+import { Link } from "@/utils/navigation"; // Use i18n Link
 import Image from "next/image";
 import {
   MapPin,
@@ -11,18 +11,34 @@ import {
   Calendar,
 } from "lucide-react";
 import { VENUES } from "@/utils/venues";
+import { getTranslations, getLocale } from "next-intl/server";
 
-export const metadata = {
-  title: "Location | Penya Blaugrana San Diego",
-  description:
-    "Where the magic happens. Our headquarters in Otay Ranch, San Diego.",
-};
+// 1. DYNAMIC METADATA (Translations for SEO)
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({
+    locale,
+    namespace: "LocationPage.Metadata",
+  });
 
-// 1. Make function ASYNC
+  return {
+    title: t("title"),
+    description: t("description"),
+  };
+}
+
 export default async function LocationPage() {
   const supabase = await createClient();
+  const locale = await getLocale(); // Get current language (en, es, ca)
 
-  // 2. Fetch the NEXT watch party (Same logic as Homepage)
+  // Fetch translations for the body
+  const t = await getTranslations("LocationPage");
+
+  // 2. FETCH DATA
   const { data: matches } = await supabase
     .from("matches")
     .select("*")
@@ -33,30 +49,27 @@ export default async function LocationPage() {
 
   const nextMatch = matches?.[0];
 
-  // 3. Format Date/Time (Fixed: Forces San Diego Time)
+  // 3. FORMAT DATE (Localized!)
   const matchDate = nextMatch ? new Date(nextMatch.utc_date) : null;
-
-  // Default values if no match exists
   let dateStr = "";
   let timeStr = "";
 
   if (matchDate) {
-    dateStr = new Intl.DateTimeFormat("en-US", {
+    // Uses 'locale' to format "Monday" vs "Lunes" vs "Dilluns"
+    dateStr = new Intl.DateTimeFormat(locale, {
       weekday: "long",
       month: "short",
       day: "numeric",
       timeZone: "America/Los_Angeles",
     }).format(matchDate);
 
-    timeStr = new Intl.DateTimeFormat("en-US", {
+    timeStr = new Intl.DateTimeFormat(locale, {
       hour: "numeric",
       minute: "2-digit",
       hour12: true,
       timeZone: "America/Los_Angeles",
     }).format(matchDate);
   }
-
-  const isShakespeare = nextMatch?.venue === VENUES.SHAKESPEARE.name;
 
   return (
     <main className='min-h-screen bg-slate-50'>
@@ -67,22 +80,26 @@ export default async function LocationPage() {
 
         <div className='container relative z-10 mx-auto px-4 text-center'>
           <span className='mb-6 inline-block rounded-full bg-yellow-400/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-yellow-400 border border-yellow-400/20 backdrop-blur-sm'>
-            Official Matchday HQ
+            {t("Hero.badge")}
           </span>
 
           <h1 className='mb-6 text-5xl font-black uppercase tracking-wide text-white sm:text-7xl drop-shadow-lg'>
-            Our Home in <br />
-            <span className='text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-blue-500 to-red-600'>
-              Otay Ranch
-            </span>
+            {t.rich("Hero.title", {
+              br: (<br key='br' />) as any,
+              highlight: (chunks) => (
+                <span className='text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-blue-500 to-red-600'>
+                  {chunks}
+                </span>
+              ),
+            })}
           </h1>
 
           <p className='mx-auto max-w-2xl text-lg font-medium text-slate-300 md:text-xl'>
-            We gather at{" "}
-            <span className='text-white font-bold'> Novo Brazil Brewery</span>{" "}
-            for every La Liga, Champions League and domestic cup matches,
-            featuring Cold beer, massive screens, and the loudest Cules in
-            California.
+            {t.rich("Hero.description", {
+              bold: (chunks) => (
+                <span className='text-white font-bold'> {chunks}</span>
+              ),
+            })}
           </p>
 
           {/* DYNAMIC NEXT MATCH BANNER */}
@@ -92,14 +109,15 @@ export default async function LocationPage() {
                 <Calendar className='h-6 w-6 text-yellow-400 shrink-0' />
                 <div className='text-left'>
                   <p className='text-xs font-bold text-slate-400 uppercase tracking-wider'>
-                    {nextMatch ? "Next Watch Party" : "Upcoming Schedule"}
+                    {nextMatch
+                      ? t("MatchBanner.label_next")
+                      : t("MatchBanner.label_upcoming")}
                   </p>
 
-                  {/* Dynamic Match Title */}
                   <p className='text-lg font-bold'>
                     {nextMatch
                       ? `${nextMatch.home_team} vs ${nextMatch.away_team}`
-                      : "No Watch Parties Scheduled"}
+                      : t("MatchBanner.no_matches")}
                   </p>
                 </div>
               </div>
@@ -107,34 +125,35 @@ export default async function LocationPage() {
               <div className='text-right'>
                 {nextMatch ? (
                   <div className='flex flex-col items-end'>
-                    {/* 1. WARNING BADGE (Only shows if Shakespeare) */}
+                    {/* WARNING BADGE */}
                     {nextMatch.venue === "Shakespeare Pub" && (
                       <span className='mb-1 inline-block rounded bg-amber-500/20 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-amber-400 border border-amber-500/30'>
-                        ⚠️ Venue Change
+                        {t("MatchBanner.venue_warning")}
                       </span>
                     )}
 
-                    {/* 2. DATE (Always shows) */}
-                    <span className='block text-xl font-black text-white'>
+                    <span className='block text-xl font-black text-white capitalize'>
                       {dateStr}
                     </span>
 
-                    {/* 3. DYNAMIC TIME/LOCATION LINE */}
                     <span
                       className={`block text-sm font-medium ${
                         nextMatch.venue === "Shakespeare Pub"
-                          ? "text-amber-400" // Amber for Alert
-                          : "text-barca-red" // Red for Standard
+                          ? "text-amber-400"
+                          : "text-barca-red"
                       }`}
                     >
                       {nextMatch.venue === "Shakespeare Pub"
-                        ? `📍 At Shakespeare Pub • ${timeStr}`
-                        : `${timeStr} Kickoff`}
+                        ? t("MatchBanner.at_venue", {
+                            venue: "Shakespeare Pub",
+                            time: timeStr,
+                          })
+                        : t("MatchBanner.kickoff", { time: timeStr })}
                     </span>
                   </div>
                 ) : (
                   <span className='block text-sm font-medium text-slate-400'>
-                    Check back soon!
+                    {t("MatchBanner.check_back")}
                   </span>
                 )}
               </div>
@@ -148,29 +167,30 @@ export default async function LocationPage() {
         <div className='container mx-auto px-4'>
           <div className='mb-12 text-center'>
             <h2 className='text-3xl font-black uppercase text-slate-900 md:text-4xl'>
-              Know Before{" "}
-              <span className='text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-red-600'>
-                You Go
-              </span>
+              {t.rich("Experience.title", {
+                highlight: (chunks) => (
+                  <span className='text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-red-600'>
+                    {chunks}
+                  </span>
+                ),
+              })}
             </h2>
             <p className='mt-4 text-slate-600 max-w-xl mx-auto'>
-              Whether it's your first match or your hundredth, here is what you
-              can expect at our headquarters.
+              {t("Experience.subtitle")}
             </p>
           </div>
 
           <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-4'>
-            {/* Card 1 */}
+            {/* Eats */}
             <div className='rounded-2xl bg-white p-6 shadow-sm border border-slate-100 hover:shadow-md transition'>
               <div className='mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-orange-100 text-orange-600'>
                 <Utensils className='h-6 w-6' />
               </div>
               <h3 className='mb-2 text-xl font-bold text-slate-900'>
-                Brazilian Eats
+                {t("Experience.cards.eats_title")}
               </h3>
               <p className='mb-4 text-sm text-slate-600 leading-relaxed'>
-                Hungry? Novo offers a full kitchen featuring Picanha steaks,
-                gourmet burgers, empanadas, and massive nacho platters.
+                {t("Experience.cards.eats_desc")}
               </p>
               <Link
                 href='https://www.novobrew.com/menu'
@@ -178,49 +198,47 @@ export default async function LocationPage() {
                 rel='noreferrer'
                 className='inline-flex items-center text-sm font-bold text-barca-blue hover:underline'
               >
-                View Menu <ArrowRight className='ml-1 h-4 w-4' />
+                {t("Experience.menu_cta")}{" "}
+                <ArrowRight className='ml-1 h-4 w-4' />
               </Link>
             </div>
 
-            {/* Card 2 */}
+            {/* Taps */}
             <div className='rounded-2xl bg-white p-6 shadow-sm border border-slate-100 hover:shadow-md transition'>
               <div className='mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 text-blue-600'>
                 <Beer className='h-6 w-6' />
               </div>
               <h3 className='mb-2 text-xl font-bold text-slate-900'>
-                60+ Taps
+                {t("Experience.cards.taps_title")}
               </h3>
               <p className='text-sm text-slate-600 leading-relaxed'>
-                From award-winning IPAs and Lagers to their famous hard
-                Kombuchas and seltzers. There is something for everyone.
+                {t("Experience.cards.taps_desc")}
               </p>
             </div>
 
-            {/* Card 3 */}
+            {/* Family */}
             <div className='rounded-2xl bg-white p-6 shadow-sm border border-slate-100 hover:shadow-md transition'>
               <div className='mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-green-100 text-green-600'>
                 <Users className='h-6 w-6' />
               </div>
               <h3 className='mb-2 text-xl font-bold text-slate-900'>
-                Family Friendly
+                {t("Experience.cards.family_title")}
               </h3>
               <p className='text-sm text-slate-600 leading-relaxed'>
-                Bring the kids! The venue is open to all ages and features a
-                spacious layout perfect for families.
+                {t("Experience.cards.family_desc")}
               </p>
             </div>
 
-            {/* Card 4 */}
+            {/* Parking */}
             <div className='rounded-2xl bg-white p-6 shadow-sm border border-slate-100 hover:shadow-md transition'>
               <div className='mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-purple-100 text-purple-600'>
                 <Car className='h-6 w-6' />
               </div>
               <h3 className='mb-2 text-xl font-bold text-slate-900'>
-                Free Parking
+                {t("Experience.cards.parking_title")}
               </h3>
               <p className='text-sm text-slate-600 leading-relaxed'>
-                Located in the Otay Ranch Town Center, there is ample free
-                parking available right outside the brewery.
+                {t("Experience.cards.parking_desc")}
               </p>
             </div>
           </div>
@@ -228,37 +246,38 @@ export default async function LocationPage() {
       </section>
 
       {/* ATMOSPHERE GALLERY */}
-      {/* 2.5 ATMOSPHERE GALLERY (Bento Grid with next/image) */}
       <section className='py-16 pb-24 bg-slate-50'>
         <div className='container mx-auto px-4'>
           <div className='mb-12 text-center'>
             <h2 className='text-3xl font-black uppercase text-slate-900 md:text-4xl'>
-              Experience the
-              <span className='text-transparent ml-2 bg-clip-text bg-gradient-to-r from-blue-700 to-red-600'>
-                Passion
-              </span>
+              {t.rich("Gallery.title", {
+                highlight: (chunks) => (
+                  <span className='text-transparent ml-2 bg-clip-text bg-gradient-to-r from-blue-700 to-red-600'>
+                    {chunks}
+                  </span>
+                ),
+              })}
             </h2>
           </div>
 
-          {/* THE BENTO GRID */}
           <div className='grid grid-cols-1 md:grid-cols-4 auto-rows-[200px] gap-4'>
-            {/* 1. LARGE MAIN SHOT (Crowd cheering) - Spans 2x2 */}
+            {/* 1. LARGE MAIN SHOT */}
             <div className='relative group overflow-hidden rounded-2xl md:col-span-2 md:row-span-2 bg-slate-200 shadow-md'>
               <Image
                 src='https://pxouwgfpksichenstsgh.supabase.co/storage/v1/object/public/assets/group-shot.jpeg?q=80&w=800&auto=format&fit=crop'
                 alt='Crowd cheering'
-                fill // <--- Fills the container
+                fill
                 className='object-cover transition duration-700 group-hover:scale-110'
-                sizes='(max-width: 768px) 100vw, 50vw' // Optimization hint
+                sizes='(max-width: 768px) 100vw, 50vw'
               />
               <div className='absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent opacity-0 transition duration-500 group-hover:opacity-100 flex items-end p-6'>
                 <p className='font-bold text-white'>
-                  Full House for El Clásico
+                  {t("Gallery.captions.full_house")}
                 </p>
               </div>
             </div>
 
-            {/* 2. TALL SHOT (The Big Screen) - Spans 1x2 */}
+            {/* 2. TALL SHOT */}
             <div className='relative group overflow-hidden rounded-2xl md:col-span-1 md:row-span-2 bg-slate-200 shadow-md'>
               <Image
                 src='https://pxouwgfpksichenstsgh.supabase.co/storage/v1/object/public/assets/tech-shot2.jpeg?q=80&w=800&auto=format&fit=crop'
@@ -268,7 +287,9 @@ export default async function LocationPage() {
                 sizes='(max-width: 768px) 100vw, 25vw'
               />
               <div className='absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent opacity-0 transition duration-500 group-hover:opacity-100 flex items-end p-6'>
-                <p className='font-bold text-white'>Massive LED Wall</p>
+                <p className='font-bold text-white'>
+                  {t("Gallery.captions.led_wall")}
+                </p>
               </div>
             </div>
 
@@ -283,7 +304,7 @@ export default async function LocationPage() {
               />
             </div>
 
-            {/* 4. COMMUNITY SHOT (Kids/Family) */}
+            {/* 4. COMMUNITY SHOT */}
             <div className='relative group overflow-hidden rounded-2xl bg-slate-200 shadow-md'>
               <Image
                 src='https://pxouwgfpksichenstsgh.supabase.co/storage/v1/object/public/assets/family-shot2.jpg?q=80&w=800&auto=format&fit=crop'
@@ -294,7 +315,7 @@ export default async function LocationPage() {
               />
             </div>
 
-            {/* 5. WIDE SHOT (Group Photo) - Spans 2 wide */}
+            {/* 5. WIDE SHOT (Group) */}
             <div className='relative group overflow-hidden rounded-2xl md:col-span-2 bg-slate-200 shadow-md'>
               <Image
                 src='https://pxouwgfpksichenstsgh.supabase.co/storage/v1/object/public/assets/bryant.jpg?q=80&w=800&auto=format&fit=crop'
@@ -304,11 +325,13 @@ export default async function LocationPage() {
                 sizes='(max-width: 768px) 100vw, 50vw'
               />
               <div className='absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent opacity-0 transition duration-500 group-hover:opacity-100 flex items-end p-6'>
-                <p className='font-bold text-white'>Penya Family</p>
+                <p className='font-bold text-white'>
+                  {t("Gallery.captions.penya_family")}
+                </p>
               </div>
             </div>
 
-            {/* 6. FILLER SHOT (Celebration) - Spans 2 wide */}
+            {/* 6. FILLER SHOT */}
             <div className='relative group overflow-hidden rounded-2xl md:col-span-2 bg-slate-200 shadow-md'>
               <Image
                 src='https://pxouwgfpksichenstsgh.supabase.co/storage/v1/object/public/assets/vibes-3.jpeg?q=80&w=800&auto=format&fit=crop'
@@ -318,7 +341,9 @@ export default async function LocationPage() {
                 sizes='(max-width: 768px) 100vw, 50vw'
               />
               <div className='absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent opacity-0 transition duration-500 group-hover:opacity-100 flex items-end p-6'>
-                <p className='font-bold text-white'>Fun for the whole family</p>
+                <p className='font-bold text-white'>
+                  {t("Gallery.captions.fun")}
+                </p>
               </div>
             </div>
           </div>
@@ -328,16 +353,19 @@ export default async function LocationPage() {
       {/* MAP SECTION */}
       <section className='bg-slate-900 text-white'>
         <div className='grid md:grid-cols-2'>
-          {/* TEXT SIDE */}
           <div className='flex flex-col justify-center p-12 md:p-20 order-2 md:order-1'>
             <div className='mb-6 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-white/10 backdrop-blur-sm'>
               <MapPin className='h-8 w-8 text-yellow-400' />
             </div>
             <h2 className='mb-6 text-3xl font-black uppercase md:text-5xl'>
-              Easy to find. <br />
-              <span className='text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500'>
-                Hard to leave.
-              </span>
+              {t.rich("Map.title", {
+                br: (<br key='br' />) as any,
+                highlight: (chunks) => (
+                  <span className='text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500'>
+                    {chunks}
+                  </span>
+                ),
+              })}
             </h2>
             <address className='not-italic text-lg text-slate-300 space-y-2 mb-8'>
               <p className='font-bold text-white text-xl'>
@@ -353,11 +381,10 @@ export default async function LocationPage() {
               rel='noreferrer'
               className='w-full sm:w-auto rounded-xl bg-barca-red px-8 py-4 text-center font-bold text-white transition hover:bg-red-700 hover:shadow-lg hover:shadow-red-900/20'
             >
-              Get Directions
+              {t("Map.cta")}
             </Link>
           </div>
 
-          {/* MAP EMBED SIDE */}
           <div className='relative min-h-[400px] w-full bg-slate-800 order-1 md:order-2'>
             <iframe
               title='Map to Novo Brazil'

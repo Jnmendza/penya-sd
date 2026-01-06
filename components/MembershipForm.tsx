@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import Link from "next/link"; // External links can use standard Link
 import { createClient } from "@/utils/supabase/client";
 import { FacebookIcon, InstagramIcon, XIcon } from "./Icons";
+import { useTranslations } from "next-intl";
 
 interface Props {
   isEnrollmentOpen: boolean;
@@ -14,11 +15,16 @@ export default function MembershipForm({
   isEnrollmentOpen,
   currentSeason,
 }: Props) {
+  const t = useTranslations("MembershipPage");
   const [isLoading, setIsLoading] = useState(false);
   const [phone, setPhone] = useState("");
   const supabase = createClient();
 
-  // TODO: Your Stripe Link
+  // Helper to format season string (e.g. "2024/2025" -> "24/25")
+  const shortSeason = `${currentSeason.split("/")[0].slice(-2)}/${
+    currentSeason.split("/")[1]?.slice(-2) || "26"
+  }`;
+
   const STRIPE_PAYMENT_LINK = "https://buy.stripe.com/test_123456";
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -30,8 +36,6 @@ export default function MembershipForm({
       full_name: formData.get("fullName") as string,
       email: formData.get("email") as string,
       phone: formData.get("phone") as string,
-      // HARDCODED: We send 'N/A' because the DB expects a value,
-      // but we aren't asking the user for it this year.
       shirt_size: "N/A",
       status: "PENDING_PAYMENT",
       season: currentSeason,
@@ -41,7 +45,7 @@ export default function MembershipForm({
 
     if (error) {
       console.error("Error creating member:", error);
-      alert("Something went wrong. Please try again.");
+      alert(t("Form.error_alert")); // Translated Alert
       setIsLoading(false);
       return;
     }
@@ -52,21 +56,11 @@ export default function MembershipForm({
   };
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // 1. Strip all non-numbers
     const input = e.target.value.replace(/\D/g, "");
-
-    // 2. Format as (XXX) XXX-XXXX
     let formatted = input;
-    if (input.length > 0) {
-      formatted = `(${input.substring(0, 3)}`;
-    }
-    if (input.length >= 4) {
-      formatted += `) ${input.substring(3, 6)}`;
-    }
-    if (input.length >= 7) {
-      formatted += `-${input.substring(6, 10)}`;
-    }
-
+    if (input.length > 0) formatted = `(${input.substring(0, 3)}`;
+    if (input.length >= 4) formatted += `) ${input.substring(3, 6)}`;
+    if (input.length >= 7) formatted += `-${input.substring(6, 10)}`;
     setPhone(formatted);
   };
 
@@ -75,11 +69,10 @@ export default function MembershipForm({
       {/* HEADER IS ALWAYS VISIBLE */}
       <div className='text-center mb-12'>
         <h1 className='text-4xl font-extrabold text-slate-900 mb-4'>
-          Join the Family
+          {t("Header.title")}
         </h1>
         <p className='text-xl text-slate-600 max-w-2xl mx-auto'>
-          Become an official member of Penya Blaugrana San Diego for the{" "}
-          {currentSeason} season.
+          {t("Header.subtitle", { season: currentSeason })}
         </p>
       </div>
 
@@ -90,7 +83,7 @@ export default function MembershipForm({
           <div className='space-y-8'>
             <div className='bg-white rounded-2xl p-8 shadow-sm border border-slate-100'>
               <h3 className='text-lg font-bold text-slate-900 mb-4'>
-                What's Included:
+                {t("Benefits.title")}
               </h3>
               <ul className='space-y-4'>
                 <li className='flex items-start gap-4'>
@@ -99,11 +92,10 @@ export default function MembershipForm({
                   </div>
                   <div>
                     <h4 className='font-bold text-slate-900'>
-                      Official {currentSeason.split("/")[0].slice(-2)}/
-                      {currentSeason.split("/")[1]?.slice(-2) || "26"} Scarf
+                      {t("Benefits.scarf_title", { year: shortSeason })}
                     </h4>
                     <p className='text-sm text-slate-500'>
-                      High-quality knit scarf, exclusive design for members.
+                      {t("Benefits.scarf_desc")}
                     </p>
                   </div>
                 </li>
@@ -113,10 +105,10 @@ export default function MembershipForm({
                   </div>
                   <div>
                     <h4 className='font-bold text-slate-900'>
-                      Commemorative Pin
+                      {t("Benefits.pin_title")}
                     </h4>
                     <p className='text-sm text-slate-500'>
-                      Collect them every year. A badge of honor.
+                      {t("Benefits.pin_desc")}
                     </p>
                   </div>
                 </li>
@@ -126,10 +118,10 @@ export default function MembershipForm({
                   </div>
                   <div>
                     <h4 className='font-bold text-slate-900'>
-                      Priority Access
+                      {t("Benefits.priority_title")}
                     </h4>
                     <p className='text-sm text-slate-500'>
-                      Guaranteed entry for El Clásico and special events.
+                      {t("Benefits.priority_desc")}
                     </p>
                   </div>
                 </li>
@@ -140,44 +132,44 @@ export default function MembershipForm({
           {/* SIGNUP FORM */}
           <div className='bg-white p-8 rounded-3xl shadow-xl border border-slate-200'>
             <h2 className='text-2xl font-bold text-slate-900 mb-6'>
-              Member Details
+              {t("Form.title")}
             </h2>
             <form onSubmit={handleSubmit} className='space-y-6'>
               <div>
                 <label className='block text-sm font-medium text-slate-700 mb-2'>
-                  Full Name
+                  {t("Form.name_label")}
                 </label>
                 <input
                   name='fullName'
                   type='text'
                   required
-                  placeholder='Andrés Iniesta'
+                  placeholder={t("Form.name_placeholder")}
                   className='w-full rounded-lg border border-slate-300 p-3 outline-none focus:border-barca-blue focus:ring-1 text-slate-900'
                 />
               </div>
               <div>
                 <label className='block text-sm font-medium text-slate-700 mb-2'>
-                  Email Address
+                  {t("Form.email_label")}
                 </label>
                 <input
                   name='email'
                   type='email'
                   required
-                  placeholder='andres@example.com'
+                  placeholder={t("Form.email_placeholder")}
                   className='w-full rounded-lg border border-slate-300 p-3 outline-none focus:border-barca-blue focus:ring-1 text-slate-900'
                 />
               </div>
               <div>
                 <label className='block text-sm font-medium text-slate-700 mb-2'>
-                  Phone (Optional)
+                  {t("Form.phone_label")}
                 </label>
                 <input
                   name='phone'
                   type='tel'
-                  placeholder='(619) 555-0199'
-                  maxLength={14} // Prevents typing too many numbers
-                  value={phone} // Controlled value
-                  onChange={handlePhoneChange} // Runs the logic above
+                  placeholder={t("Form.phone_placeholder")}
+                  maxLength={14}
+                  value={phone}
+                  onChange={handlePhoneChange}
                   className='w-full rounded-lg border border-slate-300 p-3 text-slate-900 outline-none focus:border-barca-blue focus:ring-1 focus:ring-barca-blue'
                 />
               </div>
@@ -188,10 +180,10 @@ export default function MembershipForm({
                   disabled={isLoading}
                   className='w-full rounded-xl bg-barca-gold py-4 text-xl font-bold text-barca-blue hover:bg-yellow-400 hover:scale-[1.02] transition shadow-lg disabled:opacity-50'
                 >
-                  {isLoading ? "Processing..." : "Pay $30.00"}
+                  {isLoading ? t("Form.processing") : t("Form.submit_btn")}
                 </button>
                 <p className='mt-4 text-center text-xs text-slate-400'>
-                  Redirects to Stripe for secure payment.
+                  {t("Form.stripe_note")}
                 </p>
               </div>
             </form>
@@ -204,18 +196,17 @@ export default function MembershipForm({
             🔒
           </div>
           <h2 className='text-3xl font-bold text-slate-900 mb-4'>
-            Enrollment is Currently Closed
+            {t("Closed.title")}
           </h2>
           <p className='text-lg text-slate-600 mb-8'>
-            We accept new members during our enrollment window (typically late
-            May through early December). Check back closer to those dates!
+            {t("Closed.description")}
           </p>
           <div className='p-6 bg-blue-50 rounded-xl'>
             <p className='text-barca-blue font-medium'>
-              Want to know when it opens? <br />
-              <span className='font-bold'>
-                Follow us on social media for announcements.
-              </span>
+              {t.rich("Closed.social_text", {
+                br: (<br key='br' />) as any,
+                bold: (chunks) => <span className='font-bold'>{chunks}</span>,
+              })}
             </p>
             <div className='flex justify-center gap-4 mt-4'>
               <Link

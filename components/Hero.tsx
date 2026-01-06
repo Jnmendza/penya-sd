@@ -1,41 +1,50 @@
-import Link from "next/link";
+"use client";
+
+import { Link } from "@/utils/navigation";
+import { useTranslations } from "next-intl";
+import Image from "next/image"; // <--- Import this
 
 export default function Hero() {
+  const t = useTranslations("HomePage.Hero");
+
   return (
     <section className='relative h-screen w-full overflow-hidden bg-slate-900'>
       {/* 1. Background Image/Video Layer */}
       <div className='absolute inset-0 z-0'>
-        {/* Placeholder: Replace 'src' with your actual Novo Brewery crowd photo */}
-        <img
+        <Image
           src='https://pxouwgfpksichenstsgh.supabase.co/storage/v1/object/public/assets/hero-shot.jpeg?q=80&w=2831&auto=format&fit=crop'
           alt='Penya Blaugrana San Diego Crowd'
-          className='h-full w-full object-cover opacity-50'
+          fill // <--- Spans the parent container
+          className='object-cover opacity-50' // Keeps the style
+          priority // <--- IMPORTANT: Preloads image for Hero (LCP)
         />
-        {/* Gradient Overlay to make text readable */}
+        {/* Gradient Overlay */}
         <div className='absolute inset-0 bg-gradient-to-t from-barca-blue/90 via-slate-900/60 to-transparent' />
       </div>
 
-      {/* 2. Content Layer - THE FIX IS HERE */}
+      {/* 2. Content Layer */}
       <div className='relative z-10 flex h-full flex-col items-center justify-center px-4 text-center text-white pt-32 pb-32 md:pb-48'>
         {/* Badge */}
         <div className='mb-6 inline-block rounded-full border border-barca-gold/50 bg-barca-blue/30 px-4 py-1 backdrop-blur-md'>
           <span className='text-sm font-semibold tracking-wide text-barca-gold uppercase'>
-            Official Penya #2309
+            {t("badge")}
           </span>
         </div>
 
         {/* Headline */}
         <h1 className='mb-6 text-5xl font-black uppercase tracking-wide text-white sm:text-7xl md:text-8xl drop-shadow-lg'>
-          San Diego is
-          {/* 'block' forces a new line, 'mt-2' adds just a little breathing room */}
-          <span className='block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-blue-800 to-red-600'>
-            BLAUGRANA
-          </span>
+          {t.rich("title", {
+            br: (<br key='br' />) as any,
+            highlight: (chunks) => (
+              <span className='block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-blue-800 to-red-600'>
+                {chunks}
+              </span>
+            ),
+          })}
         </h1>
 
         <p className='mb-10 max-w-2xl text-lg text-gray-200 sm:text-xl'>
-          Join the official FC Barcelona supporters group of San Diego. We meet
-          for every match at Novo Brazil Brewing in Otay Ranch.
+          {t("description")}
         </p>
 
         {/* Buttons */}
@@ -44,13 +53,13 @@ export default function Hero() {
             href='/membership'
             className='rounded-full bg-barca-gold px-8 py-4 text-lg font-bold text-barca-blue transition hover:bg-yellow-400 hover:scale-105'
           >
-            Join the Penya
+            {t("ctaButton")}
           </Link>
           <Link
             href='/location'
             className='rounded-full border-2 border-white/20 bg-white/10 px-8 py-4 text-lg font-semibold text-white backdrop-blur-sm transition hover:bg-white/20'
           >
-            Visit Our Headquarters
+            {t("visitButton")}
           </Link>
         </div>
       </div>

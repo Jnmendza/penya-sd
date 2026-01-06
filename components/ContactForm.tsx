@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import { Link } from "@/utils/navigation"; // Use i18n link
+import { useTranslations } from "next-intl";
 import {
   Mail,
   MapPin,
@@ -13,6 +14,8 @@ import { InstagramIcon, XIcon, FacebookIcon } from "@/components/Icons";
 import { sendContactEmail } from "@/app/actions/sendEmail";
 
 export default function ContactForm() {
+  const t = useTranslations("ContactForm");
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -38,7 +41,6 @@ export default function ContactForm() {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
 
-    // Clear errors when user types
     if (errors[name as keyof typeof errors]) {
       setErrors((prev) => ({ ...prev, [name]: "" }));
     }
@@ -50,21 +52,21 @@ export default function ContactForm() {
     const newErrors = { name: "", email: "", message: "" };
 
     if (!formData.name.trim()) {
-      newErrors.name = "Name is required.";
+      newErrors.name = t("Errors.name_required");
       isValid = false;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!formData.email.trim()) {
-      newErrors.email = "Email is required.";
+      newErrors.email = t("Errors.email_required");
       isValid = false;
     } else if (!emailRegex.test(formData.email)) {
-      newErrors.email = "Please enter a valid email address.";
+      newErrors.email = t("Errors.email_invalid");
       isValid = false;
     }
 
     if (!formData.message.trim()) {
-      newErrors.message = "Please enter a message.";
+      newErrors.message = t("Errors.message_required");
       isValid = false;
     }
 
@@ -74,24 +76,20 @@ export default function ContactForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     if (!validate()) return;
 
     setIsSubmitting(true);
     setServerError("");
 
     try {
-      // 1. Prepare the data for the Server Action
       const payload = new FormData();
       payload.append("name", formData.name);
       payload.append("email", formData.email);
-      // We combine Topic + Message so the email is clear
       payload.append(
         "message",
         `[Topic: ${formData.topic}]\n\n${formData.message}`
       );
 
-      // 2. Call the Server Action
       const result = await sendContactEmail(payload);
 
       if (result.success) {
@@ -103,10 +101,10 @@ export default function ContactForm() {
           message: "",
         });
       } else {
-        setServerError(result.error || "Something went wrong.");
+        setServerError(result.error || t("Errors.server_error"));
       }
     } catch (err) {
-      setServerError("Failed to send message. Please try again later.");
+      setServerError(t("Errors.server_error"));
     } finally {
       setIsSubmitting(false);
     }
@@ -118,10 +116,10 @@ export default function ContactForm() {
         <div className='mx-auto max-w-6xl overflow-hidden rounded-3xl bg-white shadow-xl lg:flex'>
           {/* LEFT: INFO PANEL */}
           <div className='bg-slate-900 p-10 text-white lg:w-2/5'>
-            <h3 className='mb-6 text-2xl font-black uppercase'>Contact Info</h3>
-            <p className='mb-8 text-slate-300'>
-              Direct inquiries regarding membership, sponsorship, or press.
-            </p>
+            <h3 className='mb-6 text-2xl font-black uppercase'>
+              {t("Info.title")}
+            </h3>
+            <p className='mb-8 text-slate-300'>{t("Info.subtitle")}</p>
             <div className='space-y-6'>
               <div className='flex items-start gap-4'>
                 <Mail className='h-6 w-6 text-yellow-400 shrink-0' />
@@ -149,7 +147,7 @@ export default function ContactForm() {
                 </div>
               </div>
               <div className='pt-8 mt-8 border-t border-slate-800'>
-                <p className='font-bold mb-4'>Follow Us</p>
+                <p className='font-bold mb-4'>{t("Info.follow")}</p>
                 <div className='flex gap-4'>
                   <Link
                     href='https://www.instagram.com/penyasandiego_'
@@ -182,17 +180,16 @@ export default function ContactForm() {
                   <CheckCircle className='h-8 w-8' />
                 </div>
                 <h3 className='text-2xl font-bold text-slate-900'>
-                  Message Sent!
+                  {t("Form.success_title")}
                 </h3>
                 <p className='text-slate-600 mt-2 max-w-sm'>
-                  Thank you for reaching out. A board member will get back to
-                  you shortly.
+                  {t("Form.success_desc")}
                 </p>
                 <button
                   onClick={() => setIsSuccess(false)}
                   className='mt-6 cursor-pointer text-barca-blue font-bold hover:underline'
                 >
-                  Send another message
+                  {t("Form.retry_btn")}
                 </button>
               </div>
             ) : (
@@ -200,7 +197,9 @@ export default function ContactForm() {
                 <div className='grid gap-6 md:grid-cols-2'>
                   {/* NAME */}
                   <div className='text-slate-900'>
-                    <label className='mb-2 block text-sm font-bold'>Name</label>
+                    <label className='mb-2 block text-sm font-bold'>
+                      {t("Form.name_label")}
+                    </label>
                     <input
                       type='text'
                       name='name'
@@ -211,7 +210,7 @@ export default function ContactForm() {
                           ? "border-red-500 focus:ring-red-500"
                           : "border-slate-300 focus:border-barca-blue focus:ring-barca-blue"
                       }`}
-                      placeholder='Leo Messi'
+                      placeholder={t("Form.name_placeholder")}
                     />
                     {errors.name && (
                       <p className='mt-1 text-xs text-red-500 flex items-center gap-1'>
@@ -223,7 +222,7 @@ export default function ContactForm() {
                   {/* EMAIL */}
                   <div className='text-slate-900'>
                     <label className='mb-2 block text-sm font-bold'>
-                      Email
+                      {t("Form.email_label")}
                     </label>
                     <input
                       type='email'
@@ -235,7 +234,7 @@ export default function ContactForm() {
                           ? "border-red-500 focus:ring-red-500"
                           : "border-slate-300 focus:border-barca-blue focus:ring-barca-blue"
                       }`}
-                      placeholder='leo@barca.com'
+                      placeholder={t("Form.email_placeholder")}
                     />
                     {errors.email && (
                       <p className='mt-1 text-xs text-red-500 flex items-center gap-1'>
@@ -247,7 +246,9 @@ export default function ContactForm() {
 
                 {/* TOPIC */}
                 <div className='text-slate-900'>
-                  <label className='mb-2 block text-sm font-bold'>Topic</label>
+                  <label className='mb-2 block text-sm font-bold'>
+                    {t("Form.topic_label")}
+                  </label>
                   <div className='relative'>
                     <select
                       name='topic'
@@ -255,10 +256,16 @@ export default function ContactForm() {
                       onChange={handleChange}
                       className='w-full appearance-none rounded-lg border border-slate-300 bg-slate-50 p-3 outline-none focus:border-barca-blue focus:ring-1 focus:ring-barca-blue '
                     >
-                      <option>General Inquiry</option>
-                      <option>Membership Question</option>
-                      <option>Sponsorship / Partnership</option>
-                      <option>Press / Media</option>
+                      <option value='General Inquiry'>
+                        {t("Topics.general")}
+                      </option>
+                      <option value='Membership Question'>
+                        {t("Topics.membership")}
+                      </option>
+                      <option value='Sponsorship / Partnership'>
+                        {t("Topics.sponsor")}
+                      </option>
+                      <option value='Press / Media'>{t("Topics.press")}</option>
                     </select>
                     <ChevronDown className='absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 pointer-events-none' />
                   </div>
@@ -267,7 +274,7 @@ export default function ContactForm() {
                 {/* MESSAGE */}
                 <div className='text-slate-900'>
                   <label className='mb-2 block text-sm font-bold '>
-                    Message
+                    {t("Form.message_label")}
                   </label>
                   <textarea
                     name='message'
@@ -279,7 +286,7 @@ export default function ContactForm() {
                         ? "border-red-500 focus:ring-red-500"
                         : "border-slate-300 focus:border-barca-blue focus:ring-barca-blue"
                     }`}
-                    placeholder='How can we help?'
+                    placeholder={t("Form.message_placeholder")}
                   ></textarea>
                   {errors.message && (
                     <p className='mt-1 text-xs text-red-500 flex items-center gap-1'>
@@ -304,10 +311,10 @@ export default function ContactForm() {
                   {isSubmitting ? (
                     <>
                       <div className='h-5 w-5 animate-spin rounded-full border-2 border-white/30 border-t-white mr-2'></div>
-                      Sending...
+                      {t("Form.sending")}
                     </>
                   ) : (
-                    "Send Message"
+                    t("Form.submit")
                   )}
                 </button>
               </form>
