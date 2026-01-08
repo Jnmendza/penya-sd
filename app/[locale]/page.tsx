@@ -22,9 +22,6 @@ export default async function Home() {
       <AnnouncementModal />
       <Hero />
 
-      {/* 2. THE FIX: Just render the component. 
-          It fetches its own data from the 'matches' table 
-          and handles its own 'No Match' fallback state. */}
       <div className='relative z-20 mx-auto -mt-12 md:-mt-24 w-full max-w-4xl px-4'>
         <NextMatch />
       </div>

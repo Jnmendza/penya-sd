@@ -5,6 +5,7 @@
     "community": "Comunitat",
     "global": "Global",
     "contact": "Contacte",
+    "chants": "Càntics",
     "store": "Botiga",
     "membership": "Membresía"
   },
@@ -353,6 +354,22 @@
     "laporta": {
       "alt": "Coneixent Joan Laporta",
       "caption": "El nostre President i Primera Dama compartint un moment amb Joan Laporta."
+    }
+  },
+  "ChantsPage": {
+    "Metadata": {
+      "title": "Cántics | Penya Blaugrana San Diego",
+      "description": "Aprende les cançons. Canta amb passió. El cancioner oficial de PBSD."
+    },
+    "Hero": {
+      "badge": "Cançoner",
+      "title": "Canta per <highlight>Les Colors</highlight>",
+      "description": "Des de 'El Cant del Barça' fins als cants més recents. Aprende les lletres i canta amb nosaltres cada partit."
+    },
+    "Search": {
+      "placeholder": "Buscar una cançó...",
+      "empty_state": "No s'han trobat cants que coincideixin amb la teva cerca.",
+      "count": "{count} Cants"
     }
   },
   "Footer": {

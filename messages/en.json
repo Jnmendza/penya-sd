@@ -5,6 +5,7 @@
     "community": "Community",
     "global": "Global",
     "contact": "Contact",
+    "chants": "Chants",
     "store": "Store",
     "membership": "Membership"
   },
@@ -348,6 +349,22 @@
     "laporta": {
       "alt": "Meeting Joan Laporta",
       "caption": "Our President & First Lady sharing a moment with Joan Laporta."
+    }
+  },
+  "ChantsPage": {
+    "Metadata": {
+      "title": "Chants | Penya Blaugrana San Diego",
+      "description": "Learn the songs. Sing with passion. The official songbook of PBSD."
+    },
+    "Hero": {
+      "badge": "Songbook",
+      "title": "Sing for <highlight>The Colors</highlight>",
+      "description": "From 'El Cant del Barça' to the newest chants. Learn the lyrics and raise your voice with us every matchday."
+    },
+    "Search": {
+      "placeholder": "Search for a song...",
+      "empty_state": "No chants found matching your search.",
+      "count": "{count} Songs"
     }
   },
   "Footer": {

@@ -10,8 +10,9 @@ const FOOTER_LINKS: { href: string; key: string }[] = [
   { href: "/location", key: "location" },
   { href: "/community", key: "community" },
   { href: "/global", key: "global" },
+  { href: "/chants", key: "chants" },
   { href: "/contact", key: "contact" },
-  { href: "/membership", key: "membership" }, // Added membership as it's common in footers
+  { href: "/membership", key: "membership" },
 ];
 
 export default function Footer() {
