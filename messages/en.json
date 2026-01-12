@@ -188,8 +188,8 @@
     "roles": {
       "president_pos": "President",
       "president_desc": "Leading the vision and official Penya relations.",
-      "vp_pos": "Vice President",
-      "vp_desc": "Overseeing matchday operations and events.",
+      "vp-aa_pos": "Vice President & Admin Assistant",
+      "vp-aa_desc": "Overseeing matchday operations, events & admin duties.",
       "covp_pos": "Co-Vice President",
       "covp_desc": "Oversees matchday logistics and headquarters operations.",
       "pr_pos": "PR & Charity Coordinator",

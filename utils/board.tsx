@@ -12,9 +12,9 @@ export const boardMembers = [
   },
   {
     id: 2,
-    url: `${imageUrl}vp.jpeg?q=80&w=400&auto=format&fit=crop`,
-    name: "Carlos “Chuck” Acuña",
-    roleKey: "vp",
+    url: `${imageUrl}vp-aa.jpg?q=80&w=400&auto=format&fit=crop`,
+    name: "Carlos “Chuck” & Martha Acuña",
+    roleKey: "vp-aa",
     textColor: "text-barca-blue",
   },
   {
