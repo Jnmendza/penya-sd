@@ -14,9 +14,9 @@ export default function Hero() {
         <Image
           src='https://pxouwgfpksichenstsgh.supabase.co/storage/v1/object/public/assets/hero-shot.jpeg?q=80&w=2831&auto=format&fit=crop'
           alt='Penya Blaugrana San Diego Crowd'
-          fill // <--- Spans the parent container
-          className='object-cover opacity-50' // Keeps the style
-          priority // <--- IMPORTANT: Preloads image for Hero (LCP)
+          fill
+          className='object-cover opacity-50'
+          priority
         />
         {/* Gradient Overlay */}
         <div className='absolute inset-0 bg-gradient-to-t from-barca-blue/90 via-slate-900/60 to-transparent' />

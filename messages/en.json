@@ -5,6 +5,7 @@
     "community": "Community",
     "global": "Global",
     "contact": "Contact",
+    "chants": "Chants",
     "store": "Store",
     "membership": "Membership"
   },
@@ -187,8 +188,8 @@
     "roles": {
       "president_pos": "President",
       "president_desc": "Leading the vision and official Penya relations.",
-      "vp_pos": "Vice President",
-      "vp_desc": "Overseeing matchday operations and events.",
+      "vp-aa_pos": "Vice President & Admin Assistant",
+      "vp-aa_desc": "Overseeing matchday operations, events & admin duties.",
       "covp_pos": "Co-Vice President",
       "covp_desc": "Oversees matchday logistics and headquarters operations.",
       "pr_pos": "PR & Charity Coordinator",
@@ -348,6 +349,22 @@
     "laporta": {
       "alt": "Meeting Joan Laporta",
       "caption": "Our President & First Lady sharing a moment with Joan Laporta."
+    }
+  },
+  "ChantsPage": {
+    "Metadata": {
+      "title": "Chants | Penya Blaugrana San Diego",
+      "description": "Learn the songs. Sing with passion. The official songbook of PBSD."
+    },
+    "Hero": {
+      "badge": "Songbook",
+      "title": "Sing for <highlight>The Colors</highlight>",
+      "description": "From 'El Cant del Barça' to the newest chants. Learn the lyrics and raise your voice with us every matchday."
+    },
+    "Search": {
+      "placeholder": "Search for a song...",
+      "empty_state": "No chants found matching your search.",
+      "count": "{count} Songs"
     }
   },
   "Footer": {

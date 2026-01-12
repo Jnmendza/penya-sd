@@ -20,6 +20,7 @@ export const NAV_LINKS: { href: string; key: string }[] = [
   { href: "/location", key: "location" },
   { href: "/community", key: "community" },
   { href: "/global", key: "global" },
+  { href: "/chants", key: "chants" },
   { href: "/contact", key: "contact" },
 ];
 

@@ -5,6 +5,7 @@
     "community": "Comunidad",
     "global": "Global",
     "contact": "Contacto",
+    "chants": "Cánticos",
     "store": "Tienda",
     "membership": "Membresía"
   },
@@ -177,7 +178,7 @@
       "q1": "¿Necesito ser miembro para ver los partidos?",
       "a1": "¡No! Todos son bienvenidos a ver los partidos en Novo Brazil Brewing. La membresía es opcional pero apoya a la Penya y te da beneficios exclusivos.",
       "q2": "¿Se permiten niños?",
-      "a2": "Absolutamente. Novo Brazil es un lugar familiar con cocina completa.",
+      "a2": "Por supuesto. Novo Brazil Otay Ranch es un lugar ideal para toda la familia. Muchos de nuestros socios traen a sus hijos para disfrutar de los partidos.",
       "q3": "¿Cuáles son los beneficios de la membresía?",
       "a3": "<p>Ser Penyista es tu conexión oficial con el FC Barcelona. Recibes:</p><list><item><bold>Reconocimiento Oficial:</bold> Conexión directa con la Confederación Mundial.</item><item><bold>Acceso a Partidos:</bold> Acceso prioritario a entradas en el Camp Nou y Clásicos.</item><item><bold>Eventos Exclusivos:</bold> Fiestas privadas y eventos comunitarios.</item><item><bold>Viajes:</bold> Viajes organizados a Barcelona.</item><item><bold>Merch:</bold> Acceso a productos oficiales de la Penya.</item></list>",
       "q4": "¿Cómo recojo mi mercancía de membresía?",
@@ -192,8 +193,8 @@
     "roles": {
       "president_pos": "Presidente",
       "president_desc": "Liderando la visión y relaciones oficiales de la Penya.",
-      "vp_pos": "Vicepresidente",
-      "vp_desc": "Supervisando operaciones de día de partido y eventos.",
+      "vp-aa_pos": "Vicepresidente & Asistente Administrativo",
+      "vp-aa_desc": "Supervisando operaciones de día de partido, eventos y tareas administrativas.",
       "covp_pos": "Co-Vicepresidente",
       "covp_desc": "Supervisa la logística y operaciones de la sede.",
       "pr_pos": "Coordinador de RRPP y Caridad",
@@ -353,6 +354,22 @@
     "laporta": {
       "alt": "Conociendo a Joan Laporta",
       "caption": "Nuestro Presidente y Primera Dama compartiendo un momento con Joan Laporta."
+    }
+  },
+  "ChantsPage": {
+    "Metadata": {
+      "title": "Cánticos | Penya Blaugrana San Diego",
+      "description": "Aprende las canciones. Canta con pasión. El cancionero oficial de PBSD."
+    },
+    "Hero": {
+      "badge": "Cancionero",
+      "title": "Canta por <highlight>Los Colores</highlight>",
+      "description": "Desde 'El Cant del Barça' hasta los cánticos más recientes. Aprende las letras y canta con nosotros cada partido."
+    },
+    "Search": {
+      "placeholder": "Buscar una canción...",
+      "empty_state": "No se encontraron canciones que coincidan con tu búsqueda.",
+      "count": "{count} Canciones"
     }
   },
   "Footer": {
