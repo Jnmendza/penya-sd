@@ -204,7 +204,7 @@ export default function MembershipForm({
           <div className='p-6 bg-blue-50 rounded-xl'>
             <p className='text-barca-blue font-medium'>
               {t.rich("Closed.social_text", {
-                br: (<br key='br' />) as any,
+                br: (<br key='br' />) as unknown as string,
                 bold: (chunks) => <span className='font-bold'>{chunks}</span>,
               })}
             </p>

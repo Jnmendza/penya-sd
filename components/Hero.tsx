@@ -34,7 +34,7 @@ export default function Hero() {
         {/* Headline */}
         <h1 className='mb-6 text-5xl font-black uppercase tracking-wide text-white sm:text-7xl md:text-8xl drop-shadow-lg'>
           {t.rich("title", {
-            br: (<br key='br' />) as any,
+            br: (<br key='br' />) as unknown as string,
             highlight: (chunks) => (
               <span className='block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-blue-800 to-red-600'>
                 {chunks}

@@ -28,9 +28,9 @@ export default function Footer() {
         <div className='flex flex-col md:flex-row justify-between items-center gap-6'>
           {/* Identity */}
           <div className='flex items-center gap-4'>
-            <div className='relative h-14 w-14 shrink-0'>
+            <div className='relative h-24 w-24 shrink-0'>
               <Image
-                src='https://pxouwgfpksichenstsgh.supabase.co/storage/v1/object/public/assets/logo.png'
+                src='https://pxouwgfpksichenstsgh.supabase.co/storage/v1/object/public/assets/pbsd-rafa-crest.png'
                 alt='PBSD Logo'
                 fill
                 className='object-contain'
@@ -38,9 +38,11 @@ export default function Footer() {
             </div>
             <div className='flex flex-col'>
               <h3 className='text-white font-bold text-lg leading-tight'>
-                Penya Blaugrana{" "}
-                <span className='text-barca-gold'>San Diego</span>
+                Penya Blaugrana Rafa Márquez
               </h3>
+              <span className='text-barca-gold font-bold text-lg leading-tight block'>
+                de San Diego
+              </span>
               <p className='text-sm mt-1'>{t("subtitle")}</p>
             </div>
           </div>

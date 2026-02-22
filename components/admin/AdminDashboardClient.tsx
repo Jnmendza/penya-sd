@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { createClient } from "@/utils/supabase/client";
 
-interface Member {
+export interface Member {
   id: string;
   created_at: string;
   full_name: string;
@@ -79,7 +79,7 @@ export default function AdminDashboardClient({
       .eq("id", id);
     if (!error)
       setMembers(
-        members.map((m) => (m.id === id ? { ...m, status: "ACTIVE" } : m))
+        members.map((m) => (m.id === id ? { ...m, status: "ACTIVE" } : m)),
       );
     setLoadingId(null);
   };
@@ -88,12 +88,12 @@ export default function AdminDashboardClient({
   const toggleMerchItem = async (
     id: string,
     item: "has_scarf" | "has_pin",
-    currentValue: boolean
+    currentValue: boolean,
   ) => {
     // Optimistic Update
     const oldMembers = [...members];
     setMembers(
-      members.map((m) => (m.id === id ? { ...m, [item]: !currentValue } : m))
+      members.map((m) => (m.id === id ? { ...m, [item]: !currentValue } : m)),
     );
 
     const { error } = await supabase
@@ -110,7 +110,7 @@ export default function AdminDashboardClient({
   // Stats
   const totalPaid = members.filter((m) => m.status === "ACTIVE").length;
   const totalPending = members.filter(
-    (m) => m.status === "PENDING_PAYMENT"
+    (m) => m.status === "PENDING_PAYMENT",
   ).length;
   const scarfsGiven = members.filter((m) => m.has_scarf).length;
   const pinsGiven = members.filter((m) => m.has_pin).length;
@@ -309,7 +309,7 @@ export default function AdminDashboardClient({
                             toggleMerchItem(
                               member.id,
                               "has_scarf",
-                              member.has_scarf
+                              member.has_scarf,
                             )
                           }
                           className={`flex items-center gap-1 px-3 py-1.5 rounded-lg border text-xs font-bold transition
@@ -317,8 +317,8 @@ export default function AdminDashboardClient({
                               !isPaid
                                 ? "opacity-30 grayscale cursor-not-allowed border-slate-200"
                                 : member.has_scarf
-                                ? "bg-purple-100 text-purple-700 border-purple-200 hover:bg-purple-200"
-                                : "bg-white text-slate-400 border-slate-200 hover:border-purple-300 hover:text-purple-600"
+                                  ? "bg-purple-100 text-purple-700 border-purple-200 hover:bg-purple-200"
+                                  : "bg-white text-slate-400 border-slate-200 hover:border-purple-300 hover:text-purple-600"
                             }`}
                           title='Toggle Scarf Status'
                         >
@@ -333,7 +333,7 @@ export default function AdminDashboardClient({
                             toggleMerchItem(
                               member.id,
                               "has_pin",
-                              member.has_pin
+                              member.has_pin,
                             )
                           }
                           className={`flex items-center gap-1 px-3 py-1.5 rounded-lg border text-xs font-bold transition
@@ -341,8 +341,8 @@ export default function AdminDashboardClient({
                               !isPaid
                                 ? "opacity-30 grayscale cursor-not-allowed border-slate-200"
                                 : member.has_pin
-                                ? "bg-teal-100 text-teal-700 border-teal-200 hover:bg-teal-200"
-                                : "bg-white text-slate-400 border-slate-200 hover:border-teal-300 hover:text-teal-600"
+                                  ? "bg-teal-100 text-teal-700 border-teal-200 hover:bg-teal-200"
+                                  : "bg-white text-slate-400 border-slate-200 hover:border-teal-300 hover:text-teal-600"
                             }`}
                           title='Toggle Pin Status'
                         >

@@ -7,6 +7,7 @@
     "contact": "Contacto",
     "chants": "Cánticos",
     "store": "Tienda",
+    "marquez": "Márquez",
     "membership": "Membresía"
   },
   "HomePage": {
@@ -31,10 +32,10 @@
       "badge_open": "MEMBRESÍA DE TEMPORADA {seasonId}",
       "badge_closed": "MEMBRESÍA CERRADA ACTUALMENTE",
       "title": "Más Que Un Partido. {br} <highlight>Más Que Un Club.</highlight>",
-      "description": "Únete a la Penya Blaugrana San Diego oficial. Tu membresía anual apoya nuestro trabajo benéfico y te da acceso a equipamiento exclusivo cada temporada.",
+      "description": "Únete a la Penya Blaugrana Rafa Márquez de San Diego oficial. Tu membresía anual apoya nuestro trabajo benéfico y te da acceso a equipamiento exclusivo cada temporada.",
       "benefits": {
         "card": "Tarjeta Oficial de Membresía",
-        "scarf": "Bufanda Exclusiva PBSD {year}",
+        "scarf": "Bufanda Exclusiva PBRMSD {year}",
         "pin": "Pin Conmemorativo",
         "priority": "Acceso Prioritario a Fiestas de El Clásico"
       },
@@ -50,7 +51,7 @@
     },
     "CommunityHighlights": {
       "title": "Más Que Solo <highlight>90 Minutos</highlight>",
-      "subtitle": "Penya Blaugrana San Diego se dedica a tener un impacto positivo en nuestra comunidad local.",
+      "subtitle": "Penya Blaugrana Rafa Márquez de San Diego se dedica a tener un impacto positivo en nuestra comunidad local.",
       "cards": {
         "autism_title": "Apoyo a la Comunidad Autista",
         "autism_desc": "Estamos orgullosos de asociarnos con organizaciones locales para crear entornos inclusivos y apoyar a las familias.",
@@ -64,7 +65,7 @@
   },
   "LocationPage": {
     "Metadata": {
-      "title": "Ubicación | Penya Blaugrana San Diego",
+      "title": "Ubicación | Penya Blaugrana Rafa Márquez de San Diego",
       "description": "Donde ocurre la magia. Nuestra sede en Otay Ranch, San Diego."
     },
     "Hero": {
@@ -112,7 +113,7 @@
   },
   "GlobalPage": {
     "Metadata": {
-      "title": "Embajadores Globales | Penya Blaugrana San Diego",
+      "title": "Embajadores Globales | Penya Blaugrana Rafa Márquez de San Diego",
       "description": "De San Diego al Camp Nou. Mira nuestras aventuras alrededor del mundo."
     },
     "Hero": {
@@ -140,14 +141,14 @@
   },
   "CommunityPage": {
     "Metadata": {
-      "title": "Comunidad | Penya Blaugrana San Diego",
+      "title": "Comunidad | Penya Blaugrana Rafa Márquez de San Diego",
       "description": "Una familia global. Un impacto local. Únete a nosotros para mejorar San Diego."
     },
     "Header": {
       "badge": "Nuestra Comunidad",
       "motto": "Més Que <highlight>Un Club</highlight>",
       "subhead": "Una Familia Global. Un Impacto Local.",
-      "description": "La Penya Blaugrana San Diego (PBSD) es un club familiar unido por nuestra pasión por el fútbol e inspirado en los valores del FC Barcelona: más que un club. Defendemos la unidad, la lealtad, el respeto y la dedicación, fomentando una cultura donde los miembros se sienten como una familia y están unidos por un amor compartido por este deporte. Más allá de apoyar a nuestro club, PBSD se compromete a servir a nuestra comunidad a través de iniciativas benéficas, participación activa y una representación positiva.",
+      "description": "La Penya Blaugrana Rafa Márquez de San Diego (PBRMSD) es un club familiar unido por nuestra pasión por el fútbol e inspirado en los valores del FC Barcelona: más que un club. Defendemos la unidad, la lealtad, el respeto y la dedicación, fomentando una cultura donde los miembros se sienten como una familia y están unidos por un amor compartido por este deporte. Más allá de apoyar a nuestro club, PBRMSD se compromete a servir a nuestra comunidad a través de iniciativas benéficas, participación activa y una representación positiva.",
       "cta": "Colabora por una causa"
     },
     "Values": {
@@ -163,7 +164,7 @@
   },
   "ContactPage": {
     "Metadata": {
-      "title": "Contacto | Penya Blaugrana San Diego",
+      "title": "Contacto | Penya Blaugrana Rafa Márquez de San Diego",
       "description": "¿Tienes preguntas? Ponte en contacto con nuestro equipo."
     },
     "Hero": {
@@ -189,7 +190,7 @@
   },
   "MeetTheBoard": {
     "title": "Conoce a la Junta",
-    "subtitle": "Penya Blaugrana San Diego es una organización sin fines de lucro dirigida completamente por voluntarios dedicados a hacer crecer la familia Barça en el sur de California.",
+    "subtitle": "Penya Blaugrana Rafa Márquez de San Diego es una organización sin fines de lucro dirigida completamente por voluntarios dedicados a hacer crecer la familia Barça en el sur de California.",
     "roles": {
       "president_pos": "Presidente",
       "president_desc": "Liderando la visión y relaciones oficiales de la Penya.",
@@ -245,7 +246,7 @@
   },
   "MembershipPage": {
     "Metadata": {
-      "title": "Membresía | Penya Blaugrana San Diego",
+      "title": "Membresía | Penya Blaugrana Rafa Márquez de San Diego",
       "description": "Únete a nosotros. ¡Conviértete en miembro hoy!"
     },
     "Header": {
@@ -358,8 +359,8 @@
   },
   "ChantsPage": {
     "Metadata": {
-      "title": "Cánticos | Penya Blaugrana San Diego",
-      "description": "Aprende las canciones. Canta con pasión. El cancionero oficial de PBSD."
+      "title": "Cánticos | Penya Blaugrana Rafa Márquez de San Diego",
+      "description": "Aprende las canciones. Canta con pasión. El cancionero oficial de PBRMSD."
     },
     "Hero": {
       "badge": "Cancionero",
@@ -370,6 +371,40 @@
       "placeholder": "Buscar una canción...",
       "empty_state": "No se encontraron canciones que coincidan con tu búsqueda.",
       "count": "{count} Canciones"
+    }
+  },
+  "LegendPage": {
+    "Metadata": {
+      "title": "Rafa Márquez | Penya Blaugrana Rafa Márquez de San Diego",
+      "description": "Honrando el legado de la leyenda del FC Barcelona Rafa Márquez, el nombre oficial de nuestra Penya."
+    },
+    "Hero": {
+      "badge": "Nuestro Nombre Oficial",
+      "title": "El Káiser de {br} <highlight>Michoacán</highlight>",
+      "description": "Estamos orgullosos de llevar oficialmente el nombre de la leyenda del FC Barcelona, Rafa Márquez. Un defensa elegante, un líder natural y un pilar fundamental de una de las mejores épocas en la historia del club."
+    },
+    "Announcement": {
+      "title": "Una Reunión Histórica",
+      "description": "Nuestro Presidente se reunió recientemente con Rafa Márquez y sus representantes para consolidar esta alianza. Es un profundo honor para nuestra comunidad en San Diego llevar el nombre de un jugador que representa el corazón, la garra y la excelencia de los valores blaugranas."
+    },
+    "Career": {
+      "title": "Legado en el Barça <highlight>(2003–2010)</highlight>",
+      "description": "Al llegar en 2003, Márquez formó una legendaria pareja defensiva con Carles Puyol. Durante siete temporadas, su increíble visión, pases largos y su inteligencia defensiva ayudaron a marcar el comienzo de una época dorada para el FC Barcelona."
+    },
+    "Trophies": {
+      "title": "Vitrina de Trofeos",
+      "champions": "Champions League",
+      "champions_count": "2x",
+      "laliga": "La Liga",
+      "laliga_count": "4x",
+      "copa": "Copa del Rey",
+      "copa_count": "1x",
+      "supercopa": "Supercopa de España",
+      "supercopa_count": "3x",
+      "uefasupercup": "Supercopa de Europa",
+      "uefasupercup_count": "1x",
+      "clubworldcup": "Mundial de Clubes",
+      "clubworldcup_count": "1x"
     }
   },
   "Footer": {

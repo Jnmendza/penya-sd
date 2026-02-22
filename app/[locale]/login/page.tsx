@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 
@@ -8,20 +8,8 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
   const router = useRouter();
   const supabase = createClient();
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  //  Prevent the form from rendering on the server
-  // This stops the mismatch because the server sends nothing for this part,
-  // and the browser renders it cleanly.
-  if (!isMounted) {
-    return null; // Or return a simple loading spinner <div>Loading...</div>
-  }
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();

@@ -106,8 +106,8 @@ export const galleryData: GalleryItem[] = [
     id: "rafa",
     category: "vip",
     src: `${BUCKET_URL}/rafa_meet.JPG`,
-    alt: "Rafael Marquez",
-    caption: "Barcelona legend Rafael Marquez.",
+    alt: "Rafael Márquez",
+    caption: "Barcelona legend Rafael Márquez.",
   },
   {
     id: "lewandowski",

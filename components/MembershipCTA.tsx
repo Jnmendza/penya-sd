@@ -40,7 +40,7 @@ export default function MembershipCTA({ isOpen, seasonId }: Props) {
             <h2 className='text-4xl font-extrabold tracking-tight sm:text-5xl'>
               {t.rich("title", {
                 // 1. Pass <br/> as a direct React Node (Variable)
-                br: (<br key='br' />) as any,
+                br: (<br key='br' />) as unknown as string,
 
                 // 2. Keep highlight as a chunk function (Tag)
                 highlight: (chunks) => (

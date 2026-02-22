@@ -6,7 +6,7 @@ import { getGlobalConfig } from "@/utils/getGlobalConfig";
 import { getAdminData } from "@/utils/getAdminData";
 
 export default async function AdminPage() {
-  const { isMembershipOpen, currentSeason } = await getGlobalConfig();
+  const { isMembershipOpen } = await getGlobalConfig();
   const { user, members, matches } = await getAdminData();
 
   if (!user) {
