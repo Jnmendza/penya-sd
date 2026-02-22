@@ -81,10 +81,10 @@ export default function Navbar() {
     >
       <div className='container mx-auto flex items-center justify-between px-4'>
         {/* LOGO */}
-        <Link href='/' className='flex flex-col items-center gap-2 group'>
+        <Link href='/' className='flex flex items-center gap-2 group'>
           <div className='relative h-16 w-16'>
             <Image
-              src='https://pxouwgfpksichenstsgh.supabase.co/storage/v1/object/public/assets/pbsd-rafa-crest.png'
+              src='https://erlplcduvrowbiwobjen.supabase.co/storage/v1/object/public/assets/logo.png'
               alt='PBSD Logo'
               fill
               className='object-contain'
