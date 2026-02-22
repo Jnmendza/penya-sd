@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown, Music, Copy, Check } from "lucide-react";
+import { ChevronDown, Copy, Check } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { Chant } from "@/data/chants";
 

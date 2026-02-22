@@ -34,10 +34,13 @@ export default function AnnouncementModal() {
       if (!data) return;
 
       // Convert array of rows to a simple object
-      const settings = data.reduce((acc, row) => {
-        acc[row.key] = row.value;
-        return acc;
-      }, {} as any);
+      const settings = data.reduce(
+        (acc, row) => {
+          acc[row.key] = row.value;
+          return acc;
+        },
+        {} as Record<string, string>,
+      );
 
       // 2. Logic: Should we show it?
       if (settings.announcement_active === "true") {
@@ -59,7 +62,7 @@ export default function AnnouncementModal() {
     }
 
     checkAnnouncement();
-  }, []);
+  }, [supabase]);
 
   const handleClose = () => {
     setIsOpen(false);
@@ -78,23 +81,24 @@ export default function AnnouncementModal() {
       />
 
       {/* Modal Card */}
-      <div className='relative z-10 w-full max-w-lg overflow-hidden rounded-3xl bg-white shadow-2xl animate-in zoom-in-95 duration-300'>
+      <div className='relative z-10 flex max-h-[85vh] w-full max-w-lg flex-col overflow-hidden rounded-3xl bg-white shadow-2xl duration-300 animate-in zoom-in-95'>
         {/* Optional: Header Image */}
         {config.image && (
-          <div className='relative h-48 w-full bg-slate-100'>
+          <div className='relative flex h-48 w-full shrink-0 items-center justify-center bg-slate-100'>
             <Image
               src={config.image}
               alt='Announcement'
-              fill
+              width={130}
+              height={130}
               className='object-cover'
             />
           </div>
         )}
 
-        <div className='p-8 text-center'>
+        <div className='flex-1 overflow-y-auto p-8 text-center'>
           {/* Icon (only if no image) */}
           {!config.image && (
-            <div className='mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue-100 text-barca-blue'>
+            <div className='mx-auto mb-4 flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-blue-100 text-barca-blue'>
               <Megaphone className='h-8 w-8' />
               {/* Note: You can swap this icon based on the title if you want to get fancy! */}
             </div>
@@ -104,13 +108,13 @@ export default function AnnouncementModal() {
             {config.title}
           </h2>
 
-          <p className='mb-8 text-lg text-slate-600 leading-relaxed'>
+          <p className='mb-8 text-lg leading-relaxed text-slate-600'>
             {config.message}
           </p>
 
           <button
             onClick={handleClose}
-            className='w-full cursor-pointer rounded-full bg-barca-blue px-8 py-4 text-lg font-bold text-white transition hover:bg-blue-900 shadow-xl shadow-blue-900/20'
+            className='w-full cursor-pointer rounded-full bg-barca-blue px-8 py-4 text-lg font-bold text-white shadow-xl shadow-blue-900/20 transition hover:bg-blue-900'
           >
             Got it
           </button>
@@ -119,7 +123,7 @@ export default function AnnouncementModal() {
         {/* Close 'X' Button */}
         <button
           onClick={handleClose}
-          className='absolute cursor-pointer top-4 right-4 p-2 rounded-full bg-white/20 text-slate-500 hover:text-slate-900 hover:bg-white/50 transition backdrop-blur-md'
+          className='absolute right-4 top-4 z-20 cursor-pointer rounded-full bg-slate-200/50 p-2 text-slate-600 transition hover:bg-slate-300/80 hover:text-slate-900'
         >
           <X className='h-6 w-6' />
         </button>

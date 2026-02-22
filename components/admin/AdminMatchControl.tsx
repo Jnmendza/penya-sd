@@ -9,7 +9,7 @@ import {
 } from "@/app/actions/matchSync";
 import { Loader2, RefreshCw, MapPin } from "lucide-react";
 
-interface Match {
+export interface Match {
   id: number;
   utc_date: string;
   home_team: string;
@@ -92,7 +92,8 @@ export default function AdminMatchControl({
             {matches.length === 0 ? (
               <tr>
                 <td colSpan={3} className='p-8 text-center text-slate-500'>
-                  No matches found. Click "Sync API" to fetch schedule.
+                  No matches found. Click &quot;Sync API&quot; to fetch
+                  schedule.
                 </td>
               </tr>
             ) : (
@@ -100,7 +101,7 @@ export default function AdminMatchControl({
                 .sort(
                   (a, b) =>
                     new Date(a.utc_date).getTime() -
-                    new Date(b.utc_date).getTime()
+                    new Date(b.utc_date).getTime(),
                 )
                 .map((match) => (
                   <tr key={match.id} className='hover:bg-slate-50 transition'>
@@ -110,13 +111,13 @@ export default function AdminMatchControl({
                         <span className='font-bold text-slate-900'>
                           {new Date(match.utc_date).toLocaleDateString(
                             undefined,
-                            { month: "short", day: "numeric" }
+                            { month: "short", day: "numeric" },
                           )}
                         </span>
                         <span className='text-xs'>
                           {new Date(match.utc_date).toLocaleTimeString(
                             undefined,
-                            { hour: "2-digit", minute: "2-digit" }
+                            { hour: "2-digit", minute: "2-digit" },
                           )}
                         </span>
                       </div>

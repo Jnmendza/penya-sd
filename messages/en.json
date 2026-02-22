@@ -7,6 +7,7 @@
     "contact": "Contact",
     "chants": "Chants",
     "store": "Store",
+    "marquez": "Márquez",
     "membership": "Membership"
   },
   "HomePage": {
@@ -114,7 +115,7 @@
       "badge": "Our Community",
       "motto": "Més Que <highlight>Un Club</highlight>",
       "subhead": "A Global Family. A Local Impact.",
-      "description": "Penya Blaugrana San Diego (PBSD) is a family-oriented club united by our passion for fútbol and inspired by the values of FC Barcelona—Més que un club. We stand for unity, loyalty, respect, and dedication, fostering a culture where members are connected as family and bound by a shared love for the game. Beyond supporting our club, PBSD is committed to serving our community through charitable initiatives, meaningful engagement, and positive representation.",
+      "description": "Penya Blaugrana Rafa Márquez de San Diego (PBRMSD) is a family-oriented club united by our passion for fútbol and inspired by the values of FC Barcelona—Més que un club. We stand for unity, loyalty, respect, and dedication, fostering a culture where members are connected as family and bound by a shared love for the game. Beyond supporting our club, PBRMSD is committed to serving our community through charitable initiatives, meaningful engagement, and positive representation.",
       "cta": "Partner with us for a cause"
     },
     "Values": {
@@ -130,7 +131,7 @@
   },
   "GlobalPage": {
     "Metadata": {
-      "title": "Global Ambassadors | Penya Blaugrana San Diego",
+      "title": "Global Ambassadors | Penya Blaugrana Rafa Márquez de San Diego",
       "description": "From San Diego to Camp Nou. See our adventures around the world."
     },
     "Hero": {
@@ -158,7 +159,7 @@
   },
   "ContactPage": {
     "Metadata": {
-      "title": "Contact | Penya Blaugrana San Diego",
+      "title": "Contact | Penya Blaugrana Rafa Márquez de San Diego",
       "description": "Have questions? Get in touch with our team."
     },
     "Hero": {
@@ -335,8 +336,8 @@
       "caption": "Member with Hansi Flick."
     },
     "rafa": {
-      "alt": "Rafael Marquez",
-      "caption": "Barcelona legend Rafael Marquez."
+      "alt": "Rafael Márquez",
+      "caption": "Barcelona legend Rafael Márquez."
     },
     "lewandowski": {
       "alt": "Robert Lewandowski",
@@ -353,8 +354,8 @@
   },
   "ChantsPage": {
     "Metadata": {
-      "title": "Chants | Penya Blaugrana San Diego",
-      "description": "Learn the songs. Sing with passion. The official songbook of PBSD."
+      "title": "Chants | Penya Blaugrana Rafa Márquez de San Diego",
+      "description": "Learn the songs. Sing with passion. The official songbook of PBRMSD."
     },
     "Hero": {
       "badge": "Songbook",
@@ -367,8 +368,42 @@
       "count": "{count} Songs"
     }
   },
+  "LegendPage": {
+    "Metadata": {
+      "title": "Rafa Márquez | Penya Blaugrana de San Diego",
+      "description": "Honoring the legacy of FC Barcelona legend Rafa Márquez, the official namesake of our Penya."
+    },
+    "Hero": {
+      "badge": "Our Official Namesake",
+      "title": "El Káiser de {br} <highlight>Michoacán</highlight>",
+      "description": "We are proud to officially bear the name of FC Barcelona legend Rafa Márquez. An elegant defender, a natural leader, and a fundamental pillar of one of the greatest eras in club history."
+    },
+    "Announcement": {
+      "title": "A Historic Meeting",
+      "description": "Our President recently met with Rafa Márquez and his representatives to cement this partnership. It is a profound honor for our San Diego community to carry the name of a player who represents the heart, grit, and excellence of Blaugrana values."
+    },
+    "Career": {
+      "title": "Barça Legacy <highlight>(2003–2010)</highlight>",
+      "description": "Arriving in 2003, Márquez formed a legendary defensive partnership with Carles Puyol. Over seven seasons, his incredible vision, long-range passing, and defensive intelligence helped usher in a golden era for FC Barcelona."
+    },
+    "Trophies": {
+      "title": "Trophy Cabinet",
+      "champions": "Champions League",
+      "champions_count": "2x",
+      "laliga": "La Liga",
+      "laliga_count": "4x",
+      "copa": "Copa del Rey",
+      "copa_count": "1x",
+      "supercopa": "Supercopa de España",
+      "supercopa_count": "3x",
+      "uefasupercup": "UEFA Super Cup",
+      "uefasupercup_count": "1x",
+      "clubworldcup": "Club World Cup",
+      "clubworldcup_count": "1x"
+    }
+  },
   "Footer": {
     "subtitle": "Official Supporters Group #2309",
-    "copyright": "© {year} PBSD. Visca Barça."
+    "copyright": "© {year} PBRMSD. Visca Barça."
   }
 }

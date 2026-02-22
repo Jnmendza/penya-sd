@@ -2,13 +2,13 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { Users, Calendar } from "lucide-react";
-import AdminDashboardClient from "./AdminDashboardClient";
-import AdminMatchControl from "./AdminMatchControl";
+import AdminDashboardClient, { Member } from "./AdminDashboardClient";
+import AdminMatchControl, { Match } from "./AdminMatchControl";
 
 interface AdminTabsProps {
-  members: any[];
+  members: Member[];
   config: boolean;
-  matches: any[];
+  matches: Match[];
 }
 
 export default function AdminTabs({

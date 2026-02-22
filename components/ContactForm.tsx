@@ -36,7 +36,7 @@ export default function ContactForm() {
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    >,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -87,7 +87,7 @@ export default function ContactForm() {
       payload.append("email", formData.email);
       payload.append(
         "message",
-        `[Topic: ${formData.topic}]\n\n${formData.message}`
+        `[Topic: ${formData.topic}]\n\n${formData.message}`,
       );
 
       const result = await sendContactEmail(payload);
@@ -103,7 +103,7 @@ export default function ContactForm() {
       } else {
         setServerError(result.error || t("Errors.server_error"));
       }
-    } catch (err) {
+    } catch {
       setServerError(t("Errors.server_error"));
     } finally {
       setIsSubmitting(false);

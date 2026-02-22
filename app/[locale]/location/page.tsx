@@ -10,7 +10,6 @@ import {
   Utensils,
   Calendar,
 } from "lucide-react";
-import { VENUES } from "@/utils/venues";
 import { getTranslations, getLocale } from "next-intl/server";
 
 // 1. DYNAMIC METADATA (Translations for SEO)
@@ -85,7 +84,7 @@ export default async function LocationPage() {
 
           <h1 className='mb-6 text-5xl font-black uppercase tracking-wide text-white sm:text-7xl drop-shadow-lg'>
             {t.rich("Hero.title", {
-              br: (<br key='br' />) as any,
+              br: (<br key='br' />) as unknown as string,
               highlight: (chunks) => (
                 <span className='text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-blue-500 to-red-600'>
                   {chunks}
@@ -359,7 +358,7 @@ export default async function LocationPage() {
             </div>
             <h2 className='mb-6 text-3xl font-black uppercase md:text-5xl'>
               {t.rich("Map.title", {
-                br: (<br key='br' />) as any,
+                br: (<br key='br' />) as unknown as string,
                 highlight: (chunks) => (
                   <span className='text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500'>
                     {chunks}

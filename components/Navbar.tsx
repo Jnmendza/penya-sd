@@ -21,6 +21,7 @@ export const NAV_LINKS: { href: string; key: string }[] = [
   { href: "/community", key: "community" },
   { href: "/global", key: "global" },
   { href: "/chants", key: "chants" },
+  { href: "/rafa-marquez", key: "marquez" },
   { href: "/contact", key: "contact" },
 ];
 
@@ -30,7 +31,7 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [storeStatus, setStoreStatus] = useState<store_status>(
-    store_status.open
+    store_status.open,
   ); // Default to open
 
   const pathname = usePathname();
@@ -64,7 +65,7 @@ export default function Navbar() {
     fetchConfig(); // Call fetch
 
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []); // Run once on mount
+  }, [supabase]); // Run once on mount and when supabase client changes
 
   const useSolidStyle = !isHomePage || isScrolled;
   // Helper to determine maintenance mode
@@ -80,10 +81,10 @@ export default function Navbar() {
     >
       <div className='container mx-auto flex items-center justify-between px-4'>
         {/* LOGO */}
-        <Link href='/' className='flex items-center gap-2 group'>
+        <Link href='/' className='flex flex items-center gap-2 group'>
           <div className='relative h-16 w-16'>
             <Image
-              src='https://pxouwgfpksichenstsgh.supabase.co/storage/v1/object/public/assets/logo.png'
+              src='https://erlplcduvrowbiwobjen.supabase.co/storage/v1/object/public/assets/logo.png'
               alt='PBSD Logo'
               fill
               className='object-contain'

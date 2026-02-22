@@ -24,7 +24,7 @@ export default async function RootLayout({
 }) {
   // 1. Await params (Next.js 15 requirement) and validate locale
   const { locale } = await params;
-  if (!routing.locales.includes(locale as any)) {
+  if (!routing.locales.includes(locale as (typeof routing.locales)[number])) {
     notFound();
   }
 

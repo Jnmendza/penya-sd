@@ -28,9 +28,9 @@ export default function Footer() {
         <div className='flex flex-col md:flex-row justify-between items-center gap-6'>
           {/* Identity */}
           <div className='flex items-center gap-4'>
-            <div className='relative h-14 w-14 shrink-0'>
+            <div className='relative h-24 w-24 shrink-0'>
               <Image
-                src='https://pxouwgfpksichenstsgh.supabase.co/storage/v1/object/public/assets/logo.png'
+                src='https://erlplcduvrowbiwobjen.supabase.co/storage/v1/object/public/assets/logo.png'
                 alt='PBSD Logo'
                 fill
                 className='object-contain'
@@ -41,6 +41,9 @@ export default function Footer() {
                 Penya Blaugrana{" "}
                 <span className='text-barca-gold'>San Diego</span>
               </h3>
+              {/* <span className='text-barca-gold font-bold text-lg leading-tight block'>
+                de San Diego
+              </span> */}
               <p className='text-sm mt-1'>{t("subtitle")}</p>
             </div>
           </div>
