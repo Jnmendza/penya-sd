@@ -115,7 +115,7 @@
       "badge": "Our Community",
       "motto": "Més Que <highlight>Un Club</highlight>",
       "subhead": "A Global Family. A Local Impact.",
-      "description": "Penya Blaugrana Rafa Márquez de San Diego (PBRMSD) is a family-oriented club united by our passion for fútbol and inspired by the values of FC Barcelona—Més que un club. We stand for unity, loyalty, respect, and dedication, fostering a culture where members are connected as family and bound by a shared love for the game. Beyond supporting our club, PBRMSD is committed to serving our community through charitable initiatives, meaningful engagement, and positive representation.",
+      "description": "Penya Blaugrana San Diego (PBSD) is a family-oriented club united by our passion for fútbol and inspired by the values of FC Barcelona—Més que un club. We stand for unity, loyalty, respect, and dedication, fostering a culture where members are connected as family and bound by a shared love for the game. Beyond supporting our club, PBSD is committed to serving our community through charitable initiatives, meaningful engagement, and positive representation.",
       "cta": "Partner with us for a cause"
     },
     "Values": {
@@ -131,7 +131,7 @@
   },
   "GlobalPage": {
     "Metadata": {
-      "title": "Global Ambassadors | Penya Blaugrana Rafa Márquez de San Diego",
+      "title": "Global Ambassadors | Penya Blaugrana San Diego",
       "description": "From San Diego to Camp Nou. See our adventures around the world."
     },
     "Hero": {
@@ -159,7 +159,7 @@
   },
   "ContactPage": {
     "Metadata": {
-      "title": "Contact | Penya Blaugrana Rafa Márquez de San Diego",
+      "title": "Contact | Penya Blaugrana San Diego",
       "description": "Have questions? Get in touch with our team."
     },
     "Hero": {
@@ -354,8 +354,8 @@
   },
   "ChantsPage": {
     "Metadata": {
-      "title": "Chants | Penya Blaugrana Rafa Márquez de San Diego",
-      "description": "Learn the songs. Sing with passion. The official songbook of PBRMSD."
+      "title": "Chants | Penya Blaugrana San Diego",
+      "description": "Learn the songs. Sing with passion. The official songbook of PBSD."
     },
     "Hero": {
       "badge": "Songbook",
@@ -370,17 +370,17 @@
   },
   "LegendPage": {
     "Metadata": {
-      "title": "Rafa Márquez | Penya Blaugrana de San Diego",
+      "title": "Rafa Márquez | Penya Blaugrana San Diego",
       "description": "Honoring the legacy of FC Barcelona legend Rafa Márquez, the official namesake of our Penya."
     },
     "Hero": {
       "badge": "Our Official Namesake",
       "title": "El Káiser de {br} <highlight>Michoacán</highlight>",
-      "description": "We are proud to officially bear the name of FC Barcelona legend Rafa Márquez. An elegant defender, a natural leader, and a fundamental pillar of one of the greatest eras in club history."
+      "description": "We are proud to be associated with FC Barcelona legend Rafa Márquez. An elegant defender, a natural leader, and a fundamental pillar of one of the greatest eras in club history."
     },
     "Announcement": {
       "title": "A Historic Meeting",
-      "description": "Our President recently met with Rafa Márquez and his representatives to cement this partnership. It is a profound honor for our San Diego community to carry the name of a player who represents the heart, grit, and excellence of Blaugrana values."
+      "description": "Our President recently met with Rafa Márquez and his representatives to cement our association. It is a profound honor for our San Diego community to carry this association with a player who represents the heart, grit, and excellence of Blaugrana values."
     },
     "Career": {
       "title": "Barça Legacy <highlight>(2003–2010)</highlight>",
@@ -404,6 +404,6 @@
   },
   "Footer": {
     "subtitle": "Official Supporters Group #2309",
-    "copyright": "© {year} PBRMSD. Visca Barça."
+    "copyright": "© {year} PBSD. Visca Barça."
   }
 }

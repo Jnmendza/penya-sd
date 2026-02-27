@@ -51,7 +51,7 @@
     },
     "CommunityHighlights": {
       "title": "Més Que Només <highlight>90 Minuts</highlight>",
-      "subtitle": "Penya Blaugrana Rafa Márquez de San Diego es dedica a tenir un impacte positiu en la nostra comunitat local.",
+      "subtitle": "Penya Blaugrana de San Diego es dedica a tenir un impacte positiu en la nostra comunitat local.",
       "cards": {
         "autism_title": "Suport a la Comunitat Autista",
         "autism_desc": "Estem orgullosos d'associar-nos amb organitzacions locals per crear entorns inclusius.",
@@ -65,7 +65,7 @@
   },
   "LocationPage": {
     "Metadata": {
-      "title": "Ubicació | Penya Blaugrana Rafa Márquez de San Diego",
+      "title": "Ubicació | Penya Blaugrana de San Diego",
       "description": "On passa la màgia. La nostra seu a Otay Ranch, San Diego."
     },
     "Hero": {
@@ -113,7 +113,7 @@
   },
   "GlobalPage": {
     "Metadata": {
-      "title": "Ambaixadors Globals | Penya Blaugrana Rafa Márquez de San Diego",
+      "title": "Ambaixadors Globals | Penya Blaugrana de San Diego",
       "description": "De San Diego al Camp Nou. Mira les nostres aventures arreu del món."
     },
     "Hero": {
@@ -141,14 +141,14 @@
   },
   "CommunityPage": {
     "Metadata": {
-      "title": "Comunitat | Penya Blaugrana Rafa Márquez de San Diego",
+      "title": "Comunitat | Penya Blaugrana de San Diego",
       "description": "Una família global. Un impacte local."
     },
     "Header": {
       "badge": "La Nostra Comunitat",
       "motto": "Més Que <highlight>Un Club</highlight>",
       "subhead": "Una Família Global. Un Impacte Local.",
-      "description": "La Penya Blaugrana Rafa Márquez de San Diego (PBRMSD) és un club familiar unit per la nostra passió pel futbol i inspirat pels valors del FC Barcelona —Més que un club—. Defensem la unitat, la lleialtat, el respecte i la dedicació, fomentant una cultura on els membres estiguin connectats com a família i units per un amor compartit per l'esport. Més enllà de donar suport al nostre club, la PBRMSD es compromet a servir a la nostra comunitat a través d'iniciatives benèfiques, una participació significativa i una representació positiva.",
+      "description": "La Penya Blaugrana de San Diego (PBSD) és un club familiar unit per la nostra passió pel futbol i inspirat pels valors del FC Barcelona —Més que un club—. Defensem la unitat, la lleialtat, el respecte i la dedicació, fomentant una cultura on els membres estiguin connectats com a família i units per un amor compartit per l'esport. Més enllà de donar suport al nostre club, la PBSD es compromet a servir a la nostra comunitat a través d'iniciatives benèfiques, una participació significativa i una representació positiva.",
       "cta": "Col·labora per una causa"
     },
     "Values": {
@@ -164,7 +164,7 @@
   },
   "ContactPage": {
     "Metadata": {
-      "title": "Contacte | Penya Blaugrana Rafa Márquez de San Diego",
+      "title": "Contacte | Penya Blaugrana de San Diego",
       "description": "Tens preguntes? Posa't en contacte amb el nostre equip."
     },
     "Hero": {
@@ -175,7 +175,7 @@
     "FAQ": {
       "title": "Preguntes Freqüents",
       "q0": "La Penya és un negoci amb ànim de lucre?",
-      "a0": "NO! Penya Blaugrana Rafa Márquez de San Diego és una organització 100% sense ànim de lucre. No ens beneficiem de les quotes ni de la mercaderia.",
+      "a0": "NO! Penya Blaugrana de San Diego és una organització 100% sense ànim de lucre. No ens beneficiem de les quotes ni de la mercaderia.",
       "q1": "Necessito ser membre per veure els partits?",
       "a1": "No! Tothom és benvingut a veure els partits a Novo Brazil Brewing.",
       "q2": "Es permeten nens?",
@@ -190,7 +190,7 @@
   },
   "MeetTheBoard": {
     "title": "Coneix la Junta",
-    "subtitle": "Penya Blaugrana Rafa Márquez de San Diego és una organització sense ànim de lucre dirigida completament per voluntaris.",
+    "subtitle": "Penya Blaugrana de San Diego és una organització sense ànim de lucre dirigida completament per voluntaris.",
     "roles": {
       "president_pos": "President",
       "president_desc": "Liderant la visió i relacions oficials de la Penya.",
@@ -246,7 +246,7 @@
   },
   "MembershipPage": {
     "Metadata": {
-      "title": "Membresía | Penya Blaugrana Rafa Márquez de San Diego",
+      "title": "Membresía | Penya Blaugrana de San Diego",
       "description": "Uneix-te a nosaltres. Converteix-te en membre avui!"
     },
     "Header": {
@@ -375,17 +375,17 @@
   },
   "LegendPage": {
     "Metadata": {
-      "title": "Rafa Márquez | Penya Blaugrana Rafa Márquez de San Diego",
+      "title": "Rafa Márquez | Penya Blaugrana de San Diego",
       "description": "Honorant el llegat de la llegenda del FC Barcelona Rafa Márquez, el nom oficial de la nostra Penya."
     },
     "Hero": {
       "badge": "El Nostre Nom Oficial",
       "title": "El Káiser de {br} <highlight>Michoacán</highlight>",
-      "description": "Estem orgullosos de portar oficialment el nom de la llegenda del FC Barcelona, Rafa Márquez. Un defensa elegant, un líder natural i un pilar fonamental d'una de les millors èpoques de la història del club."
+      "description": "Estem orgullosos d'estar associats amb la llegenda del FC Barcelona, ​​Rafa Márquez. Un defensa elegant, un líder natural i un pilar fonamental d'una de les èpoques més importants de la història del club."
     },
     "Announcement": {
       "title": "Una Reunió Històrica",
-      "description": "El nostre President s'ha reunit recentment amb Rafa Márquez i els seus representants per consolidar aquesta aliança. És un profund honor per a la nostra comunitat a San Diego portar el nom d'un jugador que representa el cor, la grapa i l'excel·lència dels valors blaugranes."
+      "description": "El nostre president es va reunir recentment amb Rafa Márquez i els seus representants per consolidar la nostra associació. És un profund honor per a la nostra comunitat de San Diego portar aquesta associació amb un jugador que representa el cor, la determinació i l'excel·lència dels valors blaugrana."
     },
     "Career": {
       "title": "Llegat al Barça <highlight>(2003–2010)</highlight>",
@@ -409,6 +409,6 @@
   },
   "Footer": {
     "subtitle": "Grup Oficial de Seguidors #2309",
-    "copyright": "© {year} PBRMSD. Visca Barça."
+    "copyright": "© {year} PBSD. Visca Barça."
   }
 }
