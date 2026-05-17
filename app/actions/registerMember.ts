@@ -6,6 +6,7 @@ import { createAdminClient } from "@/utils/supabase/admin";
 import { sendRegistrationEmail } from "@/app/actions/sendEmail";
 
 export async function registerMember(formData: FormData) {
+  try {
   const supabase = await createAdminClient();
 
   // 1. Extract form data
@@ -108,4 +109,9 @@ export async function registerMember(formData: FormData) {
   }).catch(console.error);
 
   return { success: true, applicationId: application.id, paymentMethod };
+  } catch (err) {
+    console.error("[registerMember]", err);
+    const message = err instanceof Error ? err.message : "Unexpected error";
+    return { success: false, message };
+  }
 }
