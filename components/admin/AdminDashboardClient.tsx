@@ -36,26 +36,16 @@ export default function AdminDashboardClient({
   // --- FILTERS ---
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedLetter, setSelectedLetter] = useState<string | null>(null);
-  const [showPendingOnly, setShowPendingOnly] = useState(false);
 
-  const [loadingId, setLoadingId] = useState<string | null>(null);
   const supabase = createClient();
 
   const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
   // --- FILTER LOGIC ---
   const filteredMembers = members.filter((member) => {
-    // 1. "Unpaid Only" Filter
-    if (showPendingOnly && member.status === "ACTIVE") {
-      return false; // Hide paid members if filter is on
-    }
-
-    // 2. Letter Filter
     if (selectedLetter) {
       return member.full_name.toUpperCase().startsWith(selectedLetter);
     }
-
-    // 3. Search Filter
     const term = searchTerm.toLowerCase();
     return (
       member.full_name.toLowerCase().includes(term) ||
@@ -75,20 +65,6 @@ export default function AdminDashboardClient({
       alert("Failed");
       setIsEnrollmentOpen(!newState);
     }
-  };
-
-  const markAsPaid = async (id: string) => {
-    if (!confirm("Confirm payment received?")) return;
-    setLoadingId(id);
-    const { error } = await supabase
-      .from("members")
-      .update({ status: "ACTIVE" })
-      .eq("id", id);
-    if (!error)
-      setMembers(
-        members.map((m) => (m.id === id ? { ...m, status: "ACTIVE" } : m)),
-      );
-    setLoadingId(null);
   };
 
   // GENERIC MERCH TOGGLE
@@ -115,10 +91,7 @@ export default function AdminDashboardClient({
   };
 
   // Stats
-  const totalPaid = members.filter((m) => m.status === "ACTIVE").length;
-  const totalPending = members.filter(
-    (m) => m.status === "PENDING_PAYMENT",
-  ).length;
+  const totalMembers = members.length;
   const scarfsGiven = members.filter((m) => m.has_scarf).length;
   const pinsGiven = members.filter((m) => m.has_pin).length;
 
@@ -126,9 +99,9 @@ export default function AdminDashboardClient({
     <div className='space-y-8'>
       <PendingApplications initialApplications={initialApplications} />
       {/* 1. TOP STATS */}
-      <div className='grid gap-4 md:grid-cols-5'>
+      <div className='grid gap-4 md:grid-cols-4'>
         {/* Enrollment Switch */}
-        <div className='col-span-1 md:col-span-1 rounded-xl bg-white p-4 shadow-sm border border-slate-100 flex flex-col justify-between'>
+        <div className='col-span-1 rounded-xl bg-white p-4 shadow-sm border border-slate-100 flex flex-col justify-between'>
           <p className='text-xs text-slate-500 font-bold uppercase'>
             Enrollment
           </p>
@@ -146,18 +119,10 @@ export default function AdminDashboardClient({
           </button>
         </div>
 
-        {/* Paid Count */}
+        {/* Members Count */}
         <div className='rounded-xl bg-white p-4 shadow-sm border border-slate-100'>
           <p className='text-xs text-slate-500 font-bold uppercase'>Members</p>
-          <p className='text-2xl font-extrabold text-barca-blue'>{totalPaid}</p>
-        </div>
-
-        {/* Pending Count */}
-        <div className='rounded-xl bg-white p-4 shadow-sm border border-slate-100'>
-          <p className='text-xs text-slate-500 font-bold uppercase'>Pending</p>
-          <p className='text-2xl font-extrabold text-orange-500'>
-            {totalPending}
-          </p>
+          <p className='text-2xl font-extrabold text-barca-blue'>{totalMembers}</p>
         </div>
 
         {/* Scarf Stats */}
@@ -191,19 +156,6 @@ export default function AdminDashboardClient({
             </h3>
 
             <div className='flex flex-col md:flex-row gap-4 items-center'>
-              {/* CHECKBOX: PENDING ONLY */}
-              <label className='flex items-center gap-2 cursor-pointer select-none rounded-lg border border-slate-200 bg-white px-3 py-2 hover:border-slate-300 transition'>
-                <input
-                  type='checkbox'
-                  checked={showPendingOnly}
-                  onChange={(e) => setShowPendingOnly(e.target.checked)}
-                  className='h-4 w-4 rounded border-slate-300 text-barca-blue focus:ring-barca-blue'
-                />
-                <span className='text-sm font-bold text-slate-700'>
-                  Show Unpaid Only
-                </span>
-              </label>
-
               {/* SEARCH INPUT */}
               <div className='relative w-full md:w-64'>
                 <div className='absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none'>
@@ -277,12 +229,10 @@ export default function AdminDashboardClient({
                 <th className='p-4 font-bold uppercase text-xs'>Payment</th>
                 <th className='p-4 font-bold uppercase text-xs'>Children</th>
                 <th className='p-4 font-bold uppercase text-xs text-center'>Merch Items</th>
-                <th className='p-4 font-bold uppercase text-xs text-right'>Actions</th>
               </tr>
             </thead>
             <tbody className='divide-y divide-slate-100'>
               {filteredMembers.map((member) => {
-                const isPaid = member.status === "ACTIVE";
                 return (
                   <tr key={member.id} className='hover:bg-slate-50 transition'>
                     <td className='p-4 font-bold text-slate-900'>
@@ -318,39 +268,17 @@ export default function AdminDashboardClient({
                         : "—"}
                     </td>
 
-                    {/* STATUS BADGE */}
-                    <td className='p-4'>
-                      {isPaid ? (
-                        <span className='inline-flex items-center gap-1 rounded-full bg-green-100 px-2.5 py-1 text-xs font-bold text-green-700'>
-                          Active
-                        </span>
-                      ) : (
-                        <span className='inline-flex items-center gap-1 rounded-full bg-orange-100 px-2.5 py-1 text-xs font-bold text-orange-700'>
-                          Pending
-                        </span>
-                      )}
-                    </td>
-
                     {/* MERCH TOGGLES (SCARF & PIN) */}
                     <td className='p-4 text-center'>
                       <div className='flex items-center justify-center gap-2'>
-                        {/* 1. SCARF TOGGLE */}
                         <button
-                          disabled={!isPaid}
                           onClick={() =>
-                            toggleMerchItem(
-                              member.id,
-                              "has_scarf",
-                              member.has_scarf,
-                            )
+                            toggleMerchItem(member.id, "has_scarf", member.has_scarf)
                           }
                           className={`flex items-center gap-1 px-3 py-1.5 rounded-lg border text-xs font-bold transition
-                            ${
-                              !isPaid
-                                ? "opacity-30 grayscale cursor-not-allowed border-slate-200"
-                                : member.has_scarf
-                                  ? "bg-purple-100 text-purple-700 border-purple-200 hover:bg-purple-200"
-                                  : "bg-white text-slate-400 border-slate-200 hover:border-purple-300 hover:text-purple-600"
+                            ${member.has_scarf
+                              ? "bg-purple-100 text-purple-700 border-purple-200 hover:bg-purple-200"
+                              : "bg-white text-slate-400 border-slate-200 hover:border-purple-300 hover:text-purple-600"
                             }`}
                           title='Toggle Scarf Status'
                         >
@@ -358,23 +286,14 @@ export default function AdminDashboardClient({
                           {member.has_scarf ? "Yes" : "Scarf"}
                         </button>
 
-                        {/* 2. PIN TOGGLE */}
                         <button
-                          disabled={!isPaid}
                           onClick={() =>
-                            toggleMerchItem(
-                              member.id,
-                              "has_pin",
-                              member.has_pin,
-                            )
+                            toggleMerchItem(member.id, "has_pin", member.has_pin)
                           }
                           className={`flex items-center gap-1 px-3 py-1.5 rounded-lg border text-xs font-bold transition
-                            ${
-                              !isPaid
-                                ? "opacity-30 grayscale cursor-not-allowed border-slate-200"
-                                : member.has_pin
-                                  ? "bg-teal-100 text-teal-700 border-teal-200 hover:bg-teal-200"
-                                  : "bg-white text-slate-400 border-slate-200 hover:border-teal-300 hover:text-teal-600"
+                            ${member.has_pin
+                              ? "bg-teal-100 text-teal-700 border-teal-200 hover:bg-teal-200"
+                              : "bg-white text-slate-400 border-slate-200 hover:border-teal-300 hover:text-teal-600"
                             }`}
                           title='Toggle Pin Status'
                         >
@@ -383,18 +302,6 @@ export default function AdminDashboardClient({
                         </button>
                       </div>
                     </td>
-
-                    <td className='p-4 text-right'>
-                      {!isPaid && (
-                        <button
-                          onClick={() => markAsPaid(member.id)}
-                          disabled={loadingId === member.id}
-                          className='rounded-lg bg-barca-blue px-3 py-1.5 text-xs font-bold text-white hover:bg-blue-900 shadow-sm'
-                        >
-                          {loadingId === member.id ? "..." : "Mark Paid"}
-                        </button>
-                      )}
-                    </td>
                   </tr>
                 );
               })}
@@ -402,7 +309,7 @@ export default function AdminDashboardClient({
               {/* EMPTY STATE */}
               {filteredMembers.length === 0 && (
                 <tr>
-                  <td colSpan={7} className='p-12 text-center text-slate-500'>
+                  <td colSpan={6} className='p-12 text-center text-slate-500'>
                     No members found matching your filters.
                   </td>
                 </tr>
