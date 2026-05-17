@@ -7,7 +7,7 @@ import { getAdminData } from "@/utils/getAdminData";
 
 export default async function AdminPage() {
   const { isMembershipOpen } = await getGlobalConfig();
-  const { user, members, matches } = await getAdminData();
+  const { user, members, matches, applications } = await getAdminData();
 
   if (!user) {
     return redirect("/login");
@@ -16,18 +16,13 @@ export default async function AdminPage() {
   return (
     <main className='min-h-screen bg-slate-50 pb-20'>
       <div className='container mx-auto px-4 py-12'>
-        {/* HEADER SECTION (Updated Layout) */}
         <div className='mb-8 flex flex-col items-start justify-between gap-4 md:flex-row md:items-center'>
           <div>
-            <h1 className='text-3xl font-black uppercase text-slate-900'>
-              Admin Dashboard
-            </h1>
+            <h1 className='text-3xl font-black uppercase text-slate-900'>Admin Dashboard</h1>
             <p className='mt-1 text-sm font-medium text-slate-500'>
               Logged in as: <span className='text-slate-900'>{user.email}</span>
             </p>
           </div>
-
-          {/* LOGOUT BUTTON FORM */}
           <form action={signOut}>
             <button
               type='submit'
@@ -43,6 +38,7 @@ export default async function AdminPage() {
           members={members || []}
           config={isMembershipOpen}
           matches={matches || []}
+          applications={applications}
         />
       </div>
     </main>
