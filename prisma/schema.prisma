@@ -43,6 +43,34 @@ model Event {
   @@map("events")
 }
 
+model MemberApplication {
+  id            String        @id @default(uuid())
+  firstName     String        @map("first_name")
+  lastName      String        @map("last_name")
+  email         String
+  phone         String?
+  isReturning   Boolean       @default(false) @map("is_returning")
+  paymentMethod String        @map("payment_method") // "venmo" | "cashapp" | "cash"
+  paymentHandle String?       @map("payment_handle")
+  status        String        @default("PENDING") // "PENDING" | "APPROVED" | "REJECTED"
+  season        String
+  children      ChildMember[]
+  createdAt     DateTime      @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt     DateTime      @updatedAt @map("updated_at") @db.Timestamptz
+
+  @@map("member_applications")
+}
+
+model ChildMember {
+  id                  String            @id @default(uuid())
+  name                String
+  age                 Int
+  parentApplicationId String            @map("parent_application_id")
+  application         MemberApplication @relation(fields: [parentApplicationId], references: [id], onDelete: Cascade)
+
+  @@map("child_members")
+}
+
 enum Role {
   MEMBER
   ADMIN
