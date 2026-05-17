@@ -42,13 +42,14 @@ export default function LoginPage() {
         </div>
 
         <form onSubmit={handleLogin} className='space-y-6'>
-          <div>
+          <div suppressHydrationWarning>
             <label className='mb-2 block text-sm font-medium text-slate-700'>
               Email Address
             </label>
             <input
               type='email'
               required
+              suppressHydrationWarning
               placeholder='admin@penyasd.com'
               className='w-full rounded-lg border border-slate-300 p-3 outline-none focus:border-barca-blue focus:ring-1 focus:ring-barca-blue text-slate-900'
               value={email}
