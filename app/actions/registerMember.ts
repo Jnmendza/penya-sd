@@ -1,82 +1,111 @@
+// app/actions/registerMember.ts
 "use server";
 
+import { prisma } from "@/lib/prisma";
 import { createAdminClient } from "@/utils/supabase/admin";
+import { sendRegistrationEmail } from "@/app/actions/sendEmail";
 
 export async function registerMember(formData: FormData) {
   const supabase = await createAdminClient();
 
-  // 1. Extract Data
-  const email = formData.get("email")?.toString().toLowerCase().trim();
-  const fullName = formData.get("full_name")?.toString().trim();
-  const phone = formData.get("phone")?.toString().trim();
+  // 1. Extract form data
+  const firstName = formData.get("firstName")?.toString().trim() ?? "";
+  const lastName = formData.get("lastName")?.toString().trim() ?? "";
+  const email = formData.get("email")?.toString().toLowerCase().trim() ?? "";
+  const phone = formData.get("phone")?.toString().trim() || null;
+  const isReturning = formData.get("isReturning") === "true";
+  const paymentMethod = formData.get("paymentMethod")?.toString() ?? "";
+  const paymentHandle = formData.get("paymentHandle")?.toString().trim() || null;
 
-  if (!email || !fullName) {
-    return { success: false, message: "Name and Email are required." };
+  if (!firstName || !lastName || !email || !paymentMethod) {
+    return { success: false, message: "Please fill in all required fields." };
   }
 
-  // 2. Get Current Season from Config
-  const { data: config } = await supabase
+  // 2. Check enrollment is open
+  const { data: configOpen } = await supabase
+    .from("app_config")
+    .select("value")
+    .eq("key", "membership_open")
+    .single();
+
+  if (configOpen?.value !== "true") {
+    return { success: false, message: "Enrollment is currently closed." };
+  }
+
+  // 3. Get current season
+  const { data: configSeason } = await supabase
     .from("app_config")
     .select("value")
     .eq("key", "current_season_id")
     .single();
 
-  // Ensure currentSeason is a string (default if missing)
-  const currentSeason = config?.value || "2025/2026";
+  const season = configSeason?.value || "2025/2026";
 
-  // 3. ATTEMPT 1: Try to Insert a NEW Member
-  const { error: insertError } = await supabase.from("members").insert({
-    email: email,
-    full_name: fullName,
-    phone: phone,
-    status: "ACTIVE",
-    seasons_active: [currentSeason],
-    // created_at handles itself
+  // 4. Check membership cap (200 active adult members)
+  const { count } = await supabase
+    .from("members")
+    .select("*", { count: "exact", head: true })
+    .eq("status", "ACTIVE");
+
+  if ((count ?? 0) >= 200) {
+    return { success: false, message: "cap_reached" };
+  }
+
+  // 5. Check for duplicate application this season
+  const existing = await prisma.memberApplication.findFirst({
+    where: { email, season, status: { not: "REJECTED" } },
   });
 
-  // Success? Great, new member joined.
-  if (!insertError) {
-    return { success: true, message: "Welcome to the family!" };
+  if (existing) {
+    return { success: false, message: "already_applied" };
   }
 
-  // 4. ATTEMPT 2: Handle "Unique Violation" (User Exists)
-  if (insertError.code === "23505") {
-    // --- NEW LOGIC START ---
+  // 6. Parse children from form
+  const childrenRaw = formData.get("children")?.toString();
+  const children: { name: string; age: number }[] = childrenRaw
+    ? JSON.parse(childrenRaw)
+    : [];
 
-    // A. Fetch the existing member to see their current badges
-    const { data: existingMember } = await supabase
-      .from("members")
-      .select("seasons_active")
-      .eq("email", email)
-      .single();
+  // 7. Create MemberApplication record
+  const application = await prisma.memberApplication.create({
+    data: {
+      firstName,
+      lastName,
+      email,
+      phone,
+      isReturning,
+      paymentMethod,
+      paymentHandle,
+      season,
+      children: {
+        create: children
+          .filter((c) => c.name.trim())
+          .map((c) => ({ name: c.name.trim(), age: c.age })),
+      },
+    },
+  });
 
-    // B. Check if they already have this season's badge
-    if (existingMember?.seasons_active?.includes(currentSeason)) {
-      return {
-        success: false, // Return false so the UI knows nothing changed
-        message: `You are already registered for the ${currentSeason} season!`,
-      };
-    }
+  // 8. Get payment handles for email
+  const { data: venmoConfig } = await supabase
+    .from("app_config")
+    .select("value")
+    .eq("key", "venmo_handle")
+    .single();
 
-    // --- NEW LOGIC END ---
+  const { data: cashappConfig } = await supabase
+    .from("app_config")
+    .select("value")
+    .eq("key", "cashapp_handle")
+    .single();
 
-    // C. If they don't have it, perform the Renewal (Append Season)
-    const { error: rpcError } = await supabase.rpc("append_season_to_member", {
-      member_email: email,
-      new_season: currentSeason,
-      new_full_name: fullName,
-      new_phone: phone,
-    });
+  // 9. Send confirmation email (non-blocking)
+  sendRegistrationEmail({
+    firstName,
+    email,
+    paymentMethod,
+    venmoHandle: venmoConfig?.value || "@PenyaSD",
+    cashappHandle: cashappConfig?.value || "$PenyaSD",
+  }).catch(console.error);
 
-    if (rpcError) {
-      console.error("RPC Error:", rpcError);
-      return { success: false, message: "Failed to renew membership." };
-    }
-
-    return { success: true, message: "Welcome back! Membership renewed." };
-  }
-
-  // Generic Error Catch
-  console.error("Registration Error:", insertError);
-  return { success: false, message: "An unexpected error occurred." };
+  return { success: true, applicationId: application.id, paymentMethod };
 }
