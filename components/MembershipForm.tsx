@@ -16,10 +16,10 @@ interface Props {
   isEnrollmentOpen: boolean;
   currentSeason: string;
   venmoHandle: string;
-  cashappHandle: string;
+  zelleHandle: string;
 }
 
-type PaymentMethod = "venmo" | "cashapp" | "cash" | "";
+type PaymentMethod = "venmo" | "zelle" | "cash" | "";
 
 type SuccessState = {
   paymentMethod: PaymentMethod;
@@ -30,7 +30,7 @@ export default function MembershipForm({
   isEnrollmentOpen,
   currentSeason,
   venmoHandle,
-  cashappHandle,
+  zelleHandle,
 }: Props) {
   const t = useTranslations("MembershipPage");
 
@@ -77,7 +77,7 @@ export default function MembershipForm({
     const formData = new FormData(e.currentTarget);
     formData.set("isReturning", String(isReturning));
     formData.set("paymentMethod", paymentMethod);
-    const prefix = paymentMethod === "venmo" ? "@" : paymentMethod === "cashapp" ? "$" : "";
+    const prefix = paymentMethod === "venmo" ? "@" : "";
     const fullHandle = paymentHandle.trim() ? `${prefix}${paymentHandle.trim()}` : "";
     formData.set("paymentHandle", fullHandle);
     formData.set(
@@ -107,7 +107,7 @@ export default function MembershipForm({
   const paymentHandleLabel =
     paymentMethod === "venmo"
       ? t("Form.handle_label_venmo")
-      : t("Form.handle_label_cashapp");
+      : t("Form.handle_label_zelle");
 
   return (
     <div className="container mx-auto px-4">
@@ -169,8 +169,8 @@ export default function MembershipForm({
               <p className="text-slate-600 mb-6">
                 {success.paymentMethod === "venmo"
                   ? t("Success.venmo_msg", { handle: venmoHandle })
-                  : success.paymentMethod === "cashapp"
-                  ? t("Success.cashapp_msg", { handle: cashappHandle })
+                  : success.paymentMethod === "zelle"
+                  ? t("Success.zelle_msg", { handle: zelleHandle })
                   : t("Success.cash_msg")}
               </p>
               <p className="text-sm text-slate-400">{t("Success.email_note")}</p>
@@ -264,10 +264,10 @@ export default function MembershipForm({
               <div>
                 <p className="text-sm font-medium text-slate-700 mb-2">{t("Form.payment_section")} *</p>
                 <div className="grid grid-cols-3 gap-2">
-                  {(["venmo", "cashapp", "cash"] as const).map((method) => {
-                    const label = method === "venmo" ? t("Form.venmo_label") : method === "cashapp" ? t("Form.cashapp_label") : t("Form.cash_label");
-                    const sublabel = method === "venmo" ? venmoHandle : method === "cashapp" ? cashappHandle : t("Form.cash_sublabel");
-                    const emoji = method === "venmo" ? "💸" : method === "cashapp" ? "💰" : "🤝";
+                  {(["venmo", "zelle", "cash"] as const).map((method) => {
+                    const label = method === "venmo" ? t("Form.venmo_label") : method === "zelle" ? t("Form.zelle_label") : t("Form.cash_label");
+                    const sublabel = method === "venmo" ? venmoHandle : method === "zelle" ? zelleHandle : t("Form.cash_sublabel");
+                    const emoji = method === "venmo" ? "💸" : method === "zelle" ? "🏦" : "🤝";
                     return (
                       <button key={method} type="button" onClick={() => { setPaymentMethod(method); setPaymentHandle(""); }}
                         className={`rounded-xl border-2 p-3 text-center transition ${paymentMethod === method ? "border-barca-blue bg-blue-50" : "border-slate-200 hover:border-slate-300"}`}>
@@ -279,20 +279,20 @@ export default function MembershipForm({
                   })}
                 </div>
 
-                {(paymentMethod === "venmo" || paymentMethod === "cashapp") && (
+                {(paymentMethod === "venmo" || paymentMethod === "zelle") && (
                   <div className="mt-3">
                     <label className="block text-sm font-medium text-slate-700 mb-1">
                       {paymentHandleLabel} <span className="text-slate-400 font-normal text-xs">({t("Form.handle_optional")})</span>
                     </label>
                     <div className="flex rounded-lg border border-slate-300 overflow-hidden focus-within:border-barca-blue focus-within:ring-1 focus-within:ring-barca-blue">
-                      <span className="flex items-center px-3 bg-slate-50 text-slate-500 font-mono text-sm border-r border-slate-300 select-none">
-                        {paymentMethod === "venmo" ? "@" : "$"}
-                      </span>
+                      {paymentMethod === "venmo" && (
+                        <span className="flex items-center px-3 bg-slate-50 text-slate-500 font-mono text-sm border-r border-slate-300 select-none">@</span>
+                      )}
                       <input
                         type="text"
                         value={paymentHandle}
                         onChange={(e) => setPaymentHandle(e.target.value.replace(/^[@$]/, ""))}
-                        placeholder={paymentMethod === "venmo" ? "username" : "cashtag"}
+                        placeholder={paymentMethod === "venmo" ? "username" : "email or phone"}
                         className="flex-1 p-3 outline-none text-slate-900 bg-white"
                       />
                     </div>

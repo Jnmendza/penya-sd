@@ -25,13 +25,13 @@ interface Props {
 
 const PAYMENT_ICONS: Record<string, string> = {
   venmo: "💸",
-  cashapp: "💰",
+  zelle: "🏦",
   cash: "🤝",
 };
 
 const PAYMENT_LABELS: Record<string, string> = {
   venmo: "Venmo",
-  cashapp: "Cash App",
+  zelle: "Zelle",
   cash: "Cash",
 };
 

@@ -93,10 +93,10 @@ export async function registerMember(formData: FormData) {
     .eq("key", "venmo_handle")
     .single();
 
-  const { data: cashappConfig } = await supabase
+  const { data: zelleConfig } = await supabase
     .from("app_config")
     .select("value")
-    .eq("key", "cashapp_handle")
+    .eq("key", "zelle_handle")
     .single();
 
   // 9. Send confirmation email (non-blocking)
@@ -105,7 +105,7 @@ export async function registerMember(formData: FormData) {
     email,
     paymentMethod,
     venmoHandle: venmoConfig?.value || "@PenyaSD",
-    cashappHandle: cashappConfig?.value || "$PenyaSD",
+    zelleHandle: zelleConfig?.value || "info@penyasd.com",
   }).catch(console.error);
 
   return { success: true, applicationId: application.id, paymentMethod };

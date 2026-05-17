@@ -38,9 +38,9 @@ export async function sendContactEmail(formData: FormData) {
 interface RegistrationEmailParams {
   firstName: string;
   email: string;
-  paymentMethod: string; // "venmo" | "cashapp" | "cash"
+  paymentMethod: string; // "venmo" | "zelle" | "cash"
   venmoHandle: string;
-  cashappHandle: string;
+  zelleHandle: string;
 }
 
 export async function sendRegistrationEmail({
@@ -48,18 +48,17 @@ export async function sendRegistrationEmail({
   email,
   paymentMethod,
   venmoHandle,
-  cashappHandle,
+  zelleHandle,
 }: RegistrationEmailParams) {
   const venmoUrl = `https://venmo.com/${venmoHandle.replace("@", "")}`;
-  const cashappUrl = `https://cash.app/${cashappHandle.startsWith("$") ? cashappHandle : "$" + cashappHandle}`;
 
   const paymentSection =
     paymentMethod === "venmo"
       ? `<p>Please send <strong>$30</strong> to <strong>${venmoHandle}</strong> on Venmo:</p>
          <p><a href="${venmoUrl}" style="background:#008CFF;color:white;padding:10px 20px;border-radius:6px;text-decoration:none;font-weight:bold;">Pay on Venmo</a></p>`
-      : paymentMethod === "cashapp"
-      ? `<p>Please send <strong>$30</strong> to <strong>${cashappHandle}</strong> on Cash App:</p>
-         <p><a href="${cashappUrl}" style="background:#00D64F;color:white;padding:10px 20px;border-radius:6px;text-decoration:none;font-weight:bold;">Pay on Cash App</a></p>`
+      : paymentMethod === "zelle"
+      ? `<p>Please send <strong>$30</strong> via Zelle to <strong>${zelleHandle}</strong>.</p>
+         <p style="color:#6b7280;font-size:0.875rem">Open your bank app, go to Zelle, and send to the address above.</p>`
       : `<p>Please bring <strong>$30 cash</strong> to our next watch party. Find a board member to complete your registration.</p>`;
 
   await resend.emails.send({

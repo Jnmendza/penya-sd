@@ -304,7 +304,7 @@ export default function AdminDashboardClient({
                     {/* PAYMENT */}
                     <td className='p-4 text-sm text-slate-600'>
                       {member.payment_method === "venmo" && <span>💸 Venmo</span>}
-                      {member.payment_method === "cashapp" && <span>💰 Cash App</span>}
+                      {member.payment_method === "zelle" && <span>🏦 Zelle</span>}
                       {member.payment_method === "cash" && <span>🤝 Cash</span>}
                       {member.payment_handle && (
                         <p className='font-mono text-xs text-slate-400'>{member.payment_handle}</p>
