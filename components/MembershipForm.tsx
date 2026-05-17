@@ -77,7 +77,9 @@ export default function MembershipForm({
     const formData = new FormData(e.currentTarget);
     formData.set("isReturning", String(isReturning));
     formData.set("paymentMethod", paymentMethod);
-    formData.set("paymentHandle", paymentHandle);
+    const prefix = paymentMethod === "venmo" ? "@" : paymentMethod === "cashapp" ? "$" : "";
+    const fullHandle = paymentHandle.trim() ? `${prefix}${paymentHandle.trim()}` : "";
+    formData.set("paymentHandle", fullHandle);
     formData.set(
       "children",
       JSON.stringify(
@@ -271,7 +273,7 @@ export default function MembershipForm({
                         className={`rounded-xl border-2 p-3 text-center transition ${paymentMethod === method ? "border-barca-blue bg-blue-50" : "border-slate-200 hover:border-slate-300"}`}>
                         <div className="text-xl mb-1">{emoji}</div>
                         <div className="text-xs font-bold text-slate-800">{label}</div>
-                        <div className="text-xs text-slate-400">{sublabel}</div>
+                        <div className="text-xs text-slate-400 truncate w-full">{sublabel}</div>
                       </button>
                     );
                   })}
@@ -282,9 +284,18 @@ export default function MembershipForm({
                     <label className="block text-sm font-medium text-slate-700 mb-1">
                       {paymentHandleLabel} <span className="text-slate-400 font-normal text-xs">({t("Form.handle_optional")})</span>
                     </label>
-                    <input type="text" value={paymentHandle} onChange={(e) => setPaymentHandle(e.target.value)}
-                      placeholder={paymentMethod === "venmo" ? "@username" : "$cashtag"}
-                      className="w-full rounded-lg border border-slate-300 p-3 outline-none focus:border-barca-blue focus:ring-1 text-slate-900" />
+                    <div className="flex rounded-lg border border-slate-300 overflow-hidden focus-within:border-barca-blue focus-within:ring-1 focus-within:ring-barca-blue">
+                      <span className="flex items-center px-3 bg-slate-50 text-slate-500 font-mono text-sm border-r border-slate-300 select-none">
+                        {paymentMethod === "venmo" ? "@" : "$"}
+                      </span>
+                      <input
+                        type="text"
+                        value={paymentHandle}
+                        onChange={(e) => setPaymentHandle(e.target.value.replace(/^[@$]/, ""))}
+                        placeholder={paymentMethod === "venmo" ? "username" : "cashtag"}
+                        className="flex-1 p-3 outline-none text-slate-900 bg-white"
+                      />
+                    </div>
                     <p className="mt-1 text-xs text-slate-400">{t("Form.handle_hint")}</p>
                   </div>
                 )}
