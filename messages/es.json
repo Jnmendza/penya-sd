@@ -246,39 +246,66 @@
   },
   "MembershipPage": {
     "Metadata": {
-      "title": "Membresía | Penya Blaugrana de San Diego",
-      "description": "Únete a nosotros. ¡Conviértete en miembro hoy!"
+      "title": "Membership | Penya Blaugrana San Diego",
+      "description": "Join us in making San Diego a better place. Become a member today!"
     },
     "Header": {
-      "title": "Únete a la Familia",
-      "subtitle": "Conviértete en miembro oficial para la temporada {season}."
+      "title": "Join the Family",
+      "subtitle": "Become an official member of Penya Blaugrana San Diego for the {season} season."
     },
     "Benefits": {
-      "title": "Lo que incluye:",
-      "scarf_title": "Bufanda Oficial {year}",
-      "scarf_desc": "Bufanda tejida de alta calidad, diseño exclusivo.",
-      "pin_title": "Pin Conmemorativo",
-      "pin_desc": "Colecciónalos cada año. Una insignia de honor.",
-      "priority_title": "Acceso Prioritario",
-      "priority_desc": "Entrada garantizada para El Clásico y eventos especiales."
+      "title": "What's Included:",
+      "scarf_title": "Official {year} Scarf",
+      "scarf_desc": "High-quality knit scarf, exclusive design for members.",
+      "pin_title": "Commemorative Pin",
+      "pin_desc": "Collect them every year. A badge of honor.",
+      "priority_title": "Priority Access",
+      "priority_desc": "Guaranteed entry for El Clásico and special events."
     },
     "Form": {
-      "title": "Detalles del Miembro",
-      "name_label": "Nombre Completo",
-      "name_placeholder": "Andrés Iniesta",
-      "email_label": "Correo Electrónico",
-      "email_placeholder": "andres@ejemplo.com",
-      "phone_label": "Teléfono (Opcional)",
+      "title": "Member Details",
+      "first_name_label": "First Name",
+      "first_name_placeholder": "Andrés",
+      "last_name_label": "Last Name",
+      "last_name_placeholder": "Iniesta",
+      "email_label": "Email Address",
+      "email_placeholder": "andres@example.com",
+      "phone_label": "Phone",
       "phone_placeholder": "(619) 555-0199",
-      "submit_btn": "Pagar $30.00",
-      "processing": "Procesando...",
-      "stripe_note": "Redirige a Stripe para pago seguro.",
-      "error_alert": "Algo salió mal. Por favor intenta de nuevo."
+      "phone_optional": "optional",
+      "returning_label": "Are you a returning member?",
+      "returning_yes": "Yes",
+      "returning_no": "No",
+      "payment_section": "Payment Method",
+      "venmo_label": "Venmo",
+      "cashapp_label": "Cash App",
+      "cash_label": "Cash",
+      "cash_sublabel": "In person",
+      "handle_label_venmo": "Your Venmo username",
+      "handle_label_cashapp": "Your Cash App $cashtag",
+      "handle_optional": "optional",
+      "handle_hint": "Helps us match your payment faster — leave blank if you don't have it handy.",
+      "children_section": "Child Members (8 & under — free)",
+      "child_name_label": "Child's Name",
+      "child_age_label": "Age",
+      "add_child": "+ Add another child",
+      "submit_btn": "Submit Registration →",
+      "processing": "Submitting...",
+      "error_alert": "Something went wrong. Please try again."
+    },
+    "Success": {
+      "title": "You're Registered!",
+      "venmo_msg": "Send $30 to {handle} on Venmo to complete your membership.",
+      "cashapp_msg": "Send $30 to {handle} on Cash App to complete your membership.",
+      "cash_msg": "Bring $30 to our next watch party to complete your membership.",
+      "email_note": "We'll email you a confirmation once we verify your payment.",
+      "cap_reached": "Membership is full for this season. Check back next year!",
+      "already_applied": "It looks like you've already submitted a registration for this season. Check your email for next steps."
     },
     "Closed": {
-      "title": "La inscripción está cerrada",
-      "description": "Aceptamos nuevos miembros durante nuestra ventana de inscripción (típicamente de mayo a diciembre).",
-      "social_text": "¿Quieres saber cuándo abre? {br} <bold>Síguenos en redes sociales para anuncios.</bold>"
+      "title": "Enrollment is Currently Closed",
+      "description": "We accept new members during our enrollment window (typically late May through early December). Check back closer to those dates!",
+      "social_text": "Want to know when it opens? {br} <bold>Follow us on social media for announcements.</bold>"
     }
   },
   "MerchLink": {
