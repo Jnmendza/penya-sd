@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { createClient } from "@/utils/supabase/client";
+import PendingApplications, { Application } from "./PendingApplications";
 
 export interface Member {
   id: string;
@@ -12,16 +13,22 @@ export interface Member {
   status: string;
   has_scarf: boolean;
   has_pin: boolean;
+  payment_method?: string | null;
+  payment_handle?: string | null;
+  is_returning?: boolean;
+  children_count?: number;
 }
 
 interface Props {
   initialConfig: boolean;
   initialMembers: Member[];
+  initialApplications: Application[];
 }
 
 export default function AdminDashboardClient({
   initialConfig,
   initialMembers,
+  initialApplications,
 }: Props) {
   const [isEnrollmentOpen, setIsEnrollmentOpen] = useState(initialConfig);
   const [members, setMembers] = useState(initialMembers);
@@ -117,6 +124,7 @@ export default function AdminDashboardClient({
 
   return (
     <div className='space-y-8'>
+      <PendingApplications initialApplications={initialApplications} />
       {/* 1. TOP STATS */}
       <div className='grid gap-4 md:grid-cols-5'>
         {/* Enrollment Switch */}
@@ -265,13 +273,11 @@ export default function AdminDashboardClient({
               <tr>
                 <th className='p-4 font-bold uppercase text-xs'>Name</th>
                 <th className='p-4 font-bold uppercase text-xs'>Email</th>
-                <th className='p-4 font-bold uppercase text-xs'>Status</th>
-                <th className='p-4 font-bold uppercase text-xs text-center'>
-                  Merch Items
-                </th>
-                <th className='p-4 font-bold uppercase text-xs text-right'>
-                  Actions
-                </th>
+                <th className='p-4 font-bold uppercase text-xs'>Type</th>
+                <th className='p-4 font-bold uppercase text-xs'>Payment</th>
+                <th className='p-4 font-bold uppercase text-xs'>Children</th>
+                <th className='p-4 font-bold uppercase text-xs text-center'>Merch Items</th>
+                <th className='p-4 font-bold uppercase text-xs text-right'>Actions</th>
               </tr>
             </thead>
             <tbody className='divide-y divide-slate-100'>
@@ -284,6 +290,32 @@ export default function AdminDashboardClient({
                     </td>
                     <td className='p-4 text-slate-600 font-medium'>
                       {member.email}
+                    </td>
+
+                    {/* TYPE */}
+                    <td className='p-4'>
+                      {member.is_returning ? (
+                        <span className='inline-flex items-center rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-bold text-emerald-700'>Returning</span>
+                      ) : (
+                        <span className='inline-flex items-center rounded-full bg-blue-100 px-2.5 py-1 text-xs font-bold text-blue-700'>New</span>
+                      )}
+                    </td>
+
+                    {/* PAYMENT */}
+                    <td className='p-4 text-sm text-slate-600'>
+                      {member.payment_method === "venmo" && <span>💸 Venmo</span>}
+                      {member.payment_method === "cashapp" && <span>💰 Cash App</span>}
+                      {member.payment_method === "cash" && <span>🤝 Cash</span>}
+                      {member.payment_handle && (
+                        <p className='font-mono text-xs text-slate-400'>{member.payment_handle}</p>
+                      )}
+                    </td>
+
+                    {/* CHILDREN */}
+                    <td className='p-4 text-sm text-slate-500'>
+                      {member.children_count && member.children_count > 0
+                        ? `👧 ${member.children_count}`
+                        : "—"}
                     </td>
 
                     {/* STATUS BADGE */}
@@ -370,7 +402,7 @@ export default function AdminDashboardClient({
               {/* EMPTY STATE */}
               {filteredMembers.length === 0 && (
                 <tr>
-                  <td colSpan={5} className='p-12 text-center text-slate-500'>
+                  <td colSpan={7} className='p-12 text-center text-slate-500'>
                     No members found matching your filters.
                   </td>
                 </tr>
