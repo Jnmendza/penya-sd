@@ -23,13 +23,15 @@ export async function generateMetadata({
 }
 
 export default async function MembershipPage() {
-  const { isMembershipOpen, currentSeason } = await getGlobalConfig();
+  const { isMembershipOpen, currentSeason, venmoHandle, cashappHandle } = await getGlobalConfig();
 
   return (
     <main className='min-h-screen bg-slate-50 pt-24 pb-12'>
       <MembershipForm
         isEnrollmentOpen={isMembershipOpen}
         currentSeason={currentSeason}
+        venmoHandle={venmoHandle}
+        cashappHandle={cashappHandle}
       />
     </main>
   );
