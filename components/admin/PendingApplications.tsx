@@ -2,6 +2,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { approveMember } from "@/app/actions/approveMember";
 import { rejectMember } from "@/app/actions/rejectMember";
 
@@ -38,6 +39,7 @@ const PAYMENT_LABELS: Record<string, string> = {
 export default function PendingApplications({ initialApplications }: Props) {
   const [applications, setApplications] = useState(initialApplications);
   const [loadingId, setLoadingId] = useState<string | null>(null);
+  const router = useRouter();
 
   const handleApprove = async (id: string) => {
     if (!confirm("Confirm payment received and activate this member?")) return;
@@ -45,6 +47,7 @@ export default function PendingApplications({ initialApplications }: Props) {
     const result = await approveMember(id);
     if (result.success) {
       setApplications((prev) => prev.filter((a) => a.id !== id));
+      router.refresh();
     } else {
       alert(result.message || "Failed to approve.");
     }
@@ -56,6 +59,7 @@ export default function PendingApplications({ initialApplications }: Props) {
     setLoadingId(id);
     await rejectMember(id);
     setApplications((prev) => prev.filter((a) => a.id !== id));
+    router.refresh();
     setLoadingId(null);
   };
 
