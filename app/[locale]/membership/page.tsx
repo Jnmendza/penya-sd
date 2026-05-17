@@ -23,7 +23,7 @@ export async function generateMetadata({
 }
 
 export default async function MembershipPage() {
-  const { isMembershipOpen, currentSeason, venmoHandle, zelleHandle } = await getGlobalConfig();
+  const { isMembershipOpen, currentSeason, venmoHandle, zelleHandle, venmoQrUrl, zelleQrUrl } = await getGlobalConfig();
 
   return (
     <main className='min-h-screen bg-slate-50 pt-24 pb-12'>
@@ -32,6 +32,8 @@ export default async function MembershipPage() {
         currentSeason={currentSeason}
         venmoHandle={venmoHandle}
         zelleHandle={zelleHandle}
+        venmoQrUrl={venmoQrUrl}
+        zelleQrUrl={zelleQrUrl}
       />
     </main>
   );

@@ -2,6 +2,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { registerMember } from "@/app/actions/registerMember";
 import { FacebookIcon, InstagramIcon, XIcon } from "./Icons";
@@ -17,6 +18,8 @@ interface Props {
   currentSeason: string;
   venmoHandle: string;
   zelleHandle: string;
+  venmoQrUrl: string | null;
+  zelleQrUrl: string | null;
 }
 
 type PaymentMethod = "venmo" | "zelle" | "cash" | "";
@@ -31,6 +34,8 @@ export default function MembershipForm({
   currentSeason,
   venmoHandle,
   zelleHandle,
+  venmoQrUrl,
+  zelleQrUrl,
 }: Props) {
   const t = useTranslations("MembershipPage");
 
@@ -280,23 +285,39 @@ export default function MembershipForm({
                 </div>
 
                 {(paymentMethod === "venmo" || paymentMethod === "zelle") && (
-                  <div className="mt-3">
-                    <label className="block text-sm font-medium text-slate-700 mb-1">
-                      {paymentHandleLabel} <span className="text-slate-400 font-normal text-xs">({t("Form.handle_optional")})</span>
-                    </label>
-                    <div className="flex rounded-lg border border-slate-300 overflow-hidden focus-within:border-barca-blue focus-within:ring-1 focus-within:ring-barca-blue">
-                      {paymentMethod === "venmo" && (
-                        <span className="flex items-center px-3 bg-slate-50 text-slate-500 font-mono text-sm border-r border-slate-300 select-none">@</span>
-                      )}
-                      <input
-                        type="text"
-                        value={paymentHandle}
-                        onChange={(e) => setPaymentHandle(e.target.value.replace(/^[@$]/, ""))}
-                        placeholder={paymentMethod === "venmo" ? "username" : "email or phone"}
-                        className="flex-1 p-3 outline-none text-slate-900 bg-white"
-                      />
+                  <div className="mt-3 space-y-3">
+                    <div>
+                      <label className="block text-sm font-medium text-slate-700 mb-1">
+                        {paymentHandleLabel} <span className="text-slate-400 font-normal text-xs">({t("Form.handle_optional")})</span>
+                      </label>
+                      <div className="flex rounded-lg border border-slate-300 overflow-hidden focus-within:border-barca-blue focus-within:ring-1 focus-within:ring-barca-blue">
+                        {paymentMethod === "venmo" && (
+                          <span className="flex items-center px-3 bg-slate-50 text-slate-500 font-mono text-sm border-r border-slate-300 select-none">@</span>
+                        )}
+                        <input
+                          type="text"
+                          value={paymentHandle}
+                          onChange={(e) => setPaymentHandle(e.target.value.replace(/^[@$]/, ""))}
+                          placeholder={paymentMethod === "venmo" ? "username" : "email or phone"}
+                          className="flex-1 p-3 outline-none text-slate-900 bg-white"
+                        />
+                      </div>
+                      <p className="mt-1 text-xs text-slate-400">{t("Form.handle_hint")}</p>
                     </div>
-                    <p className="mt-1 text-xs text-slate-400">{t("Form.handle_hint")}</p>
+
+                    {/* QR Code */}
+                    {(paymentMethod === "venmo" ? venmoQrUrl : zelleQrUrl) && (
+                      <div className="flex flex-col items-center gap-2 bg-slate-50 border border-slate-200 rounded-xl p-4">
+                        <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide">Scan to pay</p>
+                        <Image
+                          src={(paymentMethod === "venmo" ? venmoQrUrl : zelleQrUrl)!}
+                          alt={`${paymentMethod === "venmo" ? "Venmo" : "Zelle"} QR code`}
+                          width={160}
+                          height={160}
+                          className="rounded-lg"
+                        />
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
