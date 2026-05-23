@@ -84,7 +84,7 @@ export default function Navbar() {
         <Link href='/' className='flex flex items-center gap-2 group'>
           <div className='relative h-16 w-16'>
             <Image
-              src='https://erlplcduvrowbiwobjen.supabase.co/storage/v1/object/public/assets/logo.png'
+              src={`${process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://erlplcduvrowbiwobjen.supabase.co'}/storage/v1/object/public/assets/pbsd-rafa-crest%20(1).png`}
               alt='PBSD Logo'
               fill
               className='object-contain'

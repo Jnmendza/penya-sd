@@ -291,14 +291,16 @@
       "add_child": "+ Add another child",
       "submit_btn": "Submit Registration →",
       "processing": "Processant...",
-      "error_alert": "Alguna cosa ha anat malament. Si us plau, torna-ho a provar."
+      "error_alert": "Alguna cosa ha anat malament. Si us plau, torna-ho a provar.",
+      "download_qr": "Descarregar Codi QR",
+      "email_reminder_hint": "També t'enviarem aquests detalls de pagament per correu electrònic una vegada enviïs el teu registre."
     },
     "Success": {
       "title": "You're Registered!",
       "venmo_msg": "Send $30 to {handle} on Venmo to complete your membership.",
       "zelle_msg": "Send $30 via Zelle to {handle} to complete your membership.",
       "cash_msg": "Bring $30 to our next watch party to complete your membership.",
-      "email_note": "We'll email you a confirmation once we verify your payment.",
+      "email_note": "Hem enviat aquests detalls de pagament al teu correu electrònic perquè puguis fer el pagament en qualsevol moment. T'enviarem un altre correu una vegada confirmat el pagament.",
       "cap_reached": "Membership is full for this season. Check back next year!",
       "already_applied": "It looks like you've already submitted a registration for this season. Check your email for next steps."
     },

@@ -1,8 +1,15 @@
 "use client";
 
-import { useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { createClient } from "@/utils/supabase/client";
 import PendingApplications, { Application } from "./PendingApplications";
+import { updateMemberStatus } from "@/app/actions/updateMemberStatus";
+
+export interface ChildMember {
+  id: string;
+  name: string;
+  age: number;
+}
 
 export interface Member {
   id: string;
@@ -17,12 +24,12 @@ export interface Member {
   payment_handle?: string | null;
   is_returning?: boolean;
   children_count?: number;
+  children?: ChildMember[];
 }
 
 interface Props {
   initialConfig: boolean;
   initialMembers: Member[];
-  initialApplications: Application[];
 }
 
 interface UndoToast {
@@ -34,7 +41,6 @@ interface UndoToast {
 export default function AdminDashboardClient({
   initialConfig,
   initialMembers,
-  initialApplications,
 }: Props) {
   const [isEnrollmentOpen, setIsEnrollmentOpen] = useState(initialConfig);
   const [members, setMembers] = useState(initialMembers);
@@ -45,10 +51,26 @@ export default function AdminDashboardClient({
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedLetter, setSelectedLetter] = useState<string | null>(null);
 
+  // --- ACCORDION & SORTING STATE ---
+  const [expandedMembers, setExpandedMembers] = useState<Set<string>>(new Set());
+  const [sortBy, setSortBy] = useState<"name-asc" | "name-desc" | "status-active" | "status-disabled" | "payment" | null>(null);
+
+  const toggleExpandMember = (id: string) => {
+    setExpandedMembers((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) {
+        next.delete(id);
+      } else {
+        next.add(id);
+      }
+      return next;
+    });
+  };
+
   const supabase = createClient();
   const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
-  // --- FILTER LOGIC ---
+  // --- FILTER & SORT LOGIC ---
   const filteredMembers = members.filter((member) => {
     if (selectedLetter) {
       return member.full_name.toUpperCase().startsWith(selectedLetter);
@@ -58,6 +80,35 @@ export default function AdminDashboardClient({
       member.full_name.toLowerCase().includes(term) ||
       member.email.toLowerCase().includes(term)
     );
+  });
+
+  const sortedMembers = [...filteredMembers].sort((a, b) => {
+    if (sortBy === "name-asc") {
+      return a.full_name.localeCompare(b.full_name);
+    }
+    if (sortBy === "name-desc") {
+      return b.full_name.localeCompare(a.full_name);
+    }
+    if (sortBy === "status-active") {
+      const statusA = (a.status || "").toUpperCase();
+      const statusB = (b.status || "").toUpperCase();
+      if (statusA === "ACTIVE" && statusB !== "ACTIVE") return -1;
+      if (statusA !== "ACTIVE" && statusB === "ACTIVE") return 1;
+      return a.full_name.localeCompare(b.full_name);
+    }
+    if (sortBy === "status-disabled") {
+      const statusA = (a.status || "").toUpperCase();
+      const statusB = (b.status || "").toUpperCase();
+      if (statusA === "DISABLED" && statusB !== "DISABLED") return -1;
+      if (statusA !== "DISABLED" && statusB === "DISABLED") return 1;
+      return a.full_name.localeCompare(b.full_name);
+    }
+    if (sortBy === "payment") {
+      const payA = a.payment_method || "";
+      const payB = b.payment_method || "";
+      return payA.localeCompare(payB);
+    }
+    return 0;
   });
 
   // --- ACTIONS ---
@@ -126,6 +177,90 @@ export default function AdminDashboardClient({
     ]);
   };
 
+  const handleStatusChange = async (id: string, newStatus: string) => {
+    const member = members.find((m) => m.id === id);
+    if (!member) return;
+    const oldStatus = member.status;
+
+    // Optimistically update
+    setMembers((prev) =>
+      prev.map((m) => (m.id === id ? { ...m, status: newStatus } : m))
+    );
+
+    const result = await updateMemberStatus(id, newStatus);
+    if (!result.success) {
+      alert(`Failed to update status: ${result.message}`);
+      // Revert
+      setMembers((prev) =>
+        prev.map((m) => (m.id === id ? { ...m, status: oldStatus } : m))
+      );
+    }
+  };
+
+  const exportToCSV = () => {
+    const headers = [
+      "Name",
+      "Email",
+      "Phone",
+      "Status",
+      "Type",
+      "Payment Method",
+      "Payment Handle",
+      "Scarf Received",
+      "Pin Received",
+      "Children Count",
+      "Children Details",
+      "Registration Date"
+    ];
+
+    const rows = sortedMembers.map((member) => {
+      const type = member.is_returning ? "Returning" : "New";
+      const scarf = member.has_scarf ? "Yes" : "No";
+      const pin = member.has_pin ? "Yes" : "No";
+      
+      const childrenDetails = member.children && member.children.length > 0
+        ? member.children.map((c) => `${c.name} (Age ${c.age})`).join("; ")
+        : "";
+
+      return [
+        member.full_name,
+        member.email,
+        member.phone || "",
+        member.status || "ACTIVE",
+        type,
+        member.payment_method || "",
+        member.payment_handle || "",
+        scarf,
+        pin,
+        member.children_count || 0,
+        childrenDetails,
+        member.created_at ? new Date(member.created_at).toLocaleDateString() : ""
+      ];
+    });
+
+    const csvContent = [
+      headers.join(","),
+      ...rows.map((row) =>
+        row
+          .map((value) => {
+            const stringValue = String(value).replace(/"/g, '""');
+            return `"${stringValue}"`;
+          })
+          .join(",")
+      )
+    ].join("\n");
+
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", `penya_sd_members_${new Date().toISOString().split("T")[0]}.csv`);
+    link.style.visibility = "hidden";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   // Stats
   const totalMembers = members.length;
   const scarfsGiven = members.filter((m) => m.has_scarf).length;
@@ -141,8 +276,6 @@ export default function AdminDashboardClient({
       `}</style>
 
       <div className='space-y-8'>
-        <PendingApplications initialApplications={initialApplications} />
-
         {/* 1. TOP STATS */}
         <div className='grid gap-4 md:grid-cols-4'>
           {/* Enrollment Switch */}
@@ -195,9 +328,30 @@ export default function AdminDashboardClient({
                 </span>
               </h3>
 
-              <div className='flex flex-col md:flex-row gap-4 items-center'>
+              <div className='flex flex-col sm:flex-row gap-3 items-center w-full md:w-auto'>
+                {/* EXPORT BUTTON */}
+                <button
+                  onClick={exportToCSV}
+                  className='flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-bold shadow-sm transition w-full sm:w-auto justify-center cursor-pointer'
+                >
+                  <svg
+                    className='h-4 w-4'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    stroke='currentColor'
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth={2}
+                      d='M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4'
+                    />
+                  </svg>
+                  Export CSV
+                </button>
+
                 {/* SEARCH INPUT */}
-                <div className='relative w-full md:w-64'>
+                <div className='relative w-full sm:w-64'>
                   <div className='absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none'>
                     <svg
                       className='h-4 w-4 text-slate-400'
@@ -225,6 +379,56 @@ export default function AdminDashboardClient({
                   />
                 </div>
               </div>
+            </div>
+
+            {/* SORTING CONTROLS */}
+            <div className='flex flex-wrap items-center gap-2 text-xs py-2.5 border-t border-b border-slate-100/80'>
+              <span className='font-bold text-slate-400 uppercase tracking-wider mr-1'>Sort by:</span>
+              <button
+                onClick={() => setSortBy((prev) => (prev === "name-asc" ? "name-desc" : "name-asc"))}
+                className={`px-3 py-1.5 rounded-lg border font-bold transition flex items-center gap-1 cursor-pointer ${
+                  sortBy === "name-asc" || sortBy === "name-desc"
+                    ? "bg-barca-blue text-white border-barca-blue shadow-sm"
+                    : "bg-white text-slate-600 border-slate-200 hover:bg-slate-50 hover:border-slate-300"
+                }`}
+              >
+                <span>Name</span>
+                {sortBy === "name-asc" && <span>▲</span>}
+                {sortBy === "name-desc" && <span>▼</span>}
+              </button>
+
+              <button
+                onClick={() => setSortBy((prev) => (prev === "status-active" ? "status-disabled" : "status-active"))}
+                className={`px-3 py-1.5 rounded-lg border font-bold transition flex items-center gap-1 cursor-pointer ${
+                  sortBy === "status-active" || sortBy === "status-disabled"
+                    ? "bg-barca-blue text-white border-barca-blue shadow-sm"
+                    : "bg-white text-slate-600 border-slate-200 hover:bg-slate-50 hover:border-slate-300"
+                }`}
+              >
+                <span>Status</span>
+                {sortBy === "status-active" && <span>(Active First)</span>}
+                {sortBy === "status-disabled" && <span>(Disabled First)</span>}
+              </button>
+
+              <button
+                onClick={() => setSortBy((prev) => (prev === "payment" ? null : "payment"))}
+                className={`px-3 py-1.5 rounded-lg border font-bold transition flex items-center gap-1 cursor-pointer ${
+                  sortBy === "payment"
+                    ? "bg-barca-blue text-white border-barca-blue shadow-sm"
+                    : "bg-white text-slate-600 border-slate-200 hover:bg-slate-50 hover:border-slate-300"
+                }`}
+              >
+                <span>Payment Method</span>
+              </button>
+
+              {sortBy && (
+                <button
+                  onClick={() => setSortBy(null)}
+                  className='px-2 py-1.5 text-red-600 hover:text-red-800 font-bold transition cursor-pointer'
+                >
+                  Clear Sort
+                </button>
+              )}
             </div>
 
             {/* A-Z FILTER */}
@@ -257,90 +461,155 @@ export default function AdminDashboardClient({
               ))}
             </div>
           </div>
-
           {/* TABLE */}
-          <div className='overflow-x-auto'>
-            <table className='w-full text-left text-sm'>
-              <thead className='bg-slate-50 text-slate-500 border-b border-slate-200'>
+          <div className='max-h-[600px] overflow-auto border-t border-slate-100 relative'>
+            <table className='w-full text-left text-sm border-collapse'>
+              <thead className='sticky top-0 bg-slate-50 text-slate-700 border-b border-slate-200 shadow-[0_1px_0_0_rgba(226,232,240,1)] z-10'>
                 <tr>
-                  <th className='p-4 font-bold uppercase text-xs'>Name</th>
-                  <th className='p-4 font-bold uppercase text-xs'>Email</th>
-                  <th className='p-4 font-bold uppercase text-xs'>Type</th>
-                  <th className='p-4 font-bold uppercase text-xs'>Payment</th>
-                  <th className='p-4 font-bold uppercase text-xs'>Children</th>
-                  <th className='p-4 font-bold uppercase text-xs text-center'>Merch Items</th>
+                  <th className='p-4 font-extrabold uppercase text-xs text-slate-700'>Name</th>
+                  <th className='p-4 font-extrabold uppercase text-xs text-slate-700'>Email</th>
+                  <th className='p-4 font-extrabold uppercase text-xs text-slate-700'>Status</th>
+                  <th className='p-4 font-extrabold uppercase text-xs text-slate-700'>Type</th>
+                  <th className='p-4 font-extrabold uppercase text-xs text-slate-700'>Payment</th>
+                  <th className='p-4 font-extrabold uppercase text-xs text-slate-700'>Children</th>
+                  <th className='p-4 font-extrabold uppercase text-xs text-center text-slate-700'>Merch Items</th>
                 </tr>
               </thead>
               <tbody className='divide-y divide-slate-100'>
-                {filteredMembers.map((member) => (
-                  <tr key={member.id} className='hover:bg-slate-50 transition'>
-                    <td className='p-4 font-bold text-slate-900'>
-                      {member.full_name}
-                    </td>
-                    <td className='p-4 text-slate-600 font-medium'>
-                      {member.email}
-                    </td>
+                {sortedMembers.map((member) => (
+                  <React.Fragment key={member.id}>
+                    <tr className='hover:bg-slate-50 transition border-b border-slate-100'>
+                      <td className='p-4 font-bold text-slate-900'>
+                        {member.full_name}
+                      </td>
+                      <td className='p-4 text-slate-600 font-medium'>
+                        {member.email}
+                      </td>
 
-                    {/* TYPE */}
-                    <td className='p-4'>
-                      {member.is_returning ? (
-                        <span className='inline-flex items-center rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-bold text-emerald-700'>Returning</span>
-                      ) : (
-                        <span className='inline-flex items-center rounded-full bg-blue-100 px-2.5 py-1 text-xs font-bold text-blue-700'>New</span>
-                      )}
-                    </td>
-
-                    {/* PAYMENT */}
-                    <td className='p-4 text-sm text-slate-600'>
-                      {member.payment_method === "venmo" && <span>💸 Venmo</span>}
-                      {member.payment_method === "zelle" && <span>🏦 Zelle</span>}
-                      {member.payment_method === "cash" && <span>🤝 Cash</span>}
-                      {member.payment_handle && (
-                        <p className='font-mono text-xs text-slate-400'>{member.payment_handle}</p>
-                      )}
-                    </td>
-
-                    {/* CHILDREN */}
-                    <td className='p-4 text-sm text-slate-500'>
-                      {member.children_count && member.children_count > 0
-                        ? `👧 ${member.children_count}`
-                        : "—"}
-                    </td>
-
-                    {/* MERCH TOGGLES */}
-                    <td className='p-4 text-center'>
-                      <div className='flex items-center justify-center gap-2'>
-                        <button
-                          onClick={() => toggleMerchItem(member.id, "has_scarf", member.has_scarf)}
-                          className={`flex items-center gap-1 px-3 py-1.5 rounded-lg border text-xs font-bold transition ${
-                            member.has_scarf
-                              ? "bg-purple-100 text-purple-700 border-purple-200 hover:bg-purple-200"
-                              : "bg-white text-slate-400 border-slate-200 hover:border-purple-300 hover:text-purple-600"
+                      {/* STATUS CONTROL */}
+                      <td className='p-4'>
+                        <select
+                          value={member.status || "ACTIVE"}
+                          onChange={(e) => handleStatusChange(member.id, e.target.value)}
+                          className={`text-xs font-black rounded-full px-2.5 py-1 border outline-none cursor-pointer transition appearance-none text-center ${
+                            member.status === "ACTIVE"
+                              ? "bg-green-100 text-green-700 border-green-200 hover:bg-green-200/80"
+                              : member.status === "DISABLED"
+                              ? "bg-red-100 text-red-700 border-red-200 hover:bg-red-200/80"
+                              : "bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200/80"
                           }`}
                         >
-                          <span className='text-base'>🧣</span>
-                          {member.has_scarf ? "Yes" : "Scarf"}
-                        </button>
+                          <option value='ACTIVE'>Active</option>
+                          <option value='DISABLED'>Disabled</option>
+                          <option value='EXPIRED'>Expired</option>
+                        </select>
+                      </td>
 
-                        <button
-                          onClick={() => toggleMerchItem(member.id, "has_pin", member.has_pin)}
-                          className={`flex items-center gap-1 px-3 py-1.5 rounded-lg border text-xs font-bold transition ${
-                            member.has_pin
-                              ? "bg-teal-100 text-teal-700 border-teal-200 hover:bg-teal-200"
-                              : "bg-white text-slate-400 border-slate-200 hover:border-teal-300 hover:text-teal-600"
-                          }`}
-                        >
-                          <span className='text-base'>📍</span>
-                          {member.has_pin ? "Yes" : "Pin"}
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
+                      {/* TYPE */}
+                      <td className='p-4'>
+                        {member.is_returning ? (
+                          <span className='inline-flex items-center rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-bold text-emerald-700'>Returning</span>
+                        ) : (
+                          <span className='inline-flex items-center rounded-full bg-blue-100 px-2.5 py-1 text-xs font-bold text-blue-700'>New</span>
+                        )}
+                      </td>
+
+                      {/* PAYMENT */}
+                      <td className='p-4 text-sm text-slate-600'>
+                        {member.payment_method === "venmo" && <span>💸 Venmo</span>}
+                        {member.payment_method === "zelle" && <span>🏦 Zelle</span>}
+                        {member.payment_method === "cash" && <span>🤝 Cash</span>}
+                        {member.payment_handle && (
+                          <p className='font-mono text-xs text-slate-400'>{member.payment_handle}</p>
+                        )}
+                      </td>
+
+                      {/* CHILDREN */}
+                      <td className='p-4 text-sm text-slate-500'>
+                        {member.children && member.children.length > 0 ? (
+                          <button
+                            onClick={() => toggleExpandMember(member.id)}
+                            className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-black transition cursor-pointer select-none border ${
+                              expandedMembers.has(member.id)
+                                ? "bg-barca-blue text-white border-barca-blue shadow-sm"
+                                : "bg-white text-slate-700 border-slate-200 hover:bg-slate-50"
+                            }`}
+                          >
+                            <span>👧</span>
+                            <span>{member.children.length}</span>
+                            <span className={`text-[9px] transition-transform duration-200 ${expandedMembers.has(member.id) ? "rotate-180" : ""}`}>
+                              ▼
+                            </span>
+                          </button>
+                        ) : (
+                          <span className='text-slate-400 pl-2'>—</span>
+                        )}
+                      </td>
+
+                      {/* MERCH TOGGLES */}
+                      <td className='p-4 text-center'>
+                        <div className='flex items-center justify-center gap-2'>
+                          <button
+                            onClick={() => toggleMerchItem(member.id, "has_scarf", member.has_scarf)}
+                            className={`flex items-center gap-1 px-3 py-1.5 rounded-lg border text-xs font-bold transition ${
+                              member.has_scarf
+                                ? "bg-purple-100 text-purple-700 border-purple-200 hover:bg-purple-200"
+                                : "bg-white text-slate-400 border-slate-200 hover:border-purple-300 hover:text-purple-600"
+                            }`}
+                          >
+                            <span className='text-base'>🧣</span>
+                            {member.has_scarf ? "Yes" : "Scarf"}
+                          </button>
+
+                          <button
+                            onClick={() => toggleMerchItem(member.id, "has_pin", member.has_pin)}
+                            className={`flex items-center gap-1 px-3 py-1.5 rounded-lg border text-xs font-bold transition ${
+                              member.has_pin
+                                ? "bg-teal-100 text-teal-700 border-teal-200 hover:bg-teal-200"
+                                : "bg-white text-slate-400 border-slate-200 hover:border-teal-300 hover:text-teal-600"
+                            }`}
+                          >
+                            <span className='text-base'>📍</span>
+                            {member.has_pin ? "Yes" : "Pin"}
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+
+                    {/* CHILD ACCORDION DETAILS ROW */}
+                    {expandedMembers.has(member.id) && member.children && member.children.length > 0 && (
+                      <tr className='bg-slate-50/50 transition duration-200'>
+                        <td colSpan={7} className='p-4 border-l-4 border-barca-blue bg-slate-50/40 pl-8'>
+                          <div className='space-y-2 animate-in fade-in duration-200'>
+                            <h4 className='text-xs font-black uppercase tracking-wider text-slate-400'>
+                              Registered Children ({member.children.length})
+                            </h4>
+                            <div className='grid gap-3 sm:grid-cols-2 lg:grid-cols-3 max-w-3xl'>
+                              {member.children.map((child) => (
+                                <div
+                                  key={child.id}
+                                  className='flex items-center justify-between p-3 rounded-xl bg-white border border-slate-100 shadow-sm transition hover:shadow-md'
+                                >
+                                  <div className='flex items-center gap-2'>
+                                    <span className='text-base'>🧒</span>
+                                    <span className='font-bold text-slate-800 text-sm'>{child.name}</span>
+                                  </div>
+                                  <span className='text-xs font-black bg-slate-100 text-slate-600 px-2.5 py-0.5 rounded-full'>
+                                    Age: {child.age}
+                                  </span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    )}
+                  </React.Fragment>
                 ))}
 
-                {filteredMembers.length === 0 && (
+                {sortedMembers.length === 0 && (
                   <tr>
-                    <td colSpan={6} className='p-12 text-center text-slate-500'>
+                    <td colSpan={7} className='p-12 text-center text-slate-500'>
                       No members found matching your filters.
                     </td>
                   </tr>

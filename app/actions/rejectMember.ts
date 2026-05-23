@@ -4,10 +4,16 @@
 import { prisma } from "@/lib/prisma";
 
 export async function rejectMember(applicationId: string) {
-  await prisma.memberApplication.update({
-    where: { id: applicationId },
-    data: { status: "REJECTED" },
-  });
+  try {
+    await prisma.memberApplication.update({
+      where: { id: applicationId },
+      data: { status: "REJECTED" },
+    });
 
-  return { success: true };
+    return { success: true };
+  } catch (err) {
+    console.error("[rejectMember]", err);
+    const message = err instanceof Error ? err.message : "Unexpected error";
+    return { success: false, message };
+  }
 }

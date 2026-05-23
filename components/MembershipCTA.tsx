@@ -60,7 +60,7 @@ export default function MembershipCTA({ isOpen, seasonId }: Props) {
             <ul className='space-y-4'>
               {[
                 t("benefits.card"),
-                t("benefits.scarf", { year: "2025" }), // Variable passed to "Exclusive {year}..."
+                t("benefits.scarf", { year: "2026" }), // Variable passed to "Exclusive {year}..."
                 t("benefits.pin"),
                 t("benefits.priority"),
               ].map((item, index) => (
@@ -132,8 +132,8 @@ export default function MembershipCTA({ isOpen, seasonId }: Props) {
             <div className='relative aspect-square w-full max-w-lg mx-auto rounded-2xl bg-gradient-to-br from-white/5 to-white/10 p-8 border border-white/10 backdrop-blur-sm shadow-2xl'>
               <div className='absolute inset-0 flex flex-col items-center justify-center text-center p-6'>
                 <Image
-                  src='https://pxouwgfpksichenstsgh.supabase.co/storage/v1/object/public/assets/merch.png'
-                  alt='2025 Scarf & Pin Combo'
+                  src={`${process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://erlplcduvrowbiwobjen.supabase.co'}/storage/v1/object/public/assets/merch_26-27.png`}
+                  alt='2026 Scarf & Pin Combo'
                   width={500}
                   height={500}
                   className='object-contain transition-transform duration-500 hover:scale-110 rounded-2xl'

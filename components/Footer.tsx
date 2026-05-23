@@ -30,7 +30,7 @@ export default function Footer() {
           <div className='flex items-center gap-4'>
             <div className='relative h-24 w-24 shrink-0'>
               <Image
-                src='https://erlplcduvrowbiwobjen.supabase.co/storage/v1/object/public/assets/logo.png'
+                src={`${process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://erlplcduvrowbiwobjen.supabase.co'}/storage/v1/object/public/assets/pbsd-rafa-crest%20(1).png`}
                 alt='PBSD Logo'
                 fill
                 className='object-contain'

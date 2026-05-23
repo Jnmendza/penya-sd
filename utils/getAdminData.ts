@@ -13,7 +13,7 @@ export async function getAdminData() {
     redirect("/login");
   }
 
-  const [membersRes, matchesRes, applications] = await Promise.all([
+  const [membersRes, matchesRes, pendingApplications, approvedApplications] = await Promise.all([
     supabase.from("members").select("*").order("full_name", { ascending: true }),
     supabase.from("matches").select("*").order("utc_date", { ascending: true }),
     prisma.memberApplication.findMany({
@@ -21,12 +21,26 @@ export async function getAdminData() {
       include: { children: true },
       orderBy: { createdAt: "asc" },
     }),
+    prisma.memberApplication.findMany({
+      where: { status: "APPROVED" },
+      include: { children: true },
+    }),
   ]);
+
+  const members = (membersRes.data || []).map((member: any) => {
+    const matchingApp = approvedApplications.find(
+      (app) => app.email.toLowerCase() === member.email.toLowerCase()
+    );
+    return {
+      ...member,
+      children: matchingApp ? matchingApp.children : [],
+    };
+  });
 
   return {
     user,
-    members: membersRes.data || [],
+    members,
     matches: matchesRes.data || [],
-    applications,
+    applications: pendingApplications,
   };
 }

@@ -1,10 +1,11 @@
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["driverAdapters"]
+  previewFeatures = ["driverAdapters", "multiSchema"]
 }
 
 datasource db {
   provider = "postgresql"
+  schemas  = ["public", "auth"]
 }
 
 model Profile {
@@ -23,9 +24,10 @@ model Profile {
   merchStatus       Json?    @default("{\"scarf\": false, \"pin\": false}") @map("merch_status")
 
   createdAt         DateTime @default(now()) @map("created_at") @db.Timestamptz
-  updatedAt         DateTime @updatedAt @map("updated_at") @db.Timestamptz
+  updatedAt         DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
 
   @@map("profiles")
+  @@schema("public")
 }
 
 model Event {
@@ -42,6 +44,7 @@ model Event {
   createdAt      DateTime @default(now()) @map("created_at") @db.Timestamptz
 
   @@map("events")
+  @@schema("public")
 }
 
 model MemberApplication {
@@ -60,6 +63,7 @@ model MemberApplication {
   updatedAt     DateTime      @updatedAt @map("updated_at") @db.Timestamptz
 
   @@map("member_applications")
+  @@schema("public")
 }
 
 model ChildMember {
@@ -70,16 +74,19 @@ model ChildMember {
   application         MemberApplication @relation(fields: [parentApplicationId], references: [id], onDelete: Cascade)
 
   @@map("child_members")
+  @@schema("public")
 }
 
 enum Role {
   MEMBER
   ADMIN
   BOARD
+  @@schema("public")
 }
 
 enum Status {
   ACTIVE
   EXPIRED
   PENDING
+  @@schema("public")
 }

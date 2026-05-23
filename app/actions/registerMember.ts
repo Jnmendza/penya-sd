@@ -3,7 +3,7 @@
 
 import { prisma } from "@/lib/prisma";
 import { createAdminClient } from "@/utils/supabase/admin";
-import { sendRegistrationEmail } from "@/app/actions/sendEmail";
+import { sendRegistrationEmail } from "@/lib/emails";
 
 export async function registerMember(formData: FormData) {
   try {
@@ -40,7 +40,7 @@ export async function registerMember(formData: FormData) {
     .eq("key", "current_season_id")
     .single();
 
-  const season = configSeason?.value || "2025/2026";
+  const season = configSeason?.value || "2026/2027";
 
   // 4. Check membership cap (200 active adult members)
   const { count } = await supabase
@@ -104,8 +104,8 @@ export async function registerMember(formData: FormData) {
     firstName,
     email,
     paymentMethod,
-    venmoHandle: venmoConfig?.value || "@PenyaSD",
-    zelleHandle: zelleConfig?.value || "info@penyasd.com",
+    venmoHandle: venmoConfig?.value || "@Martha-Acuna-4",
+    zelleHandle: zelleConfig?.value || "Aguilera76@gmail.com",
   }).catch(console.error);
 
   return { success: true, applicationId: application.id, paymentMethod };

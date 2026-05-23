@@ -70,6 +70,27 @@ export default function MembershipForm({
   const removeChild = (index: number) =>
     setChildren(children.filter((_, i) => i !== index));
 
+  const handleDownloadQR = async () => {
+    try {
+      const url = paymentMethod === "venmo" ? venmoQrUrl : zelleQrUrl;
+      if (!url) return;
+      const response = await fetch(url);
+      const blob = await response.blob();
+      const blobUrl = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = blobUrl;
+      link.download = `${paymentMethod}-qr.png`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(blobUrl);
+    } catch (err) {
+      console.error("Failed to download QR code, falling back to opening in a new tab.", err);
+      const url = paymentMethod === "venmo" ? venmoQrUrl : zelleQrUrl;
+      if (url) window.open(url, "_blank");
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!paymentMethod) {
@@ -108,11 +129,6 @@ export default function MembershipForm({
 
     setIsLoading(false);
   };
-
-  const paymentHandleLabel =
-    paymentMethod === "venmo"
-      ? t("Form.handle_label_venmo")
-      : t("Form.handle_label_zelle");
 
   return (
     <div className="container mx-auto px-4">
@@ -286,24 +302,24 @@ export default function MembershipForm({
 
                 {(paymentMethod === "venmo" || paymentMethod === "zelle") && (
                   <div className="mt-3 space-y-3">
-                    <div>
-                      <label className="block text-sm font-medium text-slate-700 mb-1">
-                        {paymentHandleLabel} <span className="text-slate-400 font-normal text-xs">({t("Form.handle_optional")})</span>
-                      </label>
-                      <div className="flex rounded-lg border border-slate-300 overflow-hidden focus-within:border-barca-blue focus-within:ring-1 focus-within:ring-barca-blue">
-                        {paymentMethod === "venmo" && (
+                    {paymentMethod === "venmo" && (
+                      <div>
+                        <label className="block text-sm font-medium text-slate-700 mb-1">
+                          {t("Form.handle_label_venmo")} <span className="text-slate-400 font-normal text-xs">({t("Form.handle_optional")})</span>
+                        </label>
+                        <div className="flex rounded-lg border border-slate-300 overflow-hidden focus-within:border-barca-blue focus-within:ring-1 focus-within:ring-barca-blue">
                           <span className="flex items-center px-3 bg-slate-50 text-slate-500 font-mono text-sm border-r border-slate-300 select-none">@</span>
-                        )}
-                        <input
-                          type="text"
-                          value={paymentHandle}
-                          onChange={(e) => setPaymentHandle(e.target.value.replace(/^[@$]/, ""))}
-                          placeholder={paymentMethod === "venmo" ? "username" : "email or phone"}
-                          className="flex-1 p-3 outline-none text-slate-900 bg-white"
-                        />
+                          <input
+                            type="text"
+                            value={paymentHandle}
+                            onChange={(e) => setPaymentHandle(e.target.value.replace(/^[@$]/, ""))}
+                            placeholder="username"
+                            className="flex-1 p-3 outline-none text-slate-900 bg-white"
+                          />
+                        </div>
+                        <p className="mt-1 text-xs text-slate-400">{t("Form.handle_hint")}</p>
                       </div>
-                      <p className="mt-1 text-xs text-slate-400">{t("Form.handle_hint")}</p>
-                    </div>
+                    )}
 
                     {/* QR Code */}
                     {(paymentMethod === "venmo" ? venmoQrUrl : zelleQrUrl) && (
@@ -312,10 +328,20 @@ export default function MembershipForm({
                         <Image
                           src={(paymentMethod === "venmo" ? venmoQrUrl : zelleQrUrl)!}
                           alt={`${paymentMethod === "venmo" ? "Venmo" : "Zelle"} QR code`}
-                          width={160}
-                          height={160}
+                          width={200}
+                          height={paymentMethod === "venmo" ? 200 : 243}
                           className="rounded-lg"
                         />
+                        <button
+                          type="button"
+                          onClick={handleDownloadQR}
+                          className="mt-1.5 flex items-center gap-1 bg-white hover:bg-slate-50 border border-slate-300 rounded-lg px-3 py-1.5 text-xs font-bold text-slate-700 transition shadow-sm cursor-pointer"
+                        >
+                          📥 {t("Form.download_qr")}
+                        </button>
+                        <p className="text-xs text-slate-400 text-center mt-1 max-w-[240px]">
+                          {t("Form.email_reminder_hint")}
+                        </p>
                       </div>
                     )}
                   </div>

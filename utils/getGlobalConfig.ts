@@ -17,9 +17,9 @@ export async function getGlobalConfig() {
 
   return {
     isMembershipOpen: openRes.data?.value === "true",
-    currentSeason: seasonRes.data?.value ?? "2025/2026",
-    venmoHandle: venmoRes.data?.value ?? "@PenyaSD",
-    zelleHandle: zelleRes.data?.value ?? "info@penyasd.com",
+    currentSeason: seasonRes.data?.value ?? "2026/2027",
+    venmoHandle: venmoRes.data?.value ?? "@Martha-Acuna-4",
+    zelleHandle: zelleRes.data?.value ?? "Aguilera76@gmail.com",
     seasonEndDate: seasonEndRes.data?.value ?? "2026-06-30",
     venmoQrUrl: venmoQrRes.data?.value ?? null,
     zelleQrUrl: zelleQrRes.data?.value ?? null,
