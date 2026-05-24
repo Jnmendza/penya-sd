@@ -76,8 +76,8 @@ export default function AdminMatchControl({
         </button>
       </div>
 
-      {/* TABLE */}
-      <div className='overflow-x-auto'>
+      {/* TABLE & CARD VIEW */}
+      <div className='hidden md:block overflow-x-auto'>
         <table className='w-full text-left text-sm'>
           <thead className='bg-white text-slate-500 border-b border-slate-100'>
             <tr>
@@ -223,6 +223,145 @@ export default function AdminMatchControl({
             )}
           </tbody>
         </table>
+      </div>
+
+      {/* MOBILE CARD VIEW */}
+      <div className='block md:hidden divide-y divide-slate-100 bg-slate-50/20'>
+        {matches.length === 0 ? (
+          <div className='p-8 text-center text-slate-500 bg-white text-sm'>
+            No matches found. Click &quot;Sync API&quot; to fetch schedule.
+          </div>
+        ) : (
+          [...matches]
+            .sort(
+              (a, b) =>
+                new Date(a.utc_date).getTime() -
+                new Date(b.utc_date).getTime(),
+            )
+            .map((match) => (
+              <div key={match.id} className='p-4 space-y-4 bg-white'>
+                {/* Match Date & Competition */}
+                <div className='flex items-center justify-between text-xs'>
+                  <div className='flex flex-col'>
+                    <span className='font-bold text-slate-900'>
+                      {new Date(match.utc_date).toLocaleDateString(
+                        undefined,
+                        { month: "short", day: "numeric", weekday: "short" },
+                      )}
+                    </span>
+                    <span className='text-slate-500 font-medium'>
+                      {new Date(match.utc_date).toLocaleTimeString(
+                        undefined,
+                        { hour: "2-digit", minute: "2-digit" },
+                      )}
+                    </span>
+                  </div>
+                  <span className='text-[10px] uppercase tracking-wider font-bold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-full shrink-0'>
+                    {match.competition === "Primera Division"
+                      ? "La Liga"
+                      : match.competition}
+                  </span>
+                </div>
+
+                {/* Fixture Teams (Crests and Names) */}
+                <div className='flex items-center justify-between gap-4 p-3 rounded-xl bg-slate-50/60 border border-slate-100/50'>
+                  {/* Home Team */}
+                  <div className='flex flex-col items-center justify-center flex-1 text-center space-y-1.5 min-w-0'>
+                    <Image
+                      src={match.home_crest}
+                      alt={match.home_team}
+                      width={36}
+                      height={36}
+                      className='object-contain h-9 w-9 shrink-0'
+                    />
+                    <span className='text-xs font-bold text-slate-800 leading-tight block w-full truncate'>
+                      {match.home_team}
+                    </span>
+                  </div>
+
+                  {/* VS Separator */}
+                  <span className='text-xs font-black text-slate-400 bg-white px-2.5 py-1 rounded-full shadow-sm border border-slate-100 uppercase shrink-0'>
+                    vs
+                  </span>
+
+                  {/* Away Team */}
+                  <div className='flex flex-col items-center justify-center flex-1 text-center space-y-1.5 min-w-0'>
+                    <Image
+                      src={match.away_crest}
+                      alt={match.away_team}
+                      width={36}
+                      height={36}
+                      className='object-contain h-9 w-9 shrink-0'
+                    />
+                    <span className='text-xs font-bold text-slate-800 leading-tight block w-full truncate'>
+                      {match.away_team}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Watch Party Settings */}
+                <div className='flex flex-col gap-3 pt-1 border-t border-slate-50'>
+                  <div className='flex items-center justify-between'>
+                    <span className='text-xs font-bold text-slate-700 uppercase tracking-wider text-[10px]'>
+                      Watch Party
+                    </span>
+                    <button
+                      onClick={() =>
+                        handleToggle(match.id, match.is_watch_party)
+                      }
+                      className={`relative cursor-pointer inline-flex h-6 w-11 items-center rounded-full transition shrink-0 ${
+                        match.is_watch_party
+                          ? "bg-green-500"
+                          : "bg-slate-300"
+                      }`}
+                    >
+                      <span
+                        className={`inline-block h-4 w-4 transform rounded-full bg-white transition ${
+                          match.is_watch_party
+                            ? "translate-x-6"
+                            : "translate-x-1"
+                        }`}
+                      />
+                    </button>
+                  </div>
+
+                  {/* Venue Selector */}
+                  {match.is_watch_party && (
+                    <div className='flex items-center justify-between gap-4 p-2.5 bg-slate-50 border border-slate-100 rounded-xl animate-in fade-in slide-in-from-top-1 duration-200'>
+                      <div className='flex items-center gap-1.5 text-xs text-slate-600 font-bold shrink-0'>
+                        <MapPin
+                          className={`h-4 w-4 ${
+                            match.venue === "Shakespeare Pub"
+                              ? "text-amber-600"
+                              : "text-slate-500"
+                          }`}
+                        />
+                        <span>Venue:</span>
+                      </div>
+                      <select
+                        value={match.venue || "Novo Brazil Otay Ranch"}
+                        onChange={(e) =>
+                          handleVenueChange(match.id, e.target.value)
+                        }
+                        className={`text-xs font-extrabold rounded-lg border-0 py-1.5 pl-3 pr-8 cursor-pointer ring-1 ring-inset focus:ring-2 focus:ring-barca-blue shrink-0 ${
+                          match.venue === "Shakespeare Pub"
+                            ? "bg-amber-100/60 text-amber-800 ring-amber-200"
+                            : "bg-white text-slate-700 ring-slate-200"
+                        }`}
+                      >
+                        <option value='Novo Brazil Otay Ranch'>
+                          Novo Brazil
+                        </option>
+                        <option value='Shakespeare Pub'>
+                          Shakespeare Pub
+                        </option>
+                      </select>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))
+        )}
       </div>
     </div>
   );
