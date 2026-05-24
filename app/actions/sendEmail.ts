@@ -1,8 +1,6 @@
 "use server";
 
-import { Resend } from "resend";
-
-const resend = new Resend(process.env.RESEND_API_KEY);
+// app/actions/sendEmail.ts
 
 export async function sendContactEmail(formData: FormData) {
   if (!process.env.RESEND_API_KEY) {
@@ -25,20 +23,29 @@ export async function sendContactEmail(formData: FormData) {
   }
 
   try {
-    const data = await resend.emails.send({
-      // sending FROM your new domain
-      from: "Penya Contact <info@penyasd.com>",
-      // sending TO your new Zoho inbox
-      to: ["info@penyasd.com"],
-      // User's email so you can just hit "Reply"
-      replyTo: email,
-      subject: `New Message from ${name}`,
-      text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
+    const res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${process.env.RESEND_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        // sending FROM your new domain
+        from: "Penya Contact <info@penyasd.com>",
+        // sending TO your new Zoho inbox
+        to: ["info@penyasd.com"],
+        // User's email so you can just hit "Reply"
+        replyTo: email,
+        subject: `New Message from ${name}`,
+        text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
+      }),
     });
 
-    if (data.error) {
-      console.error("[sendContactEmail] Resend error:", data.error);
-      return { error: data.error.message };
+    const body = await res.json();
+
+    if (!res.ok || body.error) {
+      console.error("[sendContactEmail] Resend error:", body.error || body);
+      return { error: body.error?.message || "Failed to send email" };
     }
 
     return { success: true };
