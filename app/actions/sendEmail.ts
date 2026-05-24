@@ -1,6 +1,7 @@
 "use server";
 
 // app/actions/sendEmail.ts
+import { fetchWithRetry } from "@/utils/fetchWithRetry";
 
 export async function sendContactEmail(formData: FormData) {
   if (!process.env.RESEND_API_KEY) {
@@ -23,7 +24,7 @@ export async function sendContactEmail(formData: FormData) {
   }
 
   try {
-    const res = await fetch("https://api.resend.com/emails", {
+    const res = await fetchWithRetry("https://api.resend.com/emails", {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${process.env.RESEND_API_KEY}`,
