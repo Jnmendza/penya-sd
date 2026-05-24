@@ -98,6 +98,39 @@ export async function registerMember(formData: FormData) {
     .single();
 
   // 9. Send confirmation email (non-blocking)
+  console.log("=== RESEND DIAGNOSTICS ===");
+  console.log("API Key exists:", !!process.env.RESEND_API_KEY);
+  if (process.env.RESEND_API_KEY) {
+    console.log("API Key length:", process.env.RESEND_API_KEY.length);
+    console.log("API Key starts with re_:", process.env.RESEND_API_KEY.startsWith("re_"));
+    console.log("API Key first 5 chars:", process.env.RESEND_API_KEY.substring(0, 5));
+  }
+
+  // Test direct fetch asynchronously
+  (async () => {
+    try {
+      console.log("[Diagnostics] Testing direct native fetch...");
+      const res = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${process.env.RESEND_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          from: "Penya PBSD <info@penyasd.com>",
+          to: [email],
+          subject: "Test Direct Fetch Diagnostics",
+          html: "<p>Direct fetch test</p>",
+        }),
+      });
+      console.log("[Diagnostics] Direct fetch status:", res.status);
+      const resBody = await res.json();
+      console.log("[Diagnostics] Direct fetch body:", resBody);
+    } catch (fetchErr) {
+      console.error("[Diagnostics] Direct fetch failed:", fetchErr);
+    }
+  })();
+
   sendRegistrationEmail({
     firstName,
     email,
