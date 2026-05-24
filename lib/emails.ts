@@ -1,6 +1,4 @@
-import { Resend } from "resend";
-
-const resend = new Resend(process.env.RESEND_API_KEY);
+// lib/emails.ts
 
 const logoUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL || "https://erlplcduvrowbiwobjen.supabase.co"}/storage/v1/object/public/assets/pbsd-rafa-crest%20(1).png`;
 const zelleQrUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL || "https://erlplcduvrowbiwobjen.supabase.co"}/storage/v1/object/public/payment-qr/zelle_pbsd_qr.png`;
@@ -56,11 +54,17 @@ export async function sendRegistrationEmail({
       : `<p>Please bring <strong>$30 cash</strong> to our next watch party. Find a board member to complete your registration.</p>`;
 
   try {
-    const data = await resend.emails.send({
-      from: "Penya PBSD <info@penyasd.com>",
-      to: [email],
-      subject: "You're Registered — Penya Blaugrana San Diego",
-      html: `
+    const res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${process.env.RESEND_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: "Penya PBSD <info@penyasd.com>",
+        to: [email],
+        subject: "You're Registered — Penya Blaugrana San Diego",
+        html: `
         <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:20px">
           <div style="background:linear-gradient(135deg,#004d98,#a50044);padding:24px;border-radius:12px 12px 0 0;text-align:center">
             <img src="${logoUrl}" width="80" height="100" alt="PBSD Logo" style="width:80px;height:100px;margin:0 auto 12px;display:block;" />
@@ -101,11 +105,14 @@ export async function sendRegistrationEmail({
           </div>
         </div>
       `,
+      }),
     });
 
-    if (data.error) {
-      console.error("[sendRegistrationEmail] Resend error:", data.error);
-      return { success: false, error: data.error.message };
+    const body = await res.json();
+
+    if (!res.ok || body.error) {
+      console.error("[sendRegistrationEmail] Resend error:", body.error || body);
+      return { success: false, error: body.error?.message || "Failed to send email" };
     }
 
     return { success: true };
@@ -136,11 +143,17 @@ export async function sendActivationEmail({
   }
 
   try {
-    const data = await resend.emails.send({
-      from: "Penya PBSD <info@penyasd.com>",
-      to: [email],
-      subject: "Welcome — You're an Official Member of Penya Blaugrana San Diego!",
-      html: `
+    const res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${process.env.RESEND_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: "Penya PBSD <info@penyasd.com>",
+        to: [email],
+        subject: "Welcome — You're an Official Member of Penya Blaugrana San Diego!",
+        html: `
         <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;padding:20px">
           <div style="background:linear-gradient(135deg,#004d98,#a50044);padding:24px;border-radius:12px 12px 0 0;text-align:center">
             <img src="${logoUrl}" width="80" height="100" alt="PBSD Logo" style="width:80px;height:100px;margin:0 auto 12px;display:block;" />
@@ -178,11 +191,14 @@ export async function sendActivationEmail({
           </div>
         </div>
       `,
+      }),
     });
 
-    if (data.error) {
-      console.error("[sendActivationEmail] Resend error:", data.error);
-      return { success: false, error: data.error.message };
+    const body = await res.json();
+
+    if (!res.ok || body.error) {
+      console.error("[sendActivationEmail] Resend error:", body.error || body);
+      return { success: false, error: body.error?.message || "Failed to send email" };
     }
 
     return { success: true };
