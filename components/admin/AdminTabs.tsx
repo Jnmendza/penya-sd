@@ -29,31 +29,31 @@ export default function AdminTabs({
 
   return (
     <div className='space-y-8'>
-      <div className='flex flex-wrap p-1 gap-1 bg-slate-100 rounded-xl w-fit'>
+      <div className='flex p-1 gap-1 bg-slate-100 rounded-xl w-full sm:w-fit overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden'>
         <button
           onClick={() => handleTabChange("members")}
-          className={`flex cursor-pointer items-center gap-2 px-6 py-2.5 text-sm font-bold rounded-lg transition-all ${
+          className={`flex cursor-pointer items-center justify-center gap-2 px-4 sm:px-6 py-2.5 text-xs sm:text-sm font-bold rounded-lg transition-all flex-1 sm:flex-initial whitespace-nowrap ${
             activeTab === "members"
               ? "bg-white text-slate-900 shadow-sm ring-1 ring-black/5"
               : "text-slate-500 hover:text-slate-700"
           }`}
         >
-          <Users className='h-4 w-4' />
+          <Users className='h-4 w-4 shrink-0' />
           Member List
         </button>
 
         <button
           onClick={() => handleTabChange("pending")}
-          className={`flex cursor-pointer items-center gap-2 px-6 py-2.5 text-sm font-bold rounded-lg transition-all ${
+          className={`flex cursor-pointer items-center justify-center gap-2 px-4 sm:px-6 py-2.5 text-xs sm:text-sm font-bold rounded-lg transition-all flex-1 sm:flex-initial whitespace-nowrap ${
             activeTab === "pending"
               ? "bg-white text-slate-900 shadow-sm ring-1 ring-black/5"
               : "text-slate-500 hover:text-slate-700"
           }`}
         >
-          <ClipboardList className='h-4 w-4' />
-          Pending Applications
+          <ClipboardList className='h-4 w-4 shrink-0' />
+          Pending
           {applications.length > 0 && (
-            <span className='inline-flex items-center justify-center w-5 h-5 rounded-full bg-amber-500 text-white text-xs font-black animate-pulse'>
+            <span className='inline-flex items-center justify-center w-5 h-5 rounded-full bg-amber-500 text-white text-[10px] font-black animate-pulse shrink-0'>
               {applications.length}
             </span>
           )}
@@ -61,14 +61,14 @@ export default function AdminTabs({
 
         <button
           onClick={() => handleTabChange("matches")}
-          className={`flex cursor-pointer items-center gap-2 px-6 py-2.5 text-sm font-bold rounded-lg transition-all ${
+          className={`flex cursor-pointer items-center justify-center gap-2 px-4 sm:px-6 py-2.5 text-xs sm:text-sm font-bold rounded-lg transition-all flex-1 sm:flex-initial whitespace-nowrap ${
             activeTab === "matches"
               ? "bg-white text-slate-900 shadow-sm ring-1 ring-black/5"
               : "text-slate-500 hover:text-slate-700"
           }`}
         >
-          <Calendar className='h-4 w-4' />
-          Match Schedule
+          <Calendar className='h-4 w-4 shrink-0' />
+          Schedule
         </button>
       </div>
 
