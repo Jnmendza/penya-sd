@@ -1,5 +1,6 @@
 // utils/getGlobalConfig.ts
 import { createClient } from "@/utils/supabase/server";
+import { getMembershipCount } from "./getMembershipCount";
 
 export async function getGlobalConfig() {
   const supabase = await createClient();
@@ -15,13 +16,18 @@ export async function getGlobalConfig() {
       supabase.from("app_config").select("value").eq("key", "zelle_qr_url").single(),
     ]);
 
+  const currentSeason = seasonRes.data?.value ?? "2026/2027";
+  const memberCount = await getMembershipCount(currentSeason);
+  const isCapReached = memberCount >= 150;
+
   return {
     isMembershipOpen: openRes.data?.value === "true",
-    currentSeason: seasonRes.data?.value ?? "2026/2027",
+    currentSeason,
     venmoHandle: venmoRes.data?.value ?? "@Martha-Acuna-4",
     zelleHandle: zelleRes.data?.value ?? "Aguilera76@gmail.com",
     seasonEndDate: seasonEndRes.data?.value ?? "2026-06-30",
     venmoQrUrl: venmoQrRes.data?.value ?? null,
     zelleQrUrl: zelleQrRes.data?.value ?? null,
+    isCapReached,
   };
 }

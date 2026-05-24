@@ -15,6 +15,7 @@ interface Child {
 
 interface Props {
   isEnrollmentOpen: boolean;
+  isCapReached: boolean;
   currentSeason: string;
   venmoHandle: string;
   zelleHandle: string;
@@ -31,6 +32,7 @@ type SuccessState = {
 
 export default function MembershipForm({
   isEnrollmentOpen,
+  isCapReached,
   currentSeason,
   venmoHandle,
   zelleHandle,
@@ -149,6 +151,34 @@ export default function MembershipForm({
             🔒
           </div>
           <h2 className="text-3xl font-bold text-slate-900 mb-4">{t("Closed.title")}</h2>
+          <p className="text-lg text-slate-600 mb-8">{t("Closed.description")}</p>
+          <div className="p-6 bg-blue-50 rounded-xl">
+            <p className="text-barca-blue font-medium">
+              {t.rich("Closed.social_text", {
+                br: (<br key="br" />) as unknown as string,
+                bold: (chunks) => <span className="font-bold">{chunks}</span>,
+              })}
+            </p>
+            <div className="flex justify-center gap-4 mt-4">
+              <Link href="https://www.instagram.com/penyasandiego_" className="h-10 w-10 flex items-center justify-center rounded-full bg-barca-blue/80 hover:bg-barca-blue/100 transition">
+                <InstagramIcon className="h-5 w-5" />
+              </Link>
+              <Link href="https://x.com/penya_san" className="h-10 w-10 flex items-center justify-center rounded-full bg-barca-blue/80 hover:bg-barca-blue/100 transition">
+                <XIcon className="h-5 w-5" />
+              </Link>
+              <Link href="https://www.facebook.com/PenyaSanDiego" className="h-10 w-10 flex items-center justify-center rounded-full bg-barca-blue/80 hover:bg-barca-blue/100 transition">
+                <FacebookIcon className="h-5 w-5" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      ) : isCapReached ? (
+        /* ── CAP REACHED ── */
+        <div className="max-w-2xl mx-auto text-center bg-white p-12 rounded-3xl shadow-xl border border-slate-100">
+          <div className="mb-6 inline-flex h-20 w-20 items-center justify-center rounded-full bg-slate-100 text-4xl">
+            😔
+          </div>
+          <h2 className="text-3xl font-bold text-slate-900 mb-4">{t("Success.cap_reached")}</h2>
           <p className="text-lg text-slate-600 mb-8">{t("Closed.description")}</p>
           <div className="p-6 bg-blue-50 rounded-xl">
             <p className="text-barca-blue font-medium">

@@ -15,7 +15,7 @@ import AnnouncementModal from "@/components/AnnouncementModal";
 
 export default async function Home() {
   // 1. Fetch Membership Status Only
-  const { isMembershipOpen, currentSeason } = await getGlobalConfig();
+  const { isMembershipOpen, isCapReached, currentSeason } = await getGlobalConfig();
 
   return (
     <main className='flex min-h-screen flex-col bg-slate-50'>
@@ -27,7 +27,7 @@ export default async function Home() {
       </div>
 
       <div className='mt-24'>
-        <MembershipCTA isOpen={isMembershipOpen} seasonId={currentSeason} />
+        <MembershipCTA isOpen={isMembershipOpen && !isCapReached} seasonId={currentSeason} />
       </div>
 
       <CommunityHighlights />

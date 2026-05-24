@@ -4,6 +4,7 @@
 import { prisma } from "@/lib/prisma";
 import { createAdminClient } from "@/utils/supabase/admin";
 import { sendRegistrationEmail } from "@/lib/emails";
+import { getMembershipCount } from "@/utils/getMembershipCount";
 
 export async function registerMember(formData: FormData) {
   try {
@@ -42,13 +43,10 @@ export async function registerMember(formData: FormData) {
 
   const season = configSeason?.value || "2026/2027";
 
-  // 4. Check membership cap (200 active adult members)
-  const { count } = await supabase
-    .from("members")
-    .select("*", { count: "exact", head: true })
-    .eq("status", "ACTIVE");
+  // 4. Check membership cap (150 members in total, excluding children under 8)
+  const totalCount = await getMembershipCount(season);
 
-  if ((count ?? 0) >= 200) {
+  if (totalCount >= 150) {
     return { success: false, message: "cap_reached" };
   }
 
