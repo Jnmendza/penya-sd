@@ -25,6 +25,28 @@ export default function ResetPasswordClient() {
     }
 
     setLoading(true);
+
+    try {
+      // Explicitly extract tokens from URL hash and establish session
+      const hash = window.location.hash;
+      if (hash) {
+        const params = new URLSearchParams(hash.substring(1)); // remove '#'
+        const access_token = params.get("access_token");
+        const refresh_token = params.get("refresh_token");
+        if (access_token && refresh_token) {
+          const { error: sessionError } = await supabase.auth.setSession({
+            access_token,
+            refresh_token,
+          });
+          if (sessionError) {
+            console.warn("Failed to set session from hash:", sessionError.message);
+          }
+        }
+      }
+    } catch (err) {
+      console.error("Error parsing auth hash:", err);
+    }
+
     const { error } = await supabase.auth.updateUser({ password });
     setLoading(false);
 
