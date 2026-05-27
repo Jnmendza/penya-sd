@@ -314,11 +314,11 @@ export default function MembershipForm({
               {/* Payment Method */}
               <div>
                 <p className="text-sm font-medium text-slate-700 mb-2">{t("Form.payment_section")} *</p>
-                <div className="grid grid-cols-3 gap-2">
-                  {(["venmo", "zelle", "cash"] as const).map((method) => {
-                    const label = method === "venmo" ? t("Form.venmo_label") : method === "zelle" ? t("Form.zelle_label") : t("Form.cash_label");
-                    const sublabel = method === "venmo" ? venmoHandle : method === "zelle" ? zelleHandle : t("Form.cash_sublabel");
-                    const emoji = method === "venmo" ? "💸" : method === "zelle" ? "🏦" : "🤝";
+                <div className="grid grid-cols-2 gap-2">
+                  {(["venmo", "zelle"] as const).map((method) => {
+                    const label = method === "venmo" ? t("Form.venmo_label") : t("Form.zelle_label");
+                    const sublabel = method === "venmo" ? venmoHandle : zelleHandle;
+                    const emoji = method === "venmo" ? "💸" : "🏦";
                     return (
                       <button key={method} type="button" onClick={() => { setPaymentMethod(method); setPaymentHandle(""); }}
                         className={`rounded-xl border-2 p-3 text-center transition ${paymentMethod === method ? "border-barca-blue bg-blue-50" : "border-slate-200 hover:border-slate-300"}`}>
